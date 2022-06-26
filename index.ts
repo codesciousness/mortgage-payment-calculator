@@ -1,12 +1,12 @@
 import express, { Express, Request, Response } from 'express';
 const app: Express = express();
-const apiRouter = require('./api/api');
+const Router = require('./router/router');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-const db = require('./db');
+const mongoDb = require('./db/mongo');
 require('dotenv').config();
 const { PORT = 4001, NODE_ENV = 'development' } = process.env;
 const IN_PROD = NODE_ENV === 'production';
@@ -15,6 +15,12 @@ const corsOptions = {
   credentials: true
 };
 
+// Start MongoDB
+async function start() {
+  const mongo = await mongoDb.connect();
+  app.locals.mongo = mongo;
+};
+start();
 
 // Add middleware for handling CORS requests
 app.options('*', cors(corsOptions));
@@ -40,11 +46,11 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 
 // Use apiRouter
-app.use(apiRouter);
+app.use(Router);
 
-app.get('*', (req: Request, res: Response) => {
+/*app.get('*', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, 'client/build/index.html'));
-});
+});*/
 
 // Add code to start the server listening
 app.listen(PORT, () => {

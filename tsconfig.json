@@ -11,9 +11,14 @@
         "baseUrl": ".",
         "paths": {
             "*": [
-                "node_modules/*"
+                "node_modules/*",
+                "types/*.d.ts"
             ]
         },
-        "forceConsistentCasingInFileNames": true
-    }
+        "forceConsistentCasingInFileNames": true,
+        "typeRoots": [
+            "./types"
+        ]
+    },
+    "include": ["index.ts", "types/**/*", "db/**/*", "router/**/*"]
 }
