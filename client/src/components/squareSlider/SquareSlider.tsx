@@ -1,31 +1,39 @@
 import React from 'react';
 import Slider from '@mui/material/Slider';
+import Label from '../label/Label';
+import { styles } from '../../styles';
 
 type SquareSliderProps = {
     name: string;
+    value: number;
     defaultValue: number;
     min: number;
     max: number;
     steps: number;
-}
+    width: number | string;
+    onChange: () => void;
+};
 
-const SquareSlider = ({ name, defaultValue, min, max, steps }: SquareSliderProps): JSX.Element => {
+const SquareSlider = ({ name, value, defaultValue, min, max, steps, width, onChange }: SquareSliderProps): JSX.Element => {
+    const id = name.replaceAll(' ', '');
 
     return (
-        <div>
-            <label htmlFor={name} style={{ display: 'block' }}>{name}</label>
+        <div style={styles.input}>
+            <Label name={name}/>
             <Slider
-                id={name}
+                id={id}
                 name={name}
                 aria-label={name}
+                value={value}
                 defaultValue={defaultValue}
                 valueLabelDisplay="on"
                 min={min}
                 max={max}
                 step={steps}
+                onChange={onChange}
                 sx={{
-                    width: 300,
-                    margin: '2rem 1rem',
+                    width,
+                    marginTop: '2rem',
                     '& .MuiSlider-thumb': {
                         borderRadius: '1px',
                         color: 'DeepSkyBlue'
@@ -41,6 +49,6 @@ const SquareSlider = ({ name, defaultValue, min, max, steps }: SquareSliderProps
             />
         </div>
     );
-}
+};
 
 export default SquareSlider;

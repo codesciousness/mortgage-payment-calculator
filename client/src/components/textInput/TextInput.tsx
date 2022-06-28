@@ -4,24 +4,27 @@ import TextField from '@mui/material/TextField';
 type TextInputProps = {
     name: string;
     value: string;
-    placeholder: string;
+    width?: number | string;
+    placeholder?: string;
     error?: string;
     onChange: () => void;
-}
+};
 
-const TextInput = ({ name, value, placeholder, error, onChange }: TextInputProps): JSX.Element => {
+const TextInput = ({ name, value, placeholder, width, error, onChange }: TextInputProps): JSX.Element => {
+    const id = name.replaceAll(' ', '');
 
     return (
         <TextField
-            id={name}
+            id={id}
             name={name}
             label={name}
-            placeholder={`Enter your ${placeholder}`}
+            placeholder={placeholder ? placeholder : `Enter your ${name.toLowerCase()}`}
             onChange={onChange}
             helperText={error}
-            required
+            size='small'
             sx={{
-                margin: '2rem 1rem',
+                width,
+                margin: '0.25rem 0',
                 '& .MuiOutlinedInput-root': {
                     '&.Mui-focused fieldset': {
                         borderColor: 'DeepSkyBlue',
@@ -32,6 +35,6 @@ const TextInput = ({ name, value, placeholder, error, onChange }: TextInputProps
             {value}
         </TextField>
     );
-}
+};
 
 export default TextInput;

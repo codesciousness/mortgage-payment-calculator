@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
-import SendIcon from '@mui/icons-material/Send';
+import React from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
+import SendIcon from '@mui/icons-material/Send';
 
 type ButtonProps = {
     name: string;
+    loading?: boolean;
     onClick: () => void;
-}
+};
 
-const Button = ({ name, onClick }: ButtonProps): JSX.Element => {
-    const [loading, setLoading] = useState(false);
+const Button = ({ name, loading, onClick }: ButtonProps): JSX.Element => {
+    const id = name.replaceAll(' ', '');
 
     return (
         <LoadingButton
+            id={id}
             className="Button"
             variant="outlined"
             loading={loading}
@@ -20,7 +22,7 @@ const Button = ({ name, onClick }: ButtonProps): JSX.Element => {
             onClick={onClick}
             sx={{
                 fontWeight: 'bold',
-                margin: '2rem 1rem',
+                margin: '1rem',
                 color: 'DeepSkyBlue',
                 background: 'linear-gradient(45deg, white, white, white, PaleTurquoise, PowderBlue, SkyBlue, DeepSkyBlue)',
                 backgroundSize: '300% 100%',
@@ -34,6 +36,6 @@ const Button = ({ name, onClick }: ButtonProps): JSX.Element => {
             {name}
         </LoadingButton>
     );
-}
+};
 
 export default Button;
