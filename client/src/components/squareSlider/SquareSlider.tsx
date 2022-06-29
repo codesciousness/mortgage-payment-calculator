@@ -6,15 +6,14 @@ import { styles } from '../../styles';
 type SquareSliderProps = {
     name: string;
     value: number;
-    defaultValue: number;
     min: number;
     max: number;
     steps: number;
     width: number | string;
-    onChange: () => void;
+    onChange: (event: any) => void;
 };
 
-const SquareSlider = ({ name, value, defaultValue, min, max, steps, width, onChange }: SquareSliderProps): JSX.Element => {
+const SquareSlider = ({ name, value, min, max, steps, width, onChange }: SquareSliderProps): JSX.Element => {
     const id = name.replaceAll(' ', '');
 
     return (
@@ -25,7 +24,6 @@ const SquareSlider = ({ name, value, defaultValue, min, max, steps, width, onCha
                 name={name}
                 aria-label={name}
                 value={value}
-                defaultValue={defaultValue}
                 valueLabelDisplay="on"
                 min={min}
                 max={max}

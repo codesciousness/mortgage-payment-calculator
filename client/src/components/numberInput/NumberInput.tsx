@@ -11,7 +11,7 @@ type NumberInputProps = {
     width?: number | string;
     dual?: boolean;
     error?: string;
-    onChange: () => void;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const NumberInput = ({ name, value, sign, width, dual, error, onChange }: NumberInputProps): JSX.Element => {
@@ -53,6 +53,7 @@ const NumberInput = ({ name, value, sign, width, dual, error, onChange }: Number
             <TextField
                 id={id}
                 name={name}
+                value={value}
                 onChange={onChange}
                 helperText={error}
                 size='small'

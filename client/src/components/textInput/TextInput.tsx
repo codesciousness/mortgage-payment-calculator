@@ -7,7 +7,7 @@ type TextInputProps = {
     width?: number | string;
     placeholder?: string;
     error?: string;
-    onChange: () => void;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const TextInput = ({ name, value, placeholder, width, error, onChange }: TextInputProps): JSX.Element => {
@@ -17,6 +17,7 @@ const TextInput = ({ name, value, placeholder, width, error, onChange }: TextInp
         <TextField
             id={id}
             name={name}
+            value={value}
             label={name}
             placeholder={placeholder ? placeholder : `Enter your ${name.toLowerCase()}`}
             onChange={onChange}
