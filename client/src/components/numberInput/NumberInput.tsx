@@ -6,7 +6,7 @@ import { styles } from '../../styles';
 
 type NumberInputProps = {
     name: string;
-    value: number;
+    value: string;
     sign: 'dollar' | 'percent';
     width?: number | string;
     dual?: boolean;
@@ -25,27 +25,37 @@ const NumberInput = ({ name, value, sign, width, dual, error, onChange }: Number
         endAdornment: <InputAdornment position="end"><b>%</b></InputAdornment>
     };
 
-    const dollarBorders = {
-        borderRadius: '4px 0 0 4px',
-        borderRightWidth: 'thin'
-    };
-
-    const percentBorders = {
-        borderRadius: '0 4px 4px 0',
-        borderLeftWidth: 'thin'
-    };
-
     const changeBorders = () => {
         if (dual) {
             if (sign === 'dollar') {
-                return dollarBorders;
+                return {
+                    borderRadius: '4px 0 0 4px'
+                };
             }
             else {
-                return percentBorders;
+                return {
+                    borderRadius: '0 4px 4px 0'
+                };
             }
         }
         return;
     };
+
+    const darkenBorders = () => {
+        const border = '1px solid Black';
+        if (name.includes('Dollar')) {
+            return {
+                borderLeft: border,
+                borderTop: border,
+                borderBottom: border
+            }
+        }
+        else {
+            return {
+                border
+            };
+        }
+    }
 
     return (
         <div style={!dual ? styles.input : undefined}>
@@ -61,6 +71,7 @@ const NumberInput = ({ name, value, sign, width, dual, error, onChange }: Number
                 sx={{
                     width,
                     '& .MuiOutlinedInput-root': {
+                        '& fieldset': darkenBorders(),
                         '&.Mui-focused fieldset': {
                             borderColor: 'DeepSkyBlue',
                         }

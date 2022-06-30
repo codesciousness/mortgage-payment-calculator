@@ -5,8 +5,8 @@ import { styles } from '../../styles';
 
 type DualInputProps = {
     name: string;
-    dollar: number;
-    percent: number;
+    dollar: string;
+    percent: string;
     width: number;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };

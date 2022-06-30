@@ -3,17 +3,17 @@ import Slider from '@mui/material/Slider';
 import Label from '../label/Label';
 import { styles } from '../../styles';
 
-type SquareSliderProps = {
+type SliderProps = {
     name: string;
-    value: number;
+    value: number | number[];
     min: number;
     max: number;
     steps: number;
     width: number | string;
-    onChange: (event: any) => void;
+    onChange: (event: Event, value: number | number[]) => void;
 };
 
-const SquareSlider = ({ name, value, min, max, steps, width, onChange }: SquareSliderProps): JSX.Element => {
+const SquareSlider = ({ name, value, min, max, steps, width, onChange }: SliderProps): JSX.Element => {
     const id = name.replaceAll(' ', '');
 
     return (

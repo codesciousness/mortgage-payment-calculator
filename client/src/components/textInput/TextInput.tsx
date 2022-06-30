@@ -27,6 +27,9 @@ const TextInput = ({ name, value, placeholder, width, error, onChange }: TextInp
                 width,
                 margin: '0.25rem 0',
                 '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                        border: '1px solid Black',
+                    },
                     '&.Mui-focused fieldset': {
                         borderColor: 'DeepSkyBlue',
                     }
