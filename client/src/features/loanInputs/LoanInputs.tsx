@@ -61,28 +61,12 @@ const LoanInputs = ({  }: LoanInputsProps): JSX.Element => {
         console.log(value);
     };
 
-    console.log(`
-        ${homePrice}
-        ${downPaymentDollar}
-        ${downPaymentPercent}
-        ${loanTerm}
-        ${interestRate}
-        ${propertyTaxesDollar}
-        ${propertyTaxesPercent}
-        ${homeInsuranceDollar}
-        ${homeInsurancePercent}
-        ${HOAFeesDollar}
-        ${HOAFeesPercent}
-        ${otherCostsDollar}
-        ${otherCostsPercent}
-        ${includeMore}
-    `);
-
     /*
     useEffect(() => {
         
     }, [homePrice, downPaymentDollar, downPaymentPercent, loanTerm, interestRate, propertyTaxesDollar, propertyTaxesPercent, homeInsuranceDollar, 
-        homeInsurancePercent, HOAFeesDollar, HOAFeesPercent, otherCostsDollar, otherCostsPercent, includeMore]);*/
+        homeInsurancePercent, HOAFeesDollar, HOAFeesPercent, otherCostsDollar, otherCostsPercent, includeMore]);
+    */
 
     return (
         <section id='LoanInputs' style={styles.loanInputs}>

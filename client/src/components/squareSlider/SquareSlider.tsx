@@ -38,10 +38,12 @@ const SquareSlider = ({ name, value, min, max, steps, width, onChange }: SliderP
                     },
                     '& .MuiSlider-track': {
                         background: 'linear-gradient(to right, PaleTurquoise, PowderBlue, SkyBlue, DeepSkyBlue)',
-                        border: 'none'
+                        border: 'none',
+                        height: 8
                     },
                     '& .MuiSlider-rail': {
-                        color: 'LightBlue'
+                        color: 'LightBlue',
+                        height: 6
                     }
                 }}
             />
