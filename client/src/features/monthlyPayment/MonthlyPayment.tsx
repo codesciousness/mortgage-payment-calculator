@@ -1,15 +1,15 @@
 import React from 'react';
-import DonutChart from '../../components/donutChart/DonutChart';
+import DonutChart from '../donutChart/DonutChart';
+import './MonthlyPayment.css';
 
-type MonthlyPaymentProps = {
-    
-};
-
-const MonthlyPayment = ({  }: MonthlyPaymentProps): JSX.Element => {
+const MonthlyPayment = (): JSX.Element => {
 
     return (
-        <section id='MonthlyPayment'>
-            <DonutChart/>
+        <section id='MonthlyPayment' className='MonthlyPayment'>
+            <div className='MonthlyPayment__donutChart'>
+                <h2>Monthly payment breakdown</h2>
+                <DonutChart/>
+            </div>
         </section>
     );
 };

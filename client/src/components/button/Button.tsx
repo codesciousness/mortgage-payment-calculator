@@ -14,8 +14,7 @@ const Button = ({ name, loading, onClick }: ButtonProps): JSX.Element => {
     return (
         <LoadingButton
             id={id}
-            className="Button"
-            variant="outlined"
+            variant='outlined'
             loading={loading}
             endIcon={<SendIcon />}
             loadingPosition="end"

@@ -2,7 +2,6 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import Label from '../label/Label';
-import { styles } from '../../styles';
 
 type NumberInputProps = {
     name: string;
@@ -58,7 +57,7 @@ const NumberInput = ({ name, value, sign, width, dual, error, onChange }: Number
     }
 
     return (
-        <div style={!dual ? styles.input : undefined}>
+        <div className='NumberInput' style={!dual ? { marginBottom: '0.75rem' } : undefined}>
             {!dual && <Label name={name}/>}
             <TextField
                 id={id}

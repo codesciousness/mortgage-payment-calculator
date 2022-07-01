@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, /*useEffect*/ } from 'react';
 import NumberInput from '../../components/numberInput/NumberInput';
 import DualInput from '../../components/dualInput/DualInput';
 import SquareSlider from '../../components/squareSlider/SquareSlider';
 import StyledSwitch from '../../components/switches/StyledSwitch';
-import { styles } from '../../styles';
-
-type LoanInputsProps = {
-
-};
+import './LoanInputs.css';
 
 type handleChangeProps = {
     target: HTMLInputElement;
 }
 
-const LoanInputs = ({  }: LoanInputsProps): JSX.Element => {
+const LoanInputs = (): JSX.Element => {
     const [ homePrice, setHomePrice ] = useState('');
     const [ downPaymentDollar, setDownPaymentDollar ] = useState('');
     const [ downPaymentPercent, setDownPaymentPercent ] = useState('');
@@ -28,11 +24,10 @@ const LoanInputs = ({  }: LoanInputsProps): JSX.Element => {
     const [ otherCostsDollar, setOtherCostsDollar ] = useState('');
     const [ otherCostsPercent, setOtherCostsPercent ] = useState('');
     const [ includeMore, setIncludeMore ] = useState(false);
-    const width = styles.loanInputs.width;
+    const width = 300;
 
     const handleChange = ({ target }: handleChangeProps) => {
         const { id, value } = target;
-        console.log(id, value);
 
         if (id === 'Homeprice') setHomePrice(value);
         else if (id === 'DownpaymentDollar') setDownPaymentDollar(value);
@@ -53,12 +48,10 @@ const LoanInputs = ({  }: LoanInputsProps): JSX.Element => {
 
     const handleLoanTermChange = (event: Event, value: number | number[]) => {
         setLoanTerm(value);
-        console.log(value);
     };
 
     const handleInterestRateChange = (event: Event, value: number | number[]) => {
         setInterestRate(value);
-        console.log(value);
     };
 
     /*
@@ -69,7 +62,7 @@ const LoanInputs = ({  }: LoanInputsProps): JSX.Element => {
     */
 
     return (
-        <section id='LoanInputs' style={styles.loanInputs}>
+        <section id='LoanInputs' className='LoanInputs'>
             <NumberInput name='Home price' value={homePrice} sign='dollar' width={width} onChange={handleChange}/>
             <DualInput name='Down payment' dollar={downPaymentDollar} percent={downPaymentPercent} width={width} onChange={handleChange}/>
             <SquareSlider name='Interest rate' value={interestRate} min={0} max={25} steps={0.25} width={width} onChange={handleInterestRateChange}/>

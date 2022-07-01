@@ -1,7 +1,6 @@
 import React from 'react';
 import NumberInput from '../numberInput/NumberInput';
 import Label from '../label/Label';
-import { styles } from '../../styles';
 
 type DualInputProps = {
     name: string;
@@ -14,9 +13,9 @@ type DualInputProps = {
 const DualInput = ({ name, dollar, percent, width, onChange }: DualInputProps): JSX.Element => {
 
     return (
-        <div style={styles.input}>
+        <div className='DualInput' style={{ marginBottom: '0.75rem' }}>
             <Label name={name}/>
-            <div style={{display: 'flex'}}>
+            <div className='DualInput__container' style={{display: 'flex'}}>
                 <NumberInput name={`${name} Dollar`} value={dollar} sign='dollar' width={width*(2/3)} dual onChange={onChange}/>
                 <NumberInput name={`${name} Percent`} value={percent} sign='percent' width={width*(1/3)} dual onChange={onChange}/>
             </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import Slider from '@mui/material/Slider';
 import Label from '../label/Label';
-import { styles } from '../../styles';
 
 type SliderProps = {
     name: string;
@@ -17,7 +16,7 @@ const SquareSlider = ({ name, value, min, max, steps, width, onChange }: SliderP
     const id = name.replaceAll(' ', '');
 
     return (
-        <div style={styles.input}>
+        <div className='SquareSlider' style={{ marginBottom: '0.75rem' }}>
             <Label name={name}/>
             <Slider
                 id={id}

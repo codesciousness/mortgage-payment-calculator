@@ -1,9 +1,6 @@
 import React from 'react';
 import DataTable from '../../components/dataTable/DataTable';
-
-type AmortizationTableProps = {
-    
-};
+import './AmortizationTable.css';
 
 const columns = [
     {field: 'year', headerName: 'Year',  sortable: true, minWidth: 100, flex: 1},
@@ -12,10 +9,10 @@ const columns = [
     {field: 'remainingBalance', headerName: 'Remaining balance', type: 'number', sortable: false, minWidth: 150, flex: 1}
 ];
 
-const AmortizationTable = ({  }: AmortizationTableProps): JSX.Element => {
+const AmortizationTable = (): JSX.Element => {
 
     return (
-        <section id='AmortizationTable' style={{ width: 600, height: 500 }}>
+        <section id='AmortizationTable' className='AmortizationTable'>
             <h2>Amortization schedule breakdown</h2>
             <p>This table lists how much principal and interest are scheduled to be paid each year.</p>
             <DataTable rows={[]} columns={columns}/>
