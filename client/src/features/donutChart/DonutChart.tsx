@@ -1,5 +1,5 @@
 import React from 'react';
-import { Chart } from "react-google-charts";
+import { Chart } from 'react-google-charts';
 import './DonutChart.css';
 
 type Expenses = 'Principal & interest' | 'Property tax' | 'Homeowner\'s insurance' | 'HOA fees' | 'Other costs';

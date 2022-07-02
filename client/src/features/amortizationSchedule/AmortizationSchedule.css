@@ -1,3 +1,13 @@
 .AmortizationSchedule {
     text-align: left;
 }
+
+.AmortizationSchedule__LineChart__container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.AmortizationSchedule__LineChart {
+    width: 100%;
+}

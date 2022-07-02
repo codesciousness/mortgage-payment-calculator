@@ -1,0 +1,15 @@
+.EmailForm {
+    margin-top: 1.5rem;
+    border-radius: 4px;
+    background-color: rgba(135, 206, 235, 0.15); /* skyblue */
+    padding: 0.5rem 0;
+}
+
+.EmailForm__header {
+    margin: 0.5rem 1rem;
+}
+
+.EmailForm__container {
+    display: flex;
+    align-items: center;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import DonutChart from '../donutChart/DonutChart';
+import DonutChartLegend from '../donutChartLegend/DonutChartLegend';
 import './MonthlyPayment.css';
 
 const MonthlyPayment = (): JSX.Element => {
@@ -10,6 +11,7 @@ const MonthlyPayment = (): JSX.Element => {
                 <h2>Monthly payment breakdown</h2>
                 <DonutChart/>
             </div>
+            <DonutChartLegend/>
         </section>
     );
 };

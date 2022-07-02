@@ -70,6 +70,7 @@ const NumberInput = ({ name, value, sign, width, dual, error, onChange }: Number
                 sx={{
                     width,
                     '& .MuiOutlinedInput-root': {
+                        backgroundColor: 'White',
                         '& fieldset': darkenBorders(),
                         '&.Mui-focused fieldset': {
                             borderColor: 'DeepSkyBlue',

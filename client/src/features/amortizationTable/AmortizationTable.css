@@ -1,4 +1,4 @@
 .AmortizationTable {
-    width: 600;
-    height: 500;
+    width: 100%;
+    min-height: 500;
 }

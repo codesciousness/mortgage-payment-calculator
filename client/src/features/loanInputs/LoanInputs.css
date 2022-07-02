@@ -1,4 +1,6 @@
 .LoanInputs {
     width: 300;
     margin: 1rem 2rem;
+    padding: 0 1rem;
+    background-color: white;
 }

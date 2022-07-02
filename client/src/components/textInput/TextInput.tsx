@@ -25,8 +25,9 @@ const TextInput = ({ name, value, placeholder, width, error, onChange }: TextInp
             size='small'
             sx={{
                 width,
-                margin: '0.25rem 0',
+                margin: '0 1rem',
                 '& .MuiOutlinedInput-root': {
+                    backgroundColor: 'White',
                     '& fieldset': {
                         border: '1px solid Black',
                     },

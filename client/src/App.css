@@ -18,9 +18,3 @@
 .App__container {
   width: 1000px;
 }
-
-.App__emailData {
-  display: flex;
-  align-items: center;
-  margin-top: 2rem;
-}

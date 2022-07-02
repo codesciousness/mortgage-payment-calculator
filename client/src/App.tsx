@@ -1,8 +1,7 @@
 import React from 'react';
 import LoanInputs from './features/loanInputs/LoanInputs';
 import TabsDisplay from './features/tabsDisplay/TabsDisplay';
-import Button from './components/button/Button';
-import TextInput from './components/textInput/TextInput';
+import EmailForm from './features/emailForm/EmailForm';
 import './App.css';
 
 function App() {
@@ -12,11 +11,8 @@ function App() {
       <div className='App__mainContainer'>
         <LoanInputs/>
         <div className='App__container'>
-        <TabsDisplay/>
-        <div className='App__emailData'>
-          <TextInput name='Name' value='Bob' width={300} onChange={()=>console.log('Changed')}/>
-          <Button name='Calculate' onClick={()=>console.log('Clicked')}/>
-        </div>
+          <TabsDisplay/>
+          <EmailForm/>
         </div>
       </div>
     </section>
