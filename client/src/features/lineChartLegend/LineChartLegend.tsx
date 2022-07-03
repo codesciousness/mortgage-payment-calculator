@@ -12,13 +12,13 @@ const LineChartLegend = (): JSX.Element => {
     return (
         <section id='LineChartLegend' className='LineChartLegend'>
             <Box sx={styles}>
-                <p className='LineChartLegend__label'>Principal</p>
+                <p className='LineChartLegend__label principal'>Principal</p>
             </Box>
             <Box sx={styles}>
-                <p className='LineChartLegend__label'>Interest</p>
+                <p className='LineChartLegend__label interest'>Interest</p>
             </Box>
             <Box sx={styles}>
-                <p className='LineChartLegend__label'>Balance</p>
+                <p className='LineChartLegend__label balance'>Balance</p>
             </Box>
         </section>
     );

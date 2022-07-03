@@ -1,4 +1,30 @@
 .LineChartLegend {
-    width: 20%;
-    margin: 1rem;
+    width: 10%;
+}
+
+.LineChartLegend__label {
+    position: relative;
+    left: 23px;
+}
+
+.LineChartLegend__label:before {
+    content: '';
+    position: absolute;
+    left: -23px;
+    top: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+.LineChartLegend__label.principal:before {
+    background-color: PaleTurquoise;
+}
+
+.LineChartLegend__label.interest:before {
+    background-color: DeepSkyBlue;
+}
+
+.LineChartLegend__label.balance:before {
+    background-color: SteelBlue;
 }

@@ -2,4 +2,40 @@
     width: 100%;
     margin: 1rem;
     padding: 1rem;
+    position: relative;
+}
+
+.color__codes {
+    position: relative;
+    left: 23px;
+}
+
+.color__codes:before {
+    content: '';
+    position: absolute;
+    left: -23px;
+    top: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+.color__codes.principal:before {
+    background-color: DeepSkyBlue;
+}
+
+.color__codes.propertyTax:before {
+    background-color: LightSkyBlue;
+}
+
+.color__codes.homeownersInsurance:before {
+    background-color: SkyBlue;
+}
+
+.color__codes.HOAFees:before {
+    background-color: PowderBlue;
+}
+
+.color__codes.otherCosts:before {
+    background-color: PaleTurquoise;
 }

@@ -3,6 +3,7 @@ import NumberInput from '../../components/numberInput/NumberInput';
 import DualInput from '../../components/dualInput/DualInput';
 import SquareSlider from '../../components/squareSlider/SquareSlider';
 import StyledSwitch from '../../components/switches/StyledSwitch';
+import InfoTooltip from '../../components/infoTooltip/InfoTooltip';
 import './LoanInputs.css';
 
 type handleChangeProps = {
@@ -64,14 +65,23 @@ const LoanInputs = (): JSX.Element => {
     return (
         <section id='LoanInputs' className='LoanInputs'>
             <NumberInput name='Home price' value={homePrice} sign='dollar' width={width} onChange={handleChange}/>
+            <InfoTooltip title='Down payment: Portion of the sale price of a home that is not financed. 
+            Your down payment amount can affect the interest rate you get, as lenders typically offer lower rates for borrowers who make larger payments.'/>
             <DualInput name='Down payment' dollar={downPaymentDollar} percent={downPaymentPercent} width={width} onChange={handleChange}/>
+            <InfoTooltip title='Loan term: The amount of time or number of years that you will have to repay a loan. 
+            Longer term mortgages can make your monthly payment amount smaller than shorter term loans by stretching out your payments over more years.'/>
             <SquareSlider name='Interest rate' value={interestRate} min={0} max={25} steps={0.25} width={width} onChange={handleInterestRateChange}/>
+            <InfoTooltip title="Interest rate: Amount you'll pay each year to borrow the money for your loan, expressed as a percentage."/>
             <SquareSlider name='Loan term' value={loanTerm} min={1} max={50} steps={1} width={width} onChange={handleLoanTermChange}/>
             <StyledSwitch name='Include more' checked={includeMore} onChange={handleChange}/><span>Include: Taxes, insurance &amp; fees</span>
             {includeMore &&
                 <>
+                    <InfoTooltip title='Property tax: Any tax on real estate or certain other forms of property.'/>
                     <DualInput name='Property taxes' dollar={propertyTaxesDollar} percent={propertyTaxesPercent} width={width} onChange={handleChange}/>
+                    <InfoTooltip title='Homeowners insurance: Financial protection that you purchase from an insurance provider. 
+                    It helps pay for losses if a covered disaster or other damaging event affects your home.'/>
                     <DualInput name='Home insurance' dollar={homeInsuranceDollar} percent={homeInsurancePercent} width={width} onChange={handleChange}/>
+                    <InfoTooltip title="Homeowner's association (HOA) fee: Monthly or quarterly fees assessed by the HOA to pay for the services that it provides."/>
                     <DualInput name='HOA fees' dollar={HOAFeesDollar} percent={HOAFeesPercent} width={width} onChange={handleChange}/>
                     <DualInput name='Other costs' dollar={otherCostsDollar} percent={otherCostsPercent} width={width} onChange={handleChange}/>
                 </>
