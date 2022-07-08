@@ -2,45 +2,33 @@ export {};
 
 declare global {
     interface AmortizationDetail {
-        year: number;
-        principle: number;
-        interest: number;
-        remainingBalance: number;
+        year: string;
+        principal: string;
+        interest: string;
+        remainingBalance: string;
     }
 }
 
 declare global {
     interface Loan {
-        loanId: string;
         name: string;
         email: string;
-        homePrice: number;
-        downPayment: number;
-        loanAmount: number;
+        homePrice: string;
+        downPayment: string;
+        loanAmount: string;
         loanTerm: number;
         interestRate: number;
-        totalInterest: number;
+        totalInterest: string;
         loanType?: string;
-        propertyTaxes?: number;
-        homeInsurance?: number;
-        hoaFees?: number;
-        otherCosts?: number;
-        loanStartDate?: string
-        loanEndDate?: string;
-        creditScore?: number;
-        totalPrincipleAndInterest: number;
-        monthlyPrincipleAndInterest: number;
-        totalPropertyTaxes: number;
-        monthlyPropertyTaxes: number;
-        totalHomeInsurance: number;
-        monthlyHomeInsurance: number;
-        totalHOAFees: number;
-        monthlyHOAFees: number;
-        totalOtherCosts: number;
-        monthlyOtherCosts: number;
-        totalMortgageExpenses: number;
-        annualMortgageExpenses: number;
-        monthlyMortgageExpenses: number;
-        annualAmortizationSchedule: AmortizationDetail[];
+        propertyTaxes?: string;
+        homeInsurance?: string;
+        hoaFees?: string;
+        otherCosts?: string;
+        startDate: string;
+        payoffDate: string;
+        principalAndInterest: string;
+        totalMonthlyPayment: string;
+        totalLoanCost: string
+        amortizationSchedule: AmortizationDetail[];
     }
 }

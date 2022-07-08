@@ -1,9 +1,6 @@
-.AmortizationSchedule {
-    text-align: left;
-}
-
 .AmortizationSchedule__label {
     font-size: 0.75rem;
+    text-align: center;
     margin-bottom: 0;
     color: Gray;
 }
@@ -22,6 +19,12 @@
     top: 3px;
     font-size: 1rem;
     font-weight: bold;
+}
+
+.AmortizationSchedule__date {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-top: 0;
 }
 
 .AmortizationSchedule__LineChart__container {

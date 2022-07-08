@@ -35,6 +35,10 @@ const AmortizationSchedule = (): JSX.Element => {
                     <p className='AmortizationSchedule__label'>Total cost of loan</p>
                     <p className='AmortizationSchedule__amount cost'>553,587</p>
                 </div>
+                <div className='AmortizationSchedule__container'>
+                    <p className='AmortizationSchedule__label'>Payoff Date</p>
+                    <p className='AmortizationSchedule__date'>Jul 2052</p>
+                </div>
             </Box>
             <div className='AmortizationSchedule__LineChart__container'>
                 <div className='AmortizationSchedule__LineChart'>
