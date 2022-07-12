@@ -1,6 +1,12 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../app/store';
+import { formatAmount, formatPercent, fromPercent, toPercent } from '../util/calculations';
 const axios = require('axios');
+
+interface DualInput {
+    dollar: string;
+    percent: string;
+}
 
 interface AmortizationDetail {
     year: string;
@@ -13,18 +19,18 @@ interface LoanState {
     name: string;
     email: string;
     homePrice: string;
-    downPayment: string;
+    downPayment: DualInput;
     loanAmount: string;
-    loanTerm: number;
-    interestRate: number;
+    loanTerm: number | number[];
+    interestRate: number | number[];
     totalInterest: string;
     loanType?: string;
-    propertyTaxes?: string;
-    homeInsurance?: string;
-    hoaFees?: string;
-    otherCosts?: string;
-    startDate: string;
-    payoffDate: string;
+    propertyTaxes?: DualInput;
+    homeInsurance?: DualInput;
+    hoaFees?: DualInput;
+    otherCosts?: DualInput;
+    startDate: Date | null;
+    payoffDate: Date | null;
     principalAndInterest: string;
     totalMonthlyPayment: string;
     totalLoanCost: string
@@ -49,18 +55,33 @@ const initialState: LoanState = {
     name: '',
     email: '',
     homePrice: '',
-    downPayment: '',
+    downPayment: {
+        dollar: '',
+        percent: ''
+    },
     loanAmount: '',
     loanTerm: 30,
     interestRate: 4.75,
     totalInterest: '',
     loanType: '',
-    propertyTaxes: '',
-    homeInsurance: '',
-    hoaFees: '',
-    otherCosts: '',
-    startDate: '',
-    payoffDate: '',
+    propertyTaxes: {
+        dollar: '',
+        percent: ''
+    },
+    homeInsurance: {
+        dollar: '',
+        percent: ''
+    },
+    hoaFees: {
+        dollar: '',
+        percent: ''
+    },
+    otherCosts: {
+        dollar: '',
+        percent: ''
+    },
+    startDate: new Date(),
+    payoffDate: null,
     principalAndInterest: '',
     totalMonthlyPayment: '',
     totalLoanCost: '',
@@ -83,70 +104,135 @@ const loansSlice = createSlice({
             return state;
         },
         setHomePrice: (state: RootState, action: PayloadAction<string>) => {
-            state.homePrice = action.payload;
+            state.homePrice = formatAmount(action.payload);
             return state;
         },
-        setDownPayment: (state: RootState, action: PayloadAction<string>) => {
-            state.downPayment = action.payload;
+        setDownPayment: (state: RootState, action: PayloadAction<{dollar: string, percent: string}>) => {
+            const homePrice = state.homePrice;
+            let { dollar, percent } = action.payload;
+            dollar = formatAmount(dollar);
+            percent = formatPercent(percent);
+            if (dollar && homePrice) {
+                percent = toPercent(dollar, homePrice);
+            }
+            else if (percent && homePrice) {
+                dollar = fromPercent(percent, homePrice);
+            }
+            state.downPayment = {
+                dollar,
+                percent
+            };
             return state;
         },
         setLoanAmount: (state: RootState, action: PayloadAction<string>) => {
-            state.loanAmount = action.payload;
+            state.loanAmount = formatAmount(action.payload);
             return state;
         },
-        setLoanTerm: (state: RootState, action: PayloadAction<string>) => {
+        setLoanTerm: (state: RootState, action: PayloadAction<number>) => {
             state.loanTerm = action.payload;
             return state;
         },
-        setInterestRate: (state: RootState, action: PayloadAction<string>) => {
+        setInterestRate: (state: RootState, action: PayloadAction<number>) => {
             state.interestRate = action.payload;
             return state;
         },
         setTotalInterest: (state: RootState, action: PayloadAction<string>) => {
-            state.totalInterest = action.payload;
+            state.totalInterest = formatAmount(action.payload);
             return state;
         },
         setLoanType: (state: RootState, action: PayloadAction<string>) => {
             state.loanType = action.payload;
             return state;
         },
-        setPropertyTaxes: (state: RootState, action: PayloadAction<string>) => {
-            state.propertyTaxes = action.payload;
+        setPropertyTaxes: (state: RootState, action: PayloadAction<{dollar: string, percent: string}>) => {
+            const homePrice = state.homePrice;
+            let { dollar, percent } = action.payload;
+            dollar = formatAmount(dollar);
+            percent = formatPercent(percent);
+            if (dollar && homePrice) {
+                percent = toPercent(dollar, homePrice);
+            }
+            else if (percent && homePrice) {
+                dollar = fromPercent(percent, homePrice);
+            }
+            state.propertyTaxes = {
+                dollar,
+                percent
+            };
             return state;
         },
-        setHomeInsurance: (state: RootState, action: PayloadAction<string>) => {
-            state.homeInsurance = action.payload;
+        setHomeInsurance: (state: RootState, action: PayloadAction<{dollar: string, percent: string}>) => {
+            const homePrice = state.homePrice;
+            let { dollar, percent } = action.payload;
+            dollar = formatAmount(dollar);
+            percent = formatPercent(percent);
+            if (dollar && homePrice) {
+                percent = toPercent(dollar, homePrice);
+            }
+            else if (percent && homePrice) {
+                dollar = fromPercent(percent, homePrice);
+            }
+            state.homeInsurance = {
+                dollar,
+                percent
+            };
             return state;
         },
-        setHOAFees: (state: RootState, action: PayloadAction<string>) => {
-            state.hoaFees = action.payload;
+        setHOAFees: (state: RootState, action: PayloadAction<{dollar: string, percent: string}>) => {
+            const homePrice = state.homePrice;
+            let { dollar, percent } = action.payload;
+            dollar = formatAmount(dollar);
+            percent = formatPercent(percent);
+            if (dollar && homePrice) {
+                percent = toPercent(dollar, homePrice);
+            }
+            else if (percent && homePrice) {
+                dollar = fromPercent(percent, homePrice);
+            }
+            state.hoaFees = {
+                dollar,
+                percent
+            };
             return state;
         },
-        setOtherCosts: (state: RootState, action: PayloadAction<string>) => {
-            state.otherCosts = action.payload;
+        setOtherCosts: (state: RootState, action: PayloadAction<{dollar: string, percent: string}>) => {
+            const homePrice = state.homePrice;
+            let { dollar, percent } = action.payload;
+            dollar = formatAmount(dollar);
+            percent = formatPercent(percent);
+            if (dollar && homePrice) {
+                percent = toPercent(dollar, homePrice);
+            }
+            else if (percent && homePrice) {
+                dollar = fromPercent(percent, homePrice);
+            }
+            state.otherCosts = {
+                dollar,
+                percent
+            };
             return state;
         },
-        setStartDate: (state: RootState, action: PayloadAction<string>) => {
+        setStartDate: (state: RootState, action: PayloadAction<Date>) => {
             state.startDate = action.payload;
             return state;
         },
-        setPayoffDate: (state: RootState, action: PayloadAction<string>) => {
+        setPayoffDate: (state: RootState, action: PayloadAction<Date>) => {
             state.payoffDate = action.payload;
             return state;
         },
         setPrincipalAndInterest: (state: RootState, action: PayloadAction<string>) => {
-            state.principalAndInterest = action.payload;
+            state.principalAndInterest = formatAmount(action.payload);
             return state;
         },
         setTotalMonthlyPayment: (state: RootState, action: PayloadAction<string>) => {
-            state.totalMonthlyPayment = action.payload;
+            state.totalMonthlyPayment = formatAmount(action.payload);
             return state;
         },
         setTotalLoanCost: (state: RootState, action: PayloadAction<string>) => {
-            state.totalLoanCost = action.payload;
+            state.totalLoanCost = formatAmount(action.payload);
             return state;
         },
-        setAmortizationSchedule: (state: RootState, action: PayloadAction<string>) => {
+        setAmortizationSchedule: (state: RootState, action: PayloadAction<string[]>) => {
             state.amorizationSchedule = action.payload;
             return state;
         },
@@ -154,18 +240,33 @@ const loansSlice = createSlice({
             state.name = '';
             state.email = '';
             state.homePrice = '';
-            state.downPayment = '';
+            state.downPayment = {
+                dollar: '',
+                percent: ''
+            };
             state.loanAmount = '';
             state.loanTerm = 30;
             state.interestRate = 4.75;
             state.totalInterest = '';
             state.loanType = '';
-            state.propertyTaxes = '';
-            state.homeInsurance = '';
-            state.hoaFees = '';
-            state.otherCosts = '';
-            state.startDate = '';
-            state.payoffDate = '';
+            state.propertyTaxes = {
+                dollar: '',
+                percent: ''
+            };
+            state.homeInsurance = {
+                dollar: '',
+                percent: ''
+            };
+            state.hoaFees = {
+                dollar: '',
+                percent: ''
+            };
+            state.otherCosts = {
+                dollar: '',
+                percent: ''
+            };
+            state.startDate = new Date();
+            state.payoffDate = null;
             state.principalAndInterest = '';
             state.totalMonthlyPayment = '';
             state.totalLoanCost = '';
@@ -205,8 +306,8 @@ export default loansSlice.reducer;
 
 export const selectName = (state: RootState) => state.loans.name;
 export const selectEmail = (state: RootState) => state.loans.email;
-export const selectHomePrice = (state: RootState) => state.loans.products;
-export const selectDownPayment = (state: RootState) => state.loans.homePrice;
+export const selectHomePrice = (state: RootState) => state.loans.homePrice;
+export const selectDownPayment = (state: RootState) => state.loans.downPayment;
 export const selectLoanAmount = (state: RootState) => state.loans.loanAmount;
 export const selectLoanTerm = (state: RootState) => state.loans.loanTerm;
 export const selectInterestRate = (state: RootState) => state.loans.interestRate;
@@ -215,7 +316,7 @@ export const selectLoanType = (state: RootState) => state.loans.loanType;
 export const selectPropertyTaxes = (state: RootState) => state.loans.propertyTaxes;
 export const selectHomeInsurance = (state: RootState) => state.loans.homeInsurance;
 export const selectHOAFees = (state: RootState) => state.loans.hoaFees;
-export const selectOtherCosts = (state: RootState) => state.loans.othercosts;
+export const selectOtherCosts = (state: RootState) => state.loans.otherCosts;
 export const selectStartDate = (state: RootState) => state.loans.startDate;
 export const selectPayoffDate = (state: RootState) => state.loans.payoffDate;
 export const selectPrincipalAndInterest = (state: RootState) => state.loans.principalAndInterest;
@@ -225,4 +326,3 @@ export const selectAmortizationSchedule = (state: RootState) => state.loans.amor
 export const selectSavingLoan = (state: RootState) => state.loans.savingLoan;
 export const selectSaveLoanSuccess = (state: RootState) => state.loans.saveLoanSuccess;
 export const selectSaveLoanError = (state: RootState) => state.loans.saveLoanError;
-

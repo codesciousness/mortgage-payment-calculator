@@ -38,7 +38,10 @@ const LineChart = (): JSX.Element => {
             }
         },
         vAxis: {
-            format: 'currency'
+            format: 'short',
+            minorGridlines: {
+                count: 0
+            }
         }
     };
 

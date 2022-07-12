@@ -6,44 +6,66 @@ import SquareSlider from '../../components/squareSlider/SquareSlider';
 import StyledSwitch from '../../components/switches/StyledSwitch';
 import InfoTooltip from '../../components/infoTooltip/InfoTooltip';
 import './LoanInputs.css';
-import { formatNum } from '../../util/calculations';
+import { selectHomePrice, selectDownPayment, selectLoanTerm, selectInterestRate, selectPropertyTaxes, 
+    selectHomeInsurance, selectHOAFees, selectOtherCosts, selectStartDate, setHomePrice, setDownPayment, 
+    setLoanTerm, setInterestRate, setPropertyTaxes, setHomeInsurance, setHOAFees, setOtherCosts, 
+    setStartDate } from '../loansSlice';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
 type handleChangeProps = {
     target: HTMLInputElement;
 }
 
 const LoanInputs = (): JSX.Element => {
-    const [ homePrice, setHomePrice ] = useState('');
-    const [ downPaymentDollar, setDownPaymentDollar ] = useState('');
-    const [ downPaymentPercent, setDownPaymentPercent ] = useState('');
-    const [ loanTerm, setLoanTerm ] = useState<number | number[]>(30);
-    const [ interestRate, setInterestRate ] = useState<number | number[]>(4.75);
-    const [ startDate, setStartDate ] = useState<Date | null>(new Date());
-    const [ propertyTaxesDollar, setPropertyTaxesDollar ] = useState('');
-    const [ propertyTaxesPercent, setPropertyTaxesPercent] = useState('');
-    const [ homeInsuranceDollar, setHomeInsuranceDollar ] = useState('');
-    const [ homeInsurancePercent, setHomeInsurancePercent ] = useState('');
-    const [ hoaFeesDollar, setHOAFeesDollar ] = useState('');
-    const [ hoaFeesPercent, setHOAFeesPercent ] = useState('');
-    const [ otherCostsDollar, setOtherCostsDollar ] = useState('');
-    const [ otherCostsPercent, setOtherCostsPercent ] = useState('');
+    const homePrice = useAppSelector(selectHomePrice);
+    const downPayment = useAppSelector(selectDownPayment);
+    const loanTerm = useAppSelector(selectLoanTerm);
+    const interestRate = useAppSelector(selectInterestRate);
+    const startDate = useAppSelector(selectStartDate);
+    const propertyTaxes = useAppSelector(selectPropertyTaxes);
+    const homeInsurance = useAppSelector(selectHomeInsurance);
+    const hoaFees = useAppSelector(selectHOAFees);
+    const otherCosts = useAppSelector(selectOtherCosts);
     const [ includeMore, setIncludeMore ] = useState(false);
+    const dispatch = useAppDispatch()
     const width = 300;
 
     const handleChange = ({ target }: handleChangeProps) => {
         const { id, value } = target;
 
-        if (id === 'Homeprice') setHomePrice(formatNum(value));
-        else if (id === 'DownpaymentDollar') setDownPaymentDollar(formatNum(value));
-        else if (id === 'DownpaymentPercent') setDownPaymentPercent(value);
-        else if (id === 'PropertytaxesDollar') setPropertyTaxesDollar(formatNum(value));
-        else if (id === 'PropertytaxesPercent') setPropertyTaxesPercent(value);
-        else if (id === 'HomeinsuranceDollar') setHomeInsuranceDollar(formatNum(value));
-        else if (id === 'HomeinsurancePercent') setHomeInsurancePercent(value);
-        else if (id === 'HOAfeesDollar') setHOAFeesDollar(formatNum(value));
-        else if (id === 'HOAfeesPercent') setHOAFeesPercent(value);
-        else if (id === 'OthercostsDollar') setOtherCostsDollar(formatNum(value));
-        else if (id === 'OthercostsPercent') setOtherCostsPercent(value);
+        if (id === 'Homeprice') {
+            dispatch(setHomePrice(value));
+        }
+        else if (id === 'DownpaymentDollar') {
+            dispatch(setDownPayment({ dollar: value, percent: '' }));
+        }
+        else if (id === 'DownpaymentPercent') {
+            dispatch(setDownPayment({ dollar: '', percent: value }));
+        }
+        else if (id === 'PropertytaxesDollar') {
+            dispatch(setPropertyTaxes({ dollar: value, percent: '' }));
+        }
+        else if (id === 'PropertytaxesPercent') {
+            dispatch(setPropertyTaxes({ dollar: '', percent: value }));
+        }
+        else if (id === 'HomeinsuranceDollar') {
+            dispatch(setHomeInsurance({ dollar: value, percent: '' }));
+        }
+        else if (id === 'HomeinsurancePercent') {
+            dispatch(setHomeInsurance({ dollar: '', percent: value }));
+        }
+        else if (id === 'HOAfeesDollar') {
+            dispatch(setHOAFees({ dollar: value, percent: '' }));
+        }
+        else if (id === 'HOAfeesPercent') {
+            dispatch(setHOAFees({ dollar: '', percent: value }));
+        }
+        else if (id === 'OthercostsDollar') {
+            dispatch(setOtherCosts({ dollar: value, percent: '' }));
+        }
+        else if (id === 'OthercostsPercent') {
+            dispatch(setOtherCosts({ dollar: '', percent: value }));
+        }
         else if (id === 'Includemore') {
             if (includeMore) setIncludeMore(false);
             else setIncludeMore(true);
@@ -51,16 +73,16 @@ const LoanInputs = (): JSX.Element => {
     };
 
     const handleLoanTermChange = (event: Event, value: number | number[]) => {
-        setLoanTerm(value);
+        dispatch(setLoanTerm(value));
     };
 
     const handleInterestRateChange = (event: Event, value: number | number[]) => {
-        setInterestRate(value);
+        dispatch(setInterestRate(value));
     };
 
     const handleStartDateChange = (date: Date | null) => {
         if (date) {
-            setStartDate(new Date(date.getFullYear(), date.getMonth()));
+            dispatch(setStartDate(new Date(date.getFullYear(), date.getMonth())));
         }
     };
 
@@ -76,7 +98,7 @@ const LoanInputs = (): JSX.Element => {
             <NumberInput name='Home price' value={homePrice} sign='dollar' width={width} onChange={handleChange}/>
             <InfoTooltip title='Down payment: Portion of the sale price of a home that is not financed. 
             Your down payment amount can affect the interest rate you get, as lenders typically offer lower rates for borrowers who make larger payments.'/>
-            <DualInput name='Down payment' dollar={downPaymentDollar} percent={downPaymentPercent} width={width} onChange={handleChange}/>
+            <DualInput name='Down payment' dollar={downPayment.dollar} percent={downPayment.percent} width={width} onChange={handleChange}/>
             <InfoTooltip title='Loan term: The amount of time or number of years that you will have to repay a loan. 
             Longer term mortgages can make your monthly payment amount smaller than shorter term loans by stretching out your payments over more years.'/>
             <SquareSlider name='Interest rate' value={interestRate} min={0} max={25} steps={0.25} width={width} onChange={handleInterestRateChange}/>
@@ -87,13 +109,13 @@ const LoanInputs = (): JSX.Element => {
             {includeMore &&
                 <>
                     <InfoTooltip title='Property tax: Any tax on real estate or certain other forms of property.'/>
-                    <DualInput name='Property taxes' dollar={propertyTaxesDollar} percent={propertyTaxesPercent} width={width} onChange={handleChange}/>
+                    <DualInput name='Property taxes' dollar={propertyTaxes.dollar} percent={propertyTaxes.percent} width={width} onChange={handleChange}/>
                     <InfoTooltip title='Homeowners insurance: Financial protection that you purchase from an insurance provider. 
                     It helps pay for losses if a covered disaster or other damaging event affects your home.'/>
-                    <DualInput name='Home insurance' dollar={homeInsuranceDollar} percent={homeInsurancePercent} width={width} onChange={handleChange}/>
+                    <DualInput name='Home insurance' dollar={homeInsurance.dollar} percent={homeInsurance.percent} width={width} onChange={handleChange}/>
                     <InfoTooltip title="Homeowner's association (HOA) fee: Monthly or quarterly fees assessed by the HOA to pay for the services that it provides."/>
-                    <DualInput name='HOA fees' dollar={hoaFeesDollar} percent={hoaFeesPercent} width={width} onChange={handleChange}/>
-                    <DualInput name='Other costs' dollar={otherCostsDollar} percent={otherCostsPercent} width={width} onChange={handleChange}/>
+                    <DualInput name='HOA fees' dollar={hoaFees.dollar} percent={hoaFees.percent} width={width} onChange={handleChange}/>
+                    <DualInput name='Other costs' dollar={otherCosts.dollar} percent={otherCosts.percent} width={width} onChange={handleChange}/>
                 </>
             }
         </section>

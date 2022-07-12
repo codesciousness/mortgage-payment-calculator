@@ -1,6 +1,13 @@
 export {};
 
 declare global {
+    interface DualInput {
+        dollar: string;
+        percent: string;
+    }
+}
+
+declare global {
     interface AmortizationDetail {
         year: string;
         principal: string;
@@ -13,19 +20,19 @@ declare global {
     interface Loan {
         name: string;
         email: string;
-        homePrice: string;
+        homePrice: DualInput;
         downPayment: string;
         loanAmount: string;
         loanTerm: number;
         interestRate: number;
         totalInterest: string;
         loanType?: string;
-        propertyTaxes?: string;
-        homeInsurance?: string;
-        hoaFees?: string;
-        otherCosts?: string;
-        startDate: string;
-        payoffDate: string;
+        propertyTaxes?: DualInput;
+        homeInsurance?: DualInput;
+        hoaFees?: DualInput;
+        otherCosts?: DualInput;
+        startDate: Date;
+        payoffDate: Date;
         principalAndInterest: string;
         totalMonthlyPayment: string;
         totalLoanCost: string
