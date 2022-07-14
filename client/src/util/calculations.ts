@@ -68,3 +68,11 @@ export const toPercent = (amount: string, total: string): string => {
     }
     return addCommas(percent.toFixed(2));
 };
+
+export const mortgageFormula = (loanAmount: string, interestRate: number, loanTerm: number): string => {
+    const principal = stringToNum(loanAmount);
+    const r = interestRate/12;
+    const n = loanTerm * 12
+    const monthlyPayment = principal * (r*(1 + r)**n)/((1 + r**n) - 1);
+    return numToString(monthlyPayment);
+};

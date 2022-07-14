@@ -4,6 +4,8 @@ import LineChart from '../lineChart/LineChart';
 import LineChartLegend from '../lineChartLegend/LineChartLegend';
 import Box from '@mui/material/Box';
 import './AmortizationSchedule.css';
+import { selectLoanAmount, selectTotalInterest, selectTotalLoanCost, selectPayoffDate } from '../loansSlice';
+import { useAppSelector } from '../../app/hooks';
 
 const styles = {
     borderTop: 1, 
@@ -16,6 +18,10 @@ const styles = {
 };
 
 const AmortizationSchedule = (): JSX.Element => {
+    const loanAmount = useAppSelector(selectLoanAmount);
+    const totalInterest = useAppSelector(selectTotalInterest);
+    const totalLoanCost = useAppSelector(selectTotalLoanCost);
+    const payoffDate = useAppSelector(selectPayoffDate);
 
     return (
         <section id='AmortizationSchedule' className='AmortizationSchedule'>
@@ -25,19 +31,19 @@ const AmortizationSchedule = (): JSX.Element => {
             <Box sx={styles}>
                 <div className='AmortizationSchedule__container'>
                     <p className='AmortizationSchedule__label'>Loan amount</p>
-                    <p className='AmortizationSchedule__amount loan'>264,000</p>
+                    <p className='AmortizationSchedule__amount loan'>{loanAmount}</p>
                 </div>
                 <div className='AmortizationSchedule__container'>
                     <p className='AmortizationSchedule__label'>Total interest paid</p>
-                    <p className='AmortizationSchedule__amount interest'>289,587</p>
+                    <p className='AmortizationSchedule__amount interest'>{totalInterest}</p>
                 </div>
                 <div className='AmortizationSchedule__container'>
                     <p className='AmortizationSchedule__label'>Total cost of loan</p>
-                    <p className='AmortizationSchedule__amount cost'>553,587</p>
+                    <p className='AmortizationSchedule__amount cost'>{totalLoanCost}</p>
                 </div>
                 <div className='AmortizationSchedule__container'>
                     <p className='AmortizationSchedule__label'>Payoff Date</p>
-                    <p className='AmortizationSchedule__date'>Jul 2052</p>
+                    <p className='AmortizationSchedule__date'>{payoffDate}</p>
                 </div>
             </Box>
             <div className='AmortizationSchedule__LineChart__container'>

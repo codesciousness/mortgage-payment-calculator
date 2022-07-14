@@ -1,6 +1,9 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import './DonutChartLegend.css';
+import { selectPropertyTaxes, selectHomeInsurance, selectHOAFees, selectOtherCosts, 
+    selectPrincipalAndInterest, selectTotalMonthlyPayment } from '../loansSlice';
+import { useAppSelector } from '../../app/hooks';
 
 const styles = {
     display: 'flex', 
@@ -11,12 +14,12 @@ const styles = {
 }
 
 const DonutChartLegend = (): JSX.Element => {
-    const principalAndInterest = 1500;
-    const propertyTax = 45;
-    const homeownersInsurance = 60;
-    const HOAFees = 25;
-    const otherCosts = 50;
-    const totalMonthlyPayment = principalAndInterest + propertyTax + homeownersInsurance + HOAFees + otherCosts;
+    const propertyTaxes = useAppSelector(selectPropertyTaxes);
+    const homeInsurance = useAppSelector(selectHomeInsurance);
+    const hoaFees = useAppSelector(selectHOAFees);
+    const otherCosts = useAppSelector(selectOtherCosts);
+    const principalAndInterest = useAppSelector(selectPrincipalAndInterest);
+    const totalMonthlyPayment = useAppSelector(selectTotalMonthlyPayment);
 
     return (
         <section id='DonutChartLegend' className='DonutChartLegend'>
@@ -26,19 +29,19 @@ const DonutChartLegend = (): JSX.Element => {
             </Box>
             <Box sx={styles}>
                 <p className='DonutChartLegend__label color__codes propertyTax'>Property tax</p>
-                <p className='DonutChartLegend__amount'>${propertyTax}</p>
+                <p className='DonutChartLegend__amount'>${propertyTaxes.dollar}</p>
             </Box>
             <Box sx={styles}>
                 <p className='DonutChartLegend__label color__codes homeownersInsurance'>Homeowner's insurance</p>
-                <p className='DonutChartLegend__amount'>${homeownersInsurance}</p>
+                <p className='DonutChartLegend__amount'>${homeInsurance.dollar}</p>
             </Box>
             <Box sx={styles}>
                 <p className='DonutChartLegend__label color__codes HOAFees'>HOA fees</p>
-                <p className='DonutChartLegend__amount'>${HOAFees}</p>
+                <p className='DonutChartLegend__amount'>${hoaFees.dollar}</p>
             </Box>
             <Box sx={styles}>
                 <p className='DonutChartLegend__label color__codes otherCosts'>Other costs</p>
-                <p className='DonutChartLegend__amount'>${otherCosts}</p>
+                <p className='DonutChartLegend__amount'>${otherCosts.dollar}</p>
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <p className='DonutChartLegend__label totalMonthlyPayment'><b>Total monthly payment</b></p>

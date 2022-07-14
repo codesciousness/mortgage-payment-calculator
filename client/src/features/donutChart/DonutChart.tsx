@@ -1,6 +1,10 @@
 import React from 'react';
 import { Chart } from 'react-google-charts';
 import './DonutChart.css';
+import { selectPropertyTaxes, selectHomeInsurance, selectHOAFees, selectOtherCosts, 
+    selectPrincipalAndInterest, selectTotalMonthlyPayment } from '../loansSlice';
+import { useAppSelector } from '../../app/hooks';
+import { stringToNum } from '../../util/calculations';
 
 type Expenses = 'Principal & interest' | 'Property tax' | 'Homeowner\'s insurance' | 'HOA fees' | 'Other costs';
 
@@ -9,17 +13,29 @@ type ColumnHeaders = [string, string];
 type RowData = [Expenses, number];
 
 const DonutChart = (): JSX.Element => {
+    const propertyTaxes = useAppSelector(selectPropertyTaxes);
+    const homeInsurance = useAppSelector(selectHomeInsurance);
+    const hoaFees = useAppSelector(selectHOAFees);
+    const otherCosts = useAppSelector(selectOtherCosts);
+    const principalAndInterest = useAppSelector(selectPrincipalAndInterest);
+    const totalMonthlyPayment = useAppSelector(selectTotalMonthlyPayment);
+    const PT = stringToNum(propertyTaxes.dollar);
+    const HI = stringToNum(homeInsurance.dollar);
+    const HF = stringToNum(hoaFees.dollar);
+    const OC = stringToNum(otherCosts.dollar);
+    const PI = stringToNum(principalAndInterest);
+
     const columnHeaders: ColumnHeaders = ['Mortgage Related Expenses', 'Payment Amount'];
     const rowData: RowData = [
-        ['Principal & interest', 11],
-        ['Property tax', 2],
-        ['Homeowner\'s insurance', 2],
-        ['HOA fees', 2],
-        ['Other costs', 7]
+        ['Principal & interest', PI],
+        ['Property tax',  PT],
+        ['Homeowner\'s insurance', HI],
+        ['HOA fees', HF],
+        ['Other costs', OC]
     ];
     const data = [columnHeaders, ...rowData];
 
-    const total = '$2,500';
+    const total = totalMonthlyPayment;
 
     const options = {
         pieHole: 0.65,

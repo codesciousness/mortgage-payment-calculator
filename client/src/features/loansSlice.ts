@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../app/store';
-import { formatAmount, formatPercent, fromPercent, toPercent } from '../util/calculations';
+import { stringToNum, formatAmount, formatPercent, fromPercent, toPercent } from '../util/calculations';
 const axios = require('axios');
 
 interface DualInput {
@@ -8,7 +8,7 @@ interface DualInput {
     percent: string;
 }
 
-interface AmortizationDetail {
+export interface AmortizationDetail {
     year: string;
     principal: string;
     interest: string;
@@ -54,10 +54,10 @@ async (loanData, { rejectWithValue }) => {
 const initialState: LoanState = {
     name: '',
     email: '',
-    homePrice: '',
+    homePrice: '250,000',
     downPayment: {
-        dollar: '',
-        percent: ''
+        dollar: '50,000',
+        percent: '20'
     },
     loanAmount: '',
     loanTerm: 30,

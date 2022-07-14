@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '../../components/button/Button';
 import TextInput from '../../components/textInput/TextInput';
 import './EmailForm.css';
+import { selectName, selectEmail, setName, setEmail } from '../loansSlice';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
 type handleChangeProps = {
     target: HTMLInputElement;
 }
 
 const EmailForm = (): JSX.Element => {
-    const [ name, setName ] = useState('');
-    const [ email, setEmail ] = useState('');
+    const name = useAppSelector(selectName);
+    const email = useAppSelector(selectEmail);
+    const dispatch = useAppDispatch();
 
     const handleChange = ({ target }: handleChangeProps) => {
         const { id, value } = target;
 
-        if (id === 'Name') setName(value);
-        else if (id === 'Email') setEmail(value);
+        if (id === 'Name') dispatch(setName(value));
+        else if (id === 'Email') dispatch(setEmail(value));
     };
 
     const handleClick = () => {

@@ -27,7 +27,7 @@ const LoanInputs = (): JSX.Element => {
     const hoaFees = useAppSelector(selectHOAFees);
     const otherCosts = useAppSelector(selectOtherCosts);
     const [ includeMore, setIncludeMore ] = useState(false);
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
     const width = 300;
 
     const handleChange = ({ target }: handleChangeProps) => {
