@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createSelector, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../app/store';
-import { stringToNum, formatAmount, formatPercent, fromPercent, toPercent } from '../util/calculations';
+import { formatAmount, formatPercent, fromPercent, toPercent, calc } from '../util/calculations';
 const axios = require('axios');
 
 interface DualInput {
@@ -9,7 +9,7 @@ interface DualInput {
 }
 
 export interface AmortizationDetail {
-    year: string;
+    date: string;
     principal: string;
     interest: string;
     remainingBalance: string;
@@ -20,21 +20,13 @@ interface LoanState {
     email: string;
     homePrice: string;
     downPayment: DualInput;
-    loanAmount: string;
     loanTerm: number | number[];
     interestRate: number | number[];
-    totalInterest: string;
-    loanType?: string;
     propertyTaxes?: DualInput;
     homeInsurance?: DualInput;
     hoaFees?: DualInput;
     otherCosts?: DualInput;
     startDate: Date | null;
-    payoffDate: Date | null;
-    principalAndInterest: string;
-    totalMonthlyPayment: string;
-    totalLoanCost: string
-    amortizationSchedule: AmortizationDetail[];
     savingLoan: boolean;
     saveLoanSuccess: boolean;
     saveLoanError: boolean;
@@ -59,11 +51,8 @@ const initialState: LoanState = {
         dollar: '50,000',
         percent: '20'
     },
-    loanAmount: '',
     loanTerm: 30,
     interestRate: 4.75,
-    totalInterest: '',
-    loanType: '',
     propertyTaxes: {
         dollar: '',
         percent: ''
@@ -81,11 +70,6 @@ const initialState: LoanState = {
         percent: ''
     },
     startDate: new Date(),
-    payoffDate: null,
-    principalAndInterest: '',
-    totalMonthlyPayment: '',
-    totalLoanCost: '',
-    amortizationSchedule: [],
     savingLoan: false,
     saveLoanSuccess: false,
     saveLoanError: false
@@ -124,24 +108,12 @@ const loansSlice = createSlice({
             };
             return state;
         },
-        setLoanAmount: (state: RootState, action: PayloadAction<string>) => {
-            state.loanAmount = formatAmount(action.payload);
-            return state;
-        },
         setLoanTerm: (state: RootState, action: PayloadAction<number>) => {
             state.loanTerm = action.payload;
             return state;
         },
         setInterestRate: (state: RootState, action: PayloadAction<number>) => {
             state.interestRate = action.payload;
-            return state;
-        },
-        setTotalInterest: (state: RootState, action: PayloadAction<string>) => {
-            state.totalInterest = formatAmount(action.payload);
-            return state;
-        },
-        setLoanType: (state: RootState, action: PayloadAction<string>) => {
-            state.loanType = action.payload;
             return state;
         },
         setPropertyTaxes: (state: RootState, action: PayloadAction<{dollar: string, percent: string}>) => {
@@ -216,26 +188,6 @@ const loansSlice = createSlice({
             state.startDate = action.payload;
             return state;
         },
-        setPayoffDate: (state: RootState, action: PayloadAction<Date>) => {
-            state.payoffDate = action.payload;
-            return state;
-        },
-        setPrincipalAndInterest: (state: RootState, action: PayloadAction<string>) => {
-            state.principalAndInterest = formatAmount(action.payload);
-            return state;
-        },
-        setTotalMonthlyPayment: (state: RootState, action: PayloadAction<string>) => {
-            state.totalMonthlyPayment = formatAmount(action.payload);
-            return state;
-        },
-        setTotalLoanCost: (state: RootState, action: PayloadAction<string>) => {
-            state.totalLoanCost = formatAmount(action.payload);
-            return state;
-        },
-        setAmortizationSchedule: (state: RootState, action: PayloadAction<string[]>) => {
-            state.amorizationSchedule = action.payload;
-            return state;
-        },
         reset: (state: RootState) => {
             state.name = '';
             state.email = '';
@@ -244,11 +196,8 @@ const loansSlice = createSlice({
                 dollar: '',
                 percent: ''
             };
-            state.loanAmount = '';
             state.loanTerm = 30;
             state.interestRate = 4.75;
-            state.totalInterest = '';
-            state.loanType = '';
             state.propertyTaxes = {
                 dollar: '',
                 percent: ''
@@ -266,11 +215,6 @@ const loansSlice = createSlice({
                 percent: ''
             };
             state.startDate = new Date();
-            state.payoffDate = null;
-            state.principalAndInterest = '';
-            state.totalMonthlyPayment = '';
-            state.totalLoanCost = '';
-            state.amortizationSchedule = [];
             return state;
         },
         clearStatusUpdates: (state: RootState) => {
@@ -299,30 +243,63 @@ const loansSlice = createSlice({
     }
 });
 
-export const { setName, setEmail, setHomePrice, setDownPayment, setLoanAmount, setLoanTerm, setInterestRate, setTotalInterest, setLoanType, 
-    setPropertyTaxes, setHomeInsurance, setHOAFees, setOtherCosts, setStartDate, setPayoffDate, setPrincipalAndInterest, setTotalMonthlyPayment, 
-    setTotalLoanCost, setAmortizationSchedule, reset, clearStatusUpdates } = loansSlice.actions;
+export const { setName, setEmail, setHomePrice, setDownPayment, setLoanTerm, setInterestRate, setPropertyTaxes, 
+    setHomeInsurance, setHOAFees, setOtherCosts, setStartDate, reset, clearStatusUpdates } = loansSlice.actions;
 export default loansSlice.reducer;
 
 export const selectName = (state: RootState) => state.loans.name;
 export const selectEmail = (state: RootState) => state.loans.email;
 export const selectHomePrice = (state: RootState) => state.loans.homePrice;
 export const selectDownPayment = (state: RootState) => state.loans.downPayment;
-export const selectLoanAmount = (state: RootState) => state.loans.loanAmount;
 export const selectLoanTerm = (state: RootState) => state.loans.loanTerm;
 export const selectInterestRate = (state: RootState) => state.loans.interestRate;
-export const selectTotalInterest = (state: RootState) => state.loans.totalInterest;
-export const selectLoanType = (state: RootState) => state.loans.loanType;
 export const selectPropertyTaxes = (state: RootState) => state.loans.propertyTaxes;
 export const selectHomeInsurance = (state: RootState) => state.loans.homeInsurance;
 export const selectHOAFees = (state: RootState) => state.loans.hoaFees;
 export const selectOtherCosts = (state: RootState) => state.loans.otherCosts;
 export const selectStartDate = (state: RootState) => state.loans.startDate;
-export const selectPayoffDate = (state: RootState) => state.loans.payoffDate;
-export const selectPrincipalAndInterest = (state: RootState) => state.loans.principalAndInterest;
-export const selectTotalMonthlyPayment = (state: RootState) => state.loans.totalMonthlyPayment;
-export const selectTotalLoanCost = (state: RootState) => state.loans.totalLoanCost;
-export const selectAmortizationSchedule = (state: RootState) => state.loans.amortizationSchedule;
 export const selectSavingLoan = (state: RootState) => state.loans.savingLoan;
 export const selectSaveLoanSuccess = (state: RootState) => state.loans.saveLoanSuccess;
 export const selectSaveLoanError = (state: RootState) => state.loans.saveLoanError;
+
+export const selectLoanAmount = createSelector(
+    selectHomePrice, 
+    selectDownPayment, 
+    (homePrice, downPayment) => calc.loanAmount(homePrice, downPayment.dollar)
+);
+export const selectMortgagePayment = createSelector(
+    selectLoanAmount, 
+    selectInterestRate, 
+    selectLoanTerm, 
+    (loanAmount, interestRate, loanTerm) => calc.mortgagePayment(loanAmount, interestRate, loanTerm)
+);
+export const selectMonthlyPayment = createSelector(
+    selectMortgagePayment, 
+    selectPropertyTaxes,
+    selectHomeInsurance,
+    selectHOAFees,
+    selectOtherCosts, 
+    (mortgagePayment, propertyTaxes, homeInsurance, hoaFees, otherCosts) => calc.monthlyPayment(mortgagePayment, propertyTaxes.dollar, homeInsurance.dollar, hoaFees.dollar, otherCosts.dollar)
+);
+export const selectLoanCost = createSelector(
+    selectMortgagePayment, 
+    selectLoanTerm, 
+    (mortgagePayment, loanTerm) => calc.loanCost(mortgagePayment, loanTerm)
+);
+export const selectTotalInterest = createSelector(
+    selectLoanAmount, 
+    selectLoanCost, 
+    (loanAmount, loanCost) => calc.totalInterest(loanAmount, loanCost)
+);
+export const selectPayoffDate = createSelector(
+    selectStartDate, 
+    selectLoanTerm, 
+    (startDate, loanTerm) => calc.payoffDate(startDate, loanTerm)
+);
+export const selectAmortizationSchedule = createSelector(
+    selectLoanAmount, 
+    selectMortgagePayment,
+    selectInterestRate,
+    selectStartDate, 
+    (loanAmount, mortgagePayment, interestRate, startDate) => calc.amortization(loanAmount, mortgagePayment, interestRate, startDate)
+);

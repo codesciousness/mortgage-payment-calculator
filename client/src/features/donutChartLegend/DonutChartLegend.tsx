@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import './DonutChartLegend.css';
 import { selectPropertyTaxes, selectHomeInsurance, selectHOAFees, selectOtherCosts, 
-    selectPrincipalAndInterest, selectTotalMonthlyPayment } from '../loansSlice';
+    selectMortgagePayment, selectMonthlyPayment } from '../loansSlice';
 import { useAppSelector } from '../../app/hooks';
 
 const styles = {
@@ -18,14 +18,14 @@ const DonutChartLegend = (): JSX.Element => {
     const homeInsurance = useAppSelector(selectHomeInsurance);
     const hoaFees = useAppSelector(selectHOAFees);
     const otherCosts = useAppSelector(selectOtherCosts);
-    const principalAndInterest = useAppSelector(selectPrincipalAndInterest);
-    const totalMonthlyPayment = useAppSelector(selectTotalMonthlyPayment);
+    const mortgagePayment = useAppSelector(selectMortgagePayment);
+    const monthlyPayment = useAppSelector(selectMonthlyPayment);
 
     return (
         <section id='DonutChartLegend' className='DonutChartLegend'>
             <Box sx={styles}>
                 <p className='DonutChartLegend__label color__codes principal'>Principal &amp; interest</p>
-                <p className='DonutChartLegend__amount'>${principalAndInterest}</p>
+                <p className='DonutChartLegend__amount'>${mortgagePayment}</p>
             </Box>
             <Box sx={styles}>
                 <p className='DonutChartLegend__label color__codes propertyTax'>Property tax</p>
@@ -45,7 +45,7 @@ const DonutChartLegend = (): JSX.Element => {
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <p className='DonutChartLegend__label totalMonthlyPayment'><b>Total monthly payment</b></p>
-                <p className='DonutChartLegend__amount'><b>${totalMonthlyPayment}</b></p>
+                <p className='DonutChartLegend__amount'><b>${monthlyPayment}</b></p>
             </Box>
         </section>
     );

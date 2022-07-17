@@ -2,7 +2,7 @@ import React from 'react';
 import { Chart } from 'react-google-charts';
 import './DonutChart.css';
 import { selectPropertyTaxes, selectHomeInsurance, selectHOAFees, selectOtherCosts, 
-    selectPrincipalAndInterest, selectTotalMonthlyPayment } from '../loansSlice';
+    selectMortgagePayment, selectMonthlyPayment } from '../loansSlice';
 import { useAppSelector } from '../../app/hooks';
 import { stringToNum } from '../../util/calculations';
 
@@ -17,13 +17,13 @@ const DonutChart = (): JSX.Element => {
     const homeInsurance = useAppSelector(selectHomeInsurance);
     const hoaFees = useAppSelector(selectHOAFees);
     const otherCosts = useAppSelector(selectOtherCosts);
-    const principalAndInterest = useAppSelector(selectPrincipalAndInterest);
-    const totalMonthlyPayment = useAppSelector(selectTotalMonthlyPayment);
+    const mortgagePayment = useAppSelector(selectMortgagePayment);
+    const monthlyPayment = useAppSelector(selectMonthlyPayment);
     const PT = stringToNum(propertyTaxes.dollar);
     const HI = stringToNum(homeInsurance.dollar);
     const HF = stringToNum(hoaFees.dollar);
     const OC = stringToNum(otherCosts.dollar);
-    const PI = stringToNum(principalAndInterest);
+    const PI = stringToNum(mortgagePayment);
 
     const columnHeaders: ColumnHeaders = ['Mortgage Related Expenses', 'Payment Amount'];
     const rowData: RowData = [
@@ -35,7 +35,7 @@ const DonutChart = (): JSX.Element => {
     ];
     const data = [columnHeaders, ...rowData];
 
-    const total = totalMonthlyPayment;
+    const total = monthlyPayment;
 
     const options = {
         pieHole: 0.65,

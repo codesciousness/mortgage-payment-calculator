@@ -12,16 +12,16 @@ type DataPoints = [string, number, number, number];
 const LineChart = (): JSX.Element => {
     const amortizationSchedule = useAppSelector(selectAmortizationSchedule);
 
-    const columnHeaders: ColumnHeaders = ['Year', 'Principal', 'Interest', 'Balance'];
+    const columnHeaders: ColumnHeaders = ['Date', 'Principal', 'Interest', 'Balance'];
     const dataPoints: DataPoints = amortizationSchedule.map((row: AmortizationDetail) => 
-    [row.year, stringToNum(row.principal), stringToNum(row.interest), stringToNum(row.remainingBalance)]);
+    [row.date, stringToNum(row.principal), stringToNum(row.interest), stringToNum(row.remainingBalance)]);
     /*const dataPoints: DataPoints = [
-        ['2022', 1395.27, 6289.73, 262604.73],
-        ['2023', 4882.66, 21246.34, 259117.34],
-        ['2024', 8575.21, 35997.79, 255424.79],
-        ['2025', 12484.99, 50532.01, 251515.01],
-        ['2026', 16624.79, 64836.21, 247375.21],
-        ['2027', 21008.11, 78896.89, 242991.89]
+        ['07/2022', 1395.27, 6289.73, 262604.73],
+        ['08/2022', 4882.66, 21246.34, 259117.34],
+        ['09/2022', 8575.21, 35997.79, 255424.79],
+        ['10/2022', 12484.99, 50532.01, 251515.01],
+        ['11/2022', 16624.79, 64836.21, 247375.21],
+        ['12/2022', 21008.11, 78896.89, 242991.89]
     ];*/
     const data = [columnHeaders, ...dataPoints];
 

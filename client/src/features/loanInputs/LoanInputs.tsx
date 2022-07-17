@@ -1,4 +1,4 @@
-import React, { useState, /*useEffect*/ } from 'react';
+import React, { useState } from 'react';
 import NumberInput from '../../components/numberInput/NumberInput';
 import DualInput from '../../components/dualInput/DualInput';
 import DateInput from '../../components/dateInput/DateInput';
@@ -85,13 +85,6 @@ const LoanInputs = (): JSX.Element => {
             dispatch(setStartDate(new Date(date.getFullYear(), date.getMonth())));
         }
     };
-
-    /*
-    useEffect(() => {
-        
-    }, [homePrice, downPaymentDollar, downPaymentPercent, loanTerm, interestRate, propertyTaxesDollar, propertyTaxesPercent, homeInsuranceDollar, 
-        homeInsurancePercent, HOAFeesDollar, HOAFeesPercent, otherCostsDollar, otherCostsPercent, includeMore]);
-    */
 
     return (
         <section id='LoanInputs' className='LoanInputs'>

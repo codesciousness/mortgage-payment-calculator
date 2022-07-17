@@ -9,7 +9,7 @@ declare global {
 
 declare global {
     interface AmortizationDetail {
-        year: string;
+        date: string;
         principal: string;
         interest: string;
         remainingBalance: string;
@@ -22,20 +22,19 @@ declare global {
         email: string;
         homePrice: DualInput;
         downPayment: string;
-        loanAmount: string;
         loanTerm: number;
         interestRate: number;
-        totalInterest: string;
-        loanType?: string;
         propertyTaxes?: DualInput;
         homeInsurance?: DualInput;
         hoaFees?: DualInput;
         otherCosts?: DualInput;
         startDate: Date;
-        payoffDate: Date;
-        principalAndInterest: string;
-        totalMonthlyPayment: string;
-        totalLoanCost: string
+        payoffDate: string;
+        mortgagePayment: string;
+        monthlyPayment: string;
+        loanAmount: string;
+        loanCost: string;
+        totalInterest: string;
         amortizationSchedule: AmortizationDetail[];
     }
 }

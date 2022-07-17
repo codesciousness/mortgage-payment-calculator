@@ -4,7 +4,7 @@ import LineChart from '../lineChart/LineChart';
 import LineChartLegend from '../lineChartLegend/LineChartLegend';
 import Box from '@mui/material/Box';
 import './AmortizationSchedule.css';
-import { selectLoanAmount, selectTotalInterest, selectTotalLoanCost, selectPayoffDate } from '../loansSlice';
+import { selectLoanAmount, selectTotalInterest, selectLoanCost, selectPayoffDate } from '../loansSlice';
 import { useAppSelector } from '../../app/hooks';
 
 const styles = {
@@ -20,7 +20,7 @@ const styles = {
 const AmortizationSchedule = (): JSX.Element => {
     const loanAmount = useAppSelector(selectLoanAmount);
     const totalInterest = useAppSelector(selectTotalInterest);
-    const totalLoanCost = useAppSelector(selectTotalLoanCost);
+    const loanCost = useAppSelector(selectLoanCost);
     const payoffDate = useAppSelector(selectPayoffDate);
 
     return (
@@ -39,7 +39,7 @@ const AmortizationSchedule = (): JSX.Element => {
                 </div>
                 <div className='AmortizationSchedule__container'>
                     <p className='AmortizationSchedule__label'>Total cost of loan</p>
-                    <p className='AmortizationSchedule__amount cost'>{totalLoanCost}</p>
+                    <p className='AmortizationSchedule__amount cost'>{loanCost}</p>
                 </div>
                 <div className='AmortizationSchedule__container'>
                     <p className='AmortizationSchedule__label'>Payoff Date</p>

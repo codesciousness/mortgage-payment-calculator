@@ -26,6 +26,10 @@ export const numToString = (num: number): string => {
     return `${num}`;
 };
 
+export const dateToString = (date: Date): string => {
+    return `${date.getMonth()}/${date.getFullYear()}`;
+};
+
 export const round = (num: number | string): string => {
     let number: number;
     if (num === '') return '';
@@ -69,10 +73,79 @@ export const toPercent = (amount: string, total: string): string => {
     return addCommas(percent.toFixed(2));
 };
 
-export const mortgageFormula = (loanAmount: string, interestRate: number, loanTerm: number): string => {
-    const principal = stringToNum(loanAmount);
-    const r = interestRate/12;
-    const n = loanTerm * 12
-    const monthlyPayment = principal * (r*(1 + r)**n)/((1 + r**n) - 1);
-    return numToString(monthlyPayment);
+export const calc = {
+    loanAmount: (homePrice: string, downPayment: string): string => {
+        const price = stringToNum(homePrice);
+        const paid = stringToNum(downPayment);
+        const loanAmount = formatAmount(price - paid);
+        return loanAmount;
+    },
+    mortgagePayment: (loanAmount: string, interestRate: number, loanTerm: number): string => {
+        const principal = stringToNum(loanAmount);
+        const r = interestRate/12;
+        const n = loanTerm * 12
+        const mortgagePayment = principal * (r*(1 + r)**n)/((1 + r**n) - 1);
+        return formatAmount(mortgagePayment);
+    },
+    monthlyPayment: (mortgagePayment: string, propertyTaxes: string, homeInsurance: string, hoaFees: string, otherCosts: string) => {
+        const payment = stringToNum(mortgagePayment);
+        const pT = stringToNum(propertyTaxes);
+        const hI = stringToNum(homeInsurance);
+        const hF = stringToNum(hoaFees);
+        const oC = stringToNum(otherCosts);
+        const monthlyPayment = formatAmount(payment + pT + hI + hF + oC);
+        return monthlyPayment;
+    },
+    loanCost: (mortgagePayment: string, loanTerm: number): string => {
+        const payment = stringToNum(mortgagePayment);
+        const totalPayments = formatAmount(payment * loanTerm);
+        return totalPayments;
+    },
+    totalInterest: (loanAmount: string, loanCost: string): string => {
+        const loan = stringToNum(loanAmount);
+        const totalPaid = stringToNum(loanCost);
+        const totalInterest = formatAmount(totalPaid - loan);
+        return totalInterest;
+    },
+    payoffDate: (startDate: Date, loanTerm: number): string => {
+        const endDate = new Date(startDate.valueOf());
+        const startYear = startDate.getFullYear();
+        endDate.setFullYear(startYear + loanTerm);
+        return dateToString(endDate);
+    },
+    amortization: (loanAmount: string, mortgagePayment: string, interestRate: number, startDate: Date) => {
+        const loan = stringToNum(loanAmount);
+        const monthlyMortgage = stringToNum(mortgagePayment);
+        const r = interestRate/12;
+        let loanBalance = loan;
+        let payDate = new Date(startDate.valueOf());
+        let interestPayment = loanBalance * r;
+        let principalPayment = monthlyMortgage - interestPayment;
+        let amortizationDetail = {
+            date: dateToString(payDate),
+            principal: formatAmount(principalPayment),
+            interest: formatAmount(interestPayment),
+            remainingBalance: formatAmount(loanBalance)
+        };
+        let amortizationArr = [amortizationDetail];
+        const nextMonth = (date: Date) => {
+            const currMonth = date.getMonth();
+            const nextMonth = currMonth === 11 ? 0 : currMonth + 1;
+            date.setMonth(nextMonth);
+        };
+        while (loanBalance > 0) {
+            loanBalance -= principalPayment;
+            nextMonth(payDate);
+            principalPayment = monthlyMortgage - interestPayment;
+            interestPayment = loanBalance * r;
+            amortizationDetail = {
+                date: dateToString(payDate),
+                principal: formatAmount(principalPayment),
+                interest: formatAmount(interestPayment),
+                remainingBalance: formatAmount(loanBalance)
+            };
+            amortizationArr.push(amortizationDetail);
+        };
+        return amortizationArr;
+    }
 };
