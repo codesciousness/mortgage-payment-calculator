@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, createSelector, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../app/store';
-import { formatAmount, formatPercent, fromPercent, toPercent, calc } from '../util/calculations';
+import { formatAmount, formatDecimal, fromPercent, toPercent, calc } from '../util/calculations';
 const axios = require('axios');
 
 interface DualInput {
@@ -13,6 +13,8 @@ export interface AmortizationDetail {
     principal: string;
     interest: string;
     remainingBalance: string;
+    totalPrincipal: string;
+    totalInterest: string;
 }
 
 interface LoanState {
@@ -22,7 +24,7 @@ interface LoanState {
     downPayment: DualInput;
     loanTerm: number | number[];
     interestRate: number | number[];
-    propertyTaxes?: DualInput;
+    propertyTax?: DualInput;
     homeInsurance?: DualInput;
     hoaFees?: DualInput;
     otherCosts?: DualInput;
@@ -53,21 +55,21 @@ const initialState: LoanState = {
     },
     loanTerm: 30,
     interestRate: 4.75,
-    propertyTaxes: {
-        dollar: '',
-        percent: ''
+    propertyTax: {
+        dollar: '0',
+        percent: '0'
     },
     homeInsurance: {
-        dollar: '',
-        percent: ''
+        dollar: '0',
+        percent: '0'
     },
     hoaFees: {
-        dollar: '',
-        percent: ''
+        dollar: '0',
+        percent: '0'
     },
     otherCosts: {
-        dollar: '',
-        percent: ''
+        dollar: '0',
+        percent: '0'
     },
     startDate: new Date(),
     savingLoan: false,
@@ -95,7 +97,7 @@ const loansSlice = createSlice({
             const homePrice = state.homePrice;
             let { dollar, percent } = action.payload;
             dollar = formatAmount(dollar);
-            percent = formatPercent(percent);
+            percent = formatDecimal(percent);
             if (dollar && homePrice) {
                 percent = toPercent(dollar, homePrice);
             }
@@ -116,18 +118,18 @@ const loansSlice = createSlice({
             state.interestRate = action.payload;
             return state;
         },
-        setPropertyTaxes: (state: RootState, action: PayloadAction<{dollar: string, percent: string}>) => {
+        setPropertyTax: (state: RootState, action: PayloadAction<{dollar: string, percent: string}>) => {
             const homePrice = state.homePrice;
             let { dollar, percent } = action.payload;
             dollar = formatAmount(dollar);
-            percent = formatPercent(percent);
+            percent = formatDecimal(percent);
             if (dollar && homePrice) {
                 percent = toPercent(dollar, homePrice);
             }
             else if (percent && homePrice) {
                 dollar = fromPercent(percent, homePrice);
             }
-            state.propertyTaxes = {
+            state.propertyTax = {
                 dollar,
                 percent
             };
@@ -137,7 +139,7 @@ const loansSlice = createSlice({
             const homePrice = state.homePrice;
             let { dollar, percent } = action.payload;
             dollar = formatAmount(dollar);
-            percent = formatPercent(percent);
+            percent = formatDecimal(percent);
             if (dollar && homePrice) {
                 percent = toPercent(dollar, homePrice);
             }
@@ -154,7 +156,7 @@ const loansSlice = createSlice({
             const homePrice = state.homePrice;
             let { dollar, percent } = action.payload;
             dollar = formatAmount(dollar);
-            percent = formatPercent(percent);
+            percent = formatDecimal(percent);
             if (dollar && homePrice) {
                 percent = toPercent(dollar, homePrice);
             }
@@ -171,7 +173,7 @@ const loansSlice = createSlice({
             const homePrice = state.homePrice;
             let { dollar, percent } = action.payload;
             dollar = formatAmount(dollar);
-            percent = formatPercent(percent);
+            percent = formatDecimal(percent);
             if (dollar && homePrice) {
                 percent = toPercent(dollar, homePrice);
             }
@@ -191,28 +193,28 @@ const loansSlice = createSlice({
         reset: (state: RootState) => {
             state.name = '';
             state.email = '';
-            state.homePrice = '';
+            state.homePrice = '250,000';
             state.downPayment = {
-                dollar: '',
-                percent: ''
+                dollar: '50,000',
+                percent: '20'
             };
             state.loanTerm = 30;
             state.interestRate = 4.75;
-            state.propertyTaxes = {
-                dollar: '',
-                percent: ''
+            state.propertyTax = {
+                dollar: '0',
+                percent: '0'
             };
             state.homeInsurance = {
-                dollar: '',
-                percent: ''
+                dollar: '0',
+                percent: '0'
             };
             state.hoaFees = {
-                dollar: '',
-                percent: ''
+                dollar: '0',
+                percent: '0'
             };
             state.otherCosts = {
-                dollar: '',
-                percent: ''
+                dollar: '0',
+                percent: '0'
             };
             state.startDate = new Date();
             return state;
@@ -243,7 +245,7 @@ const loansSlice = createSlice({
     }
 });
 
-export const { setName, setEmail, setHomePrice, setDownPayment, setLoanTerm, setInterestRate, setPropertyTaxes, 
+export const { setName, setEmail, setHomePrice, setDownPayment, setLoanTerm, setInterestRate, setPropertyTax, 
     setHomeInsurance, setHOAFees, setOtherCosts, setStartDate, reset, clearStatusUpdates } = loansSlice.actions;
 export default loansSlice.reducer;
 
@@ -253,7 +255,7 @@ export const selectHomePrice = (state: RootState) => state.loans.homePrice;
 export const selectDownPayment = (state: RootState) => state.loans.downPayment;
 export const selectLoanTerm = (state: RootState) => state.loans.loanTerm;
 export const selectInterestRate = (state: RootState) => state.loans.interestRate;
-export const selectPropertyTaxes = (state: RootState) => state.loans.propertyTaxes;
+export const selectPropertyTax = (state: RootState) => state.loans.propertyTax;
 export const selectHomeInsurance = (state: RootState) => state.loans.homeInsurance;
 export const selectHOAFees = (state: RootState) => state.loans.hoaFees;
 export const selectOtherCosts = (state: RootState) => state.loans.otherCosts;
@@ -275,11 +277,11 @@ export const selectMortgagePayment = createSelector(
 );
 export const selectMonthlyPayment = createSelector(
     selectMortgagePayment, 
-    selectPropertyTaxes,
+    selectPropertyTax,
     selectHomeInsurance,
     selectHOAFees,
     selectOtherCosts, 
-    (mortgagePayment, propertyTaxes, homeInsurance, hoaFees, otherCosts) => calc.monthlyPayment(mortgagePayment, propertyTaxes.dollar, homeInsurance.dollar, hoaFees.dollar, otherCosts.dollar)
+    (mortgagePayment, propertyTax, homeInsurance, hoaFees, otherCosts) => calc.monthlyPayment(mortgagePayment, propertyTax.dollar, homeInsurance.dollar, hoaFees.dollar, otherCosts.dollar)
 );
 export const selectLoanCost = createSelector(
     selectMortgagePayment, 
@@ -300,6 +302,7 @@ export const selectAmortizationSchedule = createSelector(
     selectLoanAmount, 
     selectMortgagePayment,
     selectInterestRate,
+    selectLoanTerm,
     selectStartDate, 
-    (loanAmount, mortgagePayment, interestRate, startDate) => calc.amortization(loanAmount, mortgagePayment, interestRate, startDate)
+    (loanAmount, mortgagePayment, interestRate, loanTerm, startDate) => calc.amortization(loanAmount, mortgagePayment, interestRate, loanTerm, startDate)
 );

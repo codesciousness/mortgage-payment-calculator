@@ -6,9 +6,9 @@ import SquareSlider from '../../components/squareSlider/SquareSlider';
 import StyledSwitch from '../../components/switches/StyledSwitch';
 import InfoTooltip from '../../components/infoTooltip/InfoTooltip';
 import './LoanInputs.css';
-import { selectHomePrice, selectDownPayment, selectLoanTerm, selectInterestRate, selectPropertyTaxes, 
+import { selectHomePrice, selectDownPayment, selectLoanTerm, selectInterestRate, selectPropertyTax, 
     selectHomeInsurance, selectHOAFees, selectOtherCosts, selectStartDate, setHomePrice, setDownPayment, 
-    setLoanTerm, setInterestRate, setPropertyTaxes, setHomeInsurance, setHOAFees, setOtherCosts, 
+    setLoanTerm, setInterestRate, setPropertyTax, setHomeInsurance, setHOAFees, setOtherCosts, 
     setStartDate } from '../loansSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
@@ -22,7 +22,7 @@ const LoanInputs = (): JSX.Element => {
     const loanTerm = useAppSelector(selectLoanTerm);
     const interestRate = useAppSelector(selectInterestRate);
     const startDate = useAppSelector(selectStartDate);
-    const propertyTaxes = useAppSelector(selectPropertyTaxes);
+    const propertyTax = useAppSelector(selectPropertyTax);
     const homeInsurance = useAppSelector(selectHomeInsurance);
     const hoaFees = useAppSelector(selectHOAFees);
     const otherCosts = useAppSelector(selectOtherCosts);
@@ -42,11 +42,11 @@ const LoanInputs = (): JSX.Element => {
         else if (id === 'DownpaymentPercent') {
             dispatch(setDownPayment({ dollar: '', percent: value }));
         }
-        else if (id === 'PropertytaxesDollar') {
-            dispatch(setPropertyTaxes({ dollar: value, percent: '' }));
+        else if (id === 'PropertytaxDollar') {
+            dispatch(setPropertyTax({ dollar: value, percent: '' }));
         }
-        else if (id === 'PropertytaxesPercent') {
-            dispatch(setPropertyTaxes({ dollar: '', percent: value }));
+        else if (id === 'PropertytaxPercent') {
+            dispatch(setPropertyTax({ dollar: '', percent: value }));
         }
         else if (id === 'HomeinsuranceDollar') {
             dispatch(setHomeInsurance({ dollar: value, percent: '' }));
@@ -102,7 +102,7 @@ const LoanInputs = (): JSX.Element => {
             {includeMore &&
                 <>
                     <InfoTooltip title='Property tax: Any tax on real estate or certain other forms of property.'/>
-                    <DualInput name='Property taxes' dollar={propertyTaxes.dollar} percent={propertyTaxes.percent} width={width} onChange={handleChange}/>
+                    <DualInput name='Property tax' dollar={propertyTax.dollar} percent={propertyTax.percent} width={width} onChange={handleChange}/>
                     <InfoTooltip title='Homeowners insurance: Financial protection that you purchase from an insurance provider. 
                     It helps pay for losses if a covered disaster or other damaging event affects your home.'/>
                     <DualInput name='Home insurance' dollar={homeInsurance.dollar} percent={homeInsurance.percent} width={width} onChange={handleChange}/>

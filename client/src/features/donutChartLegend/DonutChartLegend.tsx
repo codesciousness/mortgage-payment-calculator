@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import './DonutChartLegend.css';
-import { selectPropertyTaxes, selectHomeInsurance, selectHOAFees, selectOtherCosts, 
+import { selectPropertyTax, selectHomeInsurance, selectHOAFees, selectOtherCosts, 
     selectMortgagePayment, selectMonthlyPayment } from '../loansSlice';
 import { useAppSelector } from '../../app/hooks';
 
@@ -14,7 +14,7 @@ const styles = {
 }
 
 const DonutChartLegend = (): JSX.Element => {
-    const propertyTaxes = useAppSelector(selectPropertyTaxes);
+    const propertyTax = useAppSelector(selectPropertyTax);
     const homeInsurance = useAppSelector(selectHomeInsurance);
     const hoaFees = useAppSelector(selectHOAFees);
     const otherCosts = useAppSelector(selectOtherCosts);
@@ -29,7 +29,7 @@ const DonutChartLegend = (): JSX.Element => {
             </Box>
             <Box sx={styles}>
                 <p className='DonutChartLegend__label color__codes propertyTax'>Property tax</p>
-                <p className='DonutChartLegend__amount'>${propertyTaxes.dollar}</p>
+                <p className='DonutChartLegend__amount'>${propertyTax.dollar}</p>
             </Box>
             <Box sx={styles}>
                 <p className='DonutChartLegend__label color__codes homeownersInsurance'>Homeowner's insurance</p>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Chart } from 'react-google-charts';
 import './DonutChart.css';
-import { selectPropertyTaxes, selectHomeInsurance, selectHOAFees, selectOtherCosts, 
+import { selectPropertyTax, selectHomeInsurance, selectHOAFees, selectOtherCosts, 
     selectMortgagePayment, selectMonthlyPayment } from '../loansSlice';
 import { useAppSelector } from '../../app/hooks';
 import { stringToNum } from '../../util/calculations';
@@ -13,13 +13,13 @@ type ColumnHeaders = [string, string];
 type RowData = [Expenses, number];
 
 const DonutChart = (): JSX.Element => {
-    const propertyTaxes = useAppSelector(selectPropertyTaxes);
+    const propertyTax = useAppSelector(selectPropertyTax);
     const homeInsurance = useAppSelector(selectHomeInsurance);
     const hoaFees = useAppSelector(selectHOAFees);
     const otherCosts = useAppSelector(selectOtherCosts);
     const mortgagePayment = useAppSelector(selectMortgagePayment);
     const monthlyPayment = useAppSelector(selectMonthlyPayment);
-    const PT = stringToNum(propertyTaxes.dollar);
+    const PT = stringToNum(propertyTax.dollar);
     const HI = stringToNum(homeInsurance.dollar);
     const HF = stringToNum(hoaFees.dollar);
     const OC = stringToNum(otherCosts.dollar);
@@ -35,7 +35,7 @@ const DonutChart = (): JSX.Element => {
     ];
     const data = [columnHeaders, ...rowData];
 
-    const total = monthlyPayment;
+    const total = `$${monthlyPayment}`;
 
     const options = {
         pieHole: 0.65,

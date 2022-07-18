@@ -14,15 +14,7 @@ const LineChart = (): JSX.Element => {
 
     const columnHeaders: ColumnHeaders = ['Date', 'Principal', 'Interest', 'Balance'];
     const dataPoints: DataPoints = amortizationSchedule.map((row: AmortizationDetail) => 
-    [row.date, stringToNum(row.principal), stringToNum(row.interest), stringToNum(row.remainingBalance)]);
-    /*const dataPoints: DataPoints = [
-        ['07/2022', 1395.27, 6289.73, 262604.73],
-        ['08/2022', 4882.66, 21246.34, 259117.34],
-        ['09/2022', 8575.21, 35997.79, 255424.79],
-        ['10/2022', 12484.99, 50532.01, 251515.01],
-        ['11/2022', 16624.79, 64836.21, 247375.21],
-        ['12/2022', 21008.11, 78896.89, 242991.89]
-    ];*/
+    [row.date, stringToNum(row.totalPrincipal), stringToNum(row.totalInterest), stringToNum(row.remainingBalance)]);
     const data = [columnHeaders, ...dataPoints];
 
     const options = {
@@ -38,10 +30,10 @@ const LineChart = (): JSX.Element => {
             height: '90%'
         },
         hAxis: {
-            showTextEvery: 5,
+            showTextEvery: 120,
             gridlines: {
                 color: 'LightGray',
-                minSpacing: 5
+                minSpacing: 120
             }
         },
         vAxis: {

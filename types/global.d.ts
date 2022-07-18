@@ -13,6 +13,8 @@ declare global {
         principal: string;
         interest: string;
         remainingBalance: string;
+        totalPrincipal: string;
+        totalInterest: string;
     }
 }
 
@@ -24,7 +26,7 @@ declare global {
         downPayment: string;
         loanTerm: number;
         interestRate: number;
-        propertyTaxes?: DualInput;
+        propertyTax?: DualInput;
         homeInsurance?: DualInput;
         hoaFees?: DualInput;
         otherCosts?: DualInput;

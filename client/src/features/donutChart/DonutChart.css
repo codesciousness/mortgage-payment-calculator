@@ -9,16 +9,20 @@
     width: 200;
     height: 200;
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -55%);
+}
+
+.DonutChart__overlay__title {
     text-align: center;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+    margin: 0;
 }
 
 .DonutChart__overlay__payment {
     font-size: 2rem;
     font-weight: bold;
-    margin-top: 0.5rem;
+    margin-top: 0;
 }
 

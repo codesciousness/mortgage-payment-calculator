@@ -14,16 +14,15 @@ const columns = [
 const AmortizationTable = (): JSX.Element => {
     const amortizationSchedule = useAppSelector(selectAmortizationSchedule);
 
-    const rows = amortizationSchedule.map((row: AmortizationDetail, idx: number) => ({ ...row, id: idx}));
-    
-    /*const rows = [
-        { id: 0, date: '07/2022', principal: '$1,395.27', interest: '$6,289.73', remainingBalance: '$262,604.73' },
-        { id: 1, date: '08/2022', principal: '$4,882.66', interest: '$21,246.34', remainingBalance: '$259,117.34' },
-        { id: 2, date: '09/2022', principal: '$8,575.21', interest: '$35,997.79', remainingBalance: '$255,424.79' },
-        { id: 3, date: '10/2022', principal: '$12,484.99', interest: '$50,532.01', remainingBalance: '$251,515.01' },
-        { id: 4, date: '11/2022', principal: '$16,624.79', interest: '$64,836.21', remainingBalance: '$247,375.21' },
-        { id: 5, date: '12/2022', principal: '$21,008.11', interest: '$78,896.89', remainingBalance: '$242,991.89' }
-    ];*/
+    const rows = amortizationSchedule.map((row: AmortizationDetail, idx: number) => (
+        {
+            id: idx,
+            date: row.date,
+            principal: '$' + row.principal,
+            interest: '$' + row.interest,
+            remainingBalance: '$' + row.remainingBalance
+        }
+    ));
 
     return (
         <section id='AmortizationTable' className='AmortizationTable'>
