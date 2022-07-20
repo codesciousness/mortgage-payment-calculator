@@ -97,15 +97,15 @@ export const calc = {
         const r = (interestRate/12)/100;
         const n = loanTerm * 12
         const mortgagePayment = principal * (r*(1 + r)**n)/((1 + r)**n - 1);
-        return formatAmount(mortgagePayment);
+        return addCommas(mortgagePayment);
     },
-    monthlyPayment: (mortgagePayment: string, propertyTax: string, homeInsurance: string, hoaFees: string, otherCosts: string) => {
+    monthlyPayment: (mortgagePayment: string, propertyTax: string, homeInsurance: string, privateMortgageInsurance: string, hoaFees: string) => {
         const payment = stringToNum(mortgagePayment);
         const pT = stringToNum(propertyTax);
         const hI = stringToNum(homeInsurance);
+        const pMI = stringToNum(privateMortgageInsurance);
         const hF = stringToNum(hoaFees);
-        const oC = stringToNum(otherCosts);
-        const monthlyPayment = formatAmount(payment + pT + hI + hF + oC);
+        const monthlyPayment = formatAmount(payment + pT + hI + pMI + hF);
         return monthlyPayment;
     },
     loanCost: (mortgagePayment: string, loanTerm: number): string => {
@@ -137,6 +137,7 @@ export const calc = {
         let principalPaid = principalPayment;
         let interestPaid = interestPayment;
         loanBalance -= principalPayment;
+        n--;
         let amortizationDetail = {
             date: dateToString(payDate),
             principal: fixDecimal(principalPayment),
@@ -154,12 +155,11 @@ export const calc = {
             date.setMonth(month);
             date.setFullYear(year);
         };
-        while (n > 1) {
-            n--;
+        while (n > 0) {
             nextPayDate(payDate);
-            loanBalance -= principalPayment;
-            principalPayment = monthlyMortgage - interestPayment;
             interestPayment = loanBalance * r;
+            principalPayment = monthlyMortgage - interestPayment;
+            loanBalance -= principalPayment;
             principalPaid += principalPayment;
             interestPaid += interestPayment;
             amortizationDetail = {
@@ -171,6 +171,7 @@ export const calc = {
                 totalInterest: fixDecimal(interestPaid)
             };
             amortizationArr.push(amortizationDetail);
+            n--;
         };
         return amortizationArr;
     }

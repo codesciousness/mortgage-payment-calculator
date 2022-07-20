@@ -8,12 +8,13 @@ type NumberInputProps = {
     value: string;
     sign: 'dollar' | 'percent';
     width?: number | string;
+    label?: boolean;
     dual?: boolean;
     error?: string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const NumberInput = ({ name, value, sign, width, dual, error, onChange }: NumberInputProps): JSX.Element => {
+const NumberInput = ({ name, value, sign, width, label, dual, error, onChange }: NumberInputProps): JSX.Element => {
     const id = name.replaceAll(' ', '');
 
     const dollarSign = {
@@ -58,7 +59,7 @@ const NumberInput = ({ name, value, sign, width, dual, error, onChange }: Number
 
     return (
         <div className='NumberInput' style={!dual ? { marginBottom: '0.75rem' } : undefined}>
-            {!dual && <Label name={name}/>}
+            {label && <Label name={name}/>}
             <TextField
                 id={id}
                 name={name}

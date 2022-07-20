@@ -26,8 +26,8 @@ interface LoanState {
     interestRate: number | number[];
     propertyTax?: DualInput;
     homeInsurance?: DualInput;
+    privateMortgageInsurance?: DualInput;
     hoaFees?: DualInput;
-    otherCosts?: DualInput;
     startDate: Date | null;
     savingLoan: boolean;
     saveLoanSuccess: boolean;
@@ -48,26 +48,26 @@ async (loanData, { rejectWithValue }) => {
 const initialState: LoanState = {
     name: '',
     email: '',
-    homePrice: '250,000',
+    homePrice: '350,000',
     downPayment: {
-        dollar: '50,000',
-        percent: '20'
+        dollar: '35,000',
+        percent: '10'
     },
     loanTerm: 30,
-    interestRate: 4.75,
+    interestRate: 5.75,
     propertyTax: {
-        dollar: '0',
-        percent: '0'
+        dollar: '315',
+        percent: '0.09'
     },
     homeInsurance: {
+        dollar: '175',
+        percent: '0.05'
+    },
+    privateMortgageInsurance: {
         dollar: '0',
         percent: '0'
     },
     hoaFees: {
-        dollar: '0',
-        percent: '0'
-    },
-    otherCosts: {
         dollar: '0',
         percent: '0'
     },
@@ -152,6 +152,23 @@ const loansSlice = createSlice({
             };
             return state;
         },
+        setPMI: (state: RootState, action: PayloadAction<{dollar: string, percent: string}>) => {
+            const homePrice = state.homePrice;
+            let { dollar, percent } = action.payload;
+            dollar = formatAmount(dollar);
+            percent = formatDecimal(percent);
+            if (dollar && homePrice) {
+                percent = toPercent(dollar, homePrice);
+            }
+            else if (percent && homePrice) {
+                dollar = fromPercent(percent, homePrice);
+            }
+            state.privateMortgageInsurance = {
+                dollar,
+                percent
+            };
+            return state;
+        },
         setHOAFees: (state: RootState, action: PayloadAction<{dollar: string, percent: string}>) => {
             const homePrice = state.homePrice;
             let { dollar, percent } = action.payload;
@@ -169,23 +186,6 @@ const loansSlice = createSlice({
             };
             return state;
         },
-        setOtherCosts: (state: RootState, action: PayloadAction<{dollar: string, percent: string}>) => {
-            const homePrice = state.homePrice;
-            let { dollar, percent } = action.payload;
-            dollar = formatAmount(dollar);
-            percent = formatDecimal(percent);
-            if (dollar && homePrice) {
-                percent = toPercent(dollar, homePrice);
-            }
-            else if (percent && homePrice) {
-                dollar = fromPercent(percent, homePrice);
-            }
-            state.otherCosts = {
-                dollar,
-                percent
-            };
-            return state;
-        },
         setStartDate: (state: RootState, action: PayloadAction<Date>) => {
             state.startDate = action.payload;
             return state;
@@ -193,26 +193,26 @@ const loansSlice = createSlice({
         reset: (state: RootState) => {
             state.name = '';
             state.email = '';
-            state.homePrice = '250,000';
+            state.homePrice = '350,000';
             state.downPayment = {
-                dollar: '50,000',
-                percent: '20'
+                dollar: '35,000',
+                percent: '10'
             };
             state.loanTerm = 30;
-            state.interestRate = 4.75;
+            state.interestRate = 5.75;
             state.propertyTax = {
-                dollar: '0',
-                percent: '0'
+                dollar: '315',
+                percent: '0.09'
             };
             state.homeInsurance = {
+                dollar: '175',
+                percent: '0.05'
+            };
+            state.privateMortgageInsurance = {
                 dollar: '0',
                 percent: '0'
             };
             state.hoaFees = {
-                dollar: '0',
-                percent: '0'
-            };
-            state.otherCosts = {
                 dollar: '0',
                 percent: '0'
             };
@@ -246,7 +246,7 @@ const loansSlice = createSlice({
 });
 
 export const { setName, setEmail, setHomePrice, setDownPayment, setLoanTerm, setInterestRate, setPropertyTax, 
-    setHomeInsurance, setHOAFees, setOtherCosts, setStartDate, reset, clearStatusUpdates } = loansSlice.actions;
+    setHomeInsurance, setPMI, setHOAFees, setStartDate, reset, clearStatusUpdates } = loansSlice.actions;
 export default loansSlice.reducer;
 
 export const selectName = (state: RootState) => state.loans.name;
@@ -257,8 +257,8 @@ export const selectLoanTerm = (state: RootState) => state.loans.loanTerm;
 export const selectInterestRate = (state: RootState) => state.loans.interestRate;
 export const selectPropertyTax = (state: RootState) => state.loans.propertyTax;
 export const selectHomeInsurance = (state: RootState) => state.loans.homeInsurance;
+export const selectPMI = (state: RootState) => state.loans.privateMortgageInsurance;
 export const selectHOAFees = (state: RootState) => state.loans.hoaFees;
-export const selectOtherCosts = (state: RootState) => state.loans.otherCosts;
 export const selectStartDate = (state: RootState) => state.loans.startDate;
 export const selectSavingLoan = (state: RootState) => state.loans.savingLoan;
 export const selectSaveLoanSuccess = (state: RootState) => state.loans.saveLoanSuccess;
@@ -279,9 +279,9 @@ export const selectMonthlyPayment = createSelector(
     selectMortgagePayment, 
     selectPropertyTax,
     selectHomeInsurance,
-    selectHOAFees,
-    selectOtherCosts, 
-    (mortgagePayment, propertyTax, homeInsurance, hoaFees, otherCosts) => calc.monthlyPayment(mortgagePayment, propertyTax.dollar, homeInsurance.dollar, hoaFees.dollar, otherCosts.dollar)
+    selectPMI,
+    selectHOAFees, 
+    (mortgagePayment, propertyTax, homeInsurance, privateMortgageInsurance, hoaFees) => calc.monthlyPayment(mortgagePayment, propertyTax.dollar, homeInsurance.dollar, privateMortgageInsurance.dollar, hoaFees.dollar)
 );
 export const selectLoanCost = createSelector(
     selectMortgagePayment, 

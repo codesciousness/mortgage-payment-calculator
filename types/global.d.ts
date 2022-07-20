@@ -28,8 +28,8 @@ declare global {
         interestRate: number;
         propertyTax?: DualInput;
         homeInsurance?: DualInput;
+        privateMortgageInsurance?: DualInput;
         hoaFees?: DualInput;
-        otherCosts?: DualInput;
         startDate: Date;
         payoffDate: string;
         mortgagePayment: string;

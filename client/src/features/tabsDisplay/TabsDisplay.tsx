@@ -10,9 +10,7 @@ import './TabsDisplay.css';
 const TabsDisplay = (): JSX.Element => {
     const [value, setValue] = useState(0);
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
-    };
+    const handleChange = (event: React.SyntheticEvent, newValue: number) => setValue(newValue);
     
     return (
         <Box sx={{ width: '100%' }}>

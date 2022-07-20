@@ -32,10 +32,10 @@
     background-color: SkyBlue;
 }
 
-.color__codes.HOAFees:before {
+.color__codes.PMI:before {
     background-color: PowderBlue;
 }
 
-.color__codes.otherCosts:before {
+.color__codes.HOAFees:before {
     background-color: PaleTurquoise;
 }

@@ -32,12 +32,14 @@ const LineChart = (): JSX.Element => {
         hAxis: {
             showTextEvery: 120,
             gridlines: {
-                color: 'LightGray',
-                minSpacing: 120
+                color: 'LightGray'
             }
         },
         vAxis: {
             format: 'short',
+            gridlines: {
+                multiple: 50000
+            },
             minorGridlines: {
                 count: 0
             }

@@ -21,9 +21,7 @@ const EmailForm = (): JSX.Element => {
         else if (id === 'Email') dispatch(setEmail(value));
     };
 
-    const handleClick = () => {
-        console.log('Clicked');
-    };
+    const handleClick = () => console.log('Clicked');
 
     return (
         <section id='EmailForm' className='EmailForm'>
