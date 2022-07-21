@@ -33,10 +33,31 @@ const InfoTooltip = ({ title }: InfoTooltipProps): JSX.Element => {
                 disableFocusListener
                 disableHoverListener
                 disableTouchListener
+                componentsProps={{
+                    tooltip: {
+                        sx: {
+                            maxWidth: 300,
+                            padding: '1rem',
+                            color: 'Black',
+                            fontSize: 12,
+                            lineHeight: 2,
+                            backgroundColor: 'White',
+                            boxShadow: '0px 0px 5px 1px lightgray',
+                            borderBottom: '2px solid DeepSkyBlue',
+                            borderRadius: '4px',
+                            '& .MuiTooltip-arrow': {
+                                color: 'White',
+                                '&::before': {
+                                    border: '2px solid DeepSkyBlue'
+                                }
+                            }
+                        }
+                    }
+                }}
                 sx={{
                     color: 'DeepSkyBlue',
                     float: 'right',
-                    padding: 0
+                    padding: 0,
                 }}
             >
                 <IconButton onClick={handleTooltipOpen}>

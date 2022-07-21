@@ -26,7 +26,7 @@ const LineChart = (): JSX.Element => {
             'SteelBlue'
         ],
         chartArea: {
-            width: '80%',
+            width: '90%',
             height: '90%'
         },
         hAxis: {

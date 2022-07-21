@@ -3,6 +3,7 @@ import AmortizationTable from '../amortizationTable/AmortizationTable';
 import LineChart from '../lineChart/LineChart';
 import LineChartLegend from '../lineChartLegend/LineChartLegend';
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import './AmortizationSchedule.css';
 import { selectLoanAmount, selectTotalInterest, selectLoanCost, selectPayoffDate } from '../loansSlice';
 import { useAppSelector } from '../../app/hooks';
@@ -52,6 +53,7 @@ const AmortizationSchedule = (): JSX.Element => {
                 </div>
                 <LineChartLegend/>
             </div>
+            <Divider sx={{ margin: '2rem' }}/>
             <AmortizationTable />
         </section>
     );
