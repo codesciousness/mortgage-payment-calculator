@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Chart } from 'react-google-charts';
 import './LineChart.css';
 import { selectAmortizationSchedule, AmortizationDetail } from '../loansSlice';
 import { useAppSelector } from '../../app/hooks';
+import { useWindowSize } from '../../hooks/use-window-size';
 import { stringToNum } from '../../util/calculations';
 
 type ColumnHeaders = [string, string, string, string];
@@ -11,6 +12,9 @@ type DataPoints = [string, number, number, number];
 
 const LineChart = (): JSX.Element => {
     const amortizationSchedule = useAppSelector(selectAmortizationSchedule);
+    const [key, setkey] = useState(false)
+    const size = useWindowSize();
+    const height = size.width && size.width > 400 ? '400px' : '300px';
 
     const columnHeaders: ColumnHeaders = ['Date', 'Principal', 'Interest', 'Balance'];
     const dataPoints: DataPoints = amortizationSchedule.map((row: AmortizationDetail) => 
@@ -46,11 +50,15 @@ const LineChart = (): JSX.Element => {
         }
     };
 
+    useEffect(() => {
+        setkey(!key)
+    }, [key, size.width]);
+
     return (
         <Chart
             chartType='LineChart'
             width='100%'
-            height='400px'
+            height={height}
             data={data}
             options={options}
         />

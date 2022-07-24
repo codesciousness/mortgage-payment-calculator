@@ -3,3 +3,17 @@
     align-items: center;
     text-align: left;
 }
+
+@media only screen and (max-width: 1200px) {
+
+    .MonthlyPayment {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+
+    .MonthlyPayment__title {
+        text-align: center;
+    }
+}

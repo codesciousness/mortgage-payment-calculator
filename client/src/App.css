@@ -1,7 +1,8 @@
 .App {
+  box-sizing: border-box;
   width: 100%;
-  margin: auto;
-  padding: 2rem;
+  padding: 2rem 0;
+  font-family: Arial, sans-serif;
 }
 
 .App__title {
@@ -12,9 +13,65 @@
   display: flex;
   justify-content: center;
   width: 70%;
+  max-width: 1500px;
   margin: auto;
 }
 
 .App__container {
   width: 1000px;
+}
+
+@media only screen and (max-width: 1800px) {
+
+  .App__mainContainer {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+
+  .App__mainContainer {
+    width: 95%;
+  }
+
+  .App__container {
+    width: 75%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+
+  .App__mainContainer {
+    width: 100%;
+  }
+
+  .App__container {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+
+  .App {
+    padding: 1rem;
+  }
+
+  .App__mainContainer {
+    flex-direction: column;
+  }
+
+  .App__container {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+
+  .App {
+    padding: 1rem 0 0 0;
+  }
+
+  .App__title {
+    margin: 1rem;
+  }
 }

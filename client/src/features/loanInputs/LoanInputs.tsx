@@ -11,6 +11,7 @@ import { selectHomePrice, selectDownPayment, selectLoanTerm, selectInterestRate,
     setLoanTerm, setInterestRate, setPropertyTax, setHomeInsurance, setPMI, setHOAFees, 
     setStartDate } from '../loansSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { useWindowSize } from '../../hooks/use-window-size';
 import { fixDecimalInput } from '../../util/calculations';
 
 type handleChangeProps = {
@@ -29,7 +30,8 @@ const LoanInputs = (): JSX.Element => {
     const hoaFees = useAppSelector(selectHOAFees);
     const [ includeMore, setIncludeMore ] = useState(false);
     const dispatch = useAppDispatch();
-    const width = 300;
+    const size = useWindowSize();
+    const width = size.width && size.width > 1000 ? 300 : '100%';
 
     const handleChange = ({ target }: handleChangeProps) => {
         const { id, value } = target;

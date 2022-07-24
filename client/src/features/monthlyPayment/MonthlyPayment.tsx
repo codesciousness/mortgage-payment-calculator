@@ -8,7 +8,7 @@ const MonthlyPayment = (): JSX.Element => {
     return (
         <section id='MonthlyPayment' className='MonthlyPayment'>
             <div className='MonthlyPayment__donutChart'>
-                <h2>Monthly payment breakdown</h2>
+                <h2 className='MonthlyPayment__title'>Monthly payment breakdown</h2>
                 <DonutChart/>
             </div>
             <DonutChartLegend/>

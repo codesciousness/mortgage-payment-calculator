@@ -28,3 +28,89 @@
 .LineChartLegend__label.balance:before {
     background-color: SteelBlue;
 }
+
+@media only screen and (max-width: 1200px) {
+
+    .LineChartLegend {
+        width: 100%;
+    }
+
+    .LineChartLegend__label {
+        left: 0;
+        text-align: center;
+    }
+
+    .LineChartLegend__label:before {
+        left: 40%;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+
+    .LineChartLegend__label:before {
+        left: 39%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+
+    .LineChartLegend__label:before {
+        left: 42%;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+
+    .LineChartLegend__label:before {
+        left: 40%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .LineChartLegend__label:before {
+        left: 38%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+
+    .LineChartLegend__label:before {
+        left: 35%;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+
+    .LineChartLegend__label:before {
+        left: 32%;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+
+    .LineChartLegend__label:before {
+        left: 28%;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+
+    .LineChartLegend__label:before {
+        left: 25%;
+    }
+}
+
+@media only screen and (max-width: 260px) {
+
+    .LineChartLegend__label:before {
+        left: 22%;
+    }
+}
+
+@media only screen and (max-width: 230px) {
+
+    .LineChartLegend__label:before {
+        left: 19%;
+    }
+}

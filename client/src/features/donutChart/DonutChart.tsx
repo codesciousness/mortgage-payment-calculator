@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Chart } from 'react-google-charts';
 import './DonutChart.css';
 import { selectPropertyTax, selectHomeInsurance, selectPMI, selectHOAFees, 
     selectMortgagePayment, selectMonthlyPayment } from '../loansSlice';
 import { useAppSelector } from '../../app/hooks';
+import { useWindowSize } from '../../hooks/use-window-size';
 import { stringToNum, formatAmount } from '../../util/calculations';
 
 type Expenses = 'Principal & interest' | 'Property tax' | 'Homeowner\'s insurance' | 'HOA fees' | 'Other costs';
@@ -24,6 +25,9 @@ const DonutChart = (): JSX.Element => {
     const PMI = stringToNum(privateMortgageInsurance.dollar);
     const HF = stringToNum(hoaFees.dollar);
     const PI = stringToNum(formatAmount(mortgagePayment));
+    const [key, setkey] = useState(false)
+    const size = useWindowSize();
+    const height = size.width && size.width > 500 ? '400px' : '300px';
 
     const columnHeaders: ColumnHeaders = ['Mortgage Related Expenses', 'Payment Amount'];
     const rowData: RowData = [
@@ -57,6 +61,10 @@ const DonutChart = (): JSX.Element => {
         }
     };
 
+    useEffect(() => {
+        setkey(!key)
+    }, [key, size.width]);
+
     return (
         <table id='DonutChart' className='DonutChart'>
             <tr className='DonutChart__tableRow'>
@@ -64,7 +72,7 @@ const DonutChart = (): JSX.Element => {
                     <Chart
                         chartType='PieChart'
                         width='100%'
-                        height='400px'
+                        height={height}
                         data={data}
                         options={options}
                     />

@@ -4,11 +4,12 @@ import SendIcon from '@mui/icons-material/Send';
 
 type ButtonProps = {
     name: string;
+    width?: number | string;
     loading?: boolean;
     onClick: () => void;
 };
 
-const Button = ({ name, loading, onClick }: ButtonProps): JSX.Element => {
+const Button = ({ name, width, loading, onClick }: ButtonProps): JSX.Element => {
     const id = name.replaceAll(' ', '');
 
     return (
@@ -20,6 +21,7 @@ const Button = ({ name, loading, onClick }: ButtonProps): JSX.Element => {
             loadingPosition="end"
             onClick={onClick}
             sx={{
+                width,
                 fontWeight: 'bold',
                 margin: '1rem',
                 color: 'DeepSkyBlue',

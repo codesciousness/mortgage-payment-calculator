@@ -1,3 +1,10 @@
+.AmortizationSchedule__loanTotals {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-top: 0.5rem;
+}
+
 .AmortizationSchedule__label {
     font-size: 0.75rem;
     text-align: center;
@@ -35,4 +42,169 @@
 
 .AmortizationSchedule__LineChart {
     width: 100%;
+}
+
+@media only screen and (max-width: 1250px) {
+
+    .AmortizationSchedule__LineChart {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+
+    .AmortizationSchedule__loanTotals {
+        flex-wrap: wrap;
+    }
+
+    .AmortizationSchedule__container {
+        width: 50%;
+    }
+
+    .AmortizationSchedule__amount, .AmortizationSchedule__date {
+        text-align: center;
+    }
+
+    .AmortizationSchedule__amount:before {
+        left: 25%;
+    }
+    
+    .AmortizationSchedule__LineChart__container {
+        flex-direction: column;
+    }
+
+    .AmortizationSchedule__LineChart {
+        width: 100%;
+    }
+
+    .AmortizationSchedule__divider {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+
+    .AmortizationSchedule__amount:before {
+        left: 24%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+
+    .AmortizationSchedule__amount:before {
+        left: 36%;
+    }
+}
+
+@media only screen and (max-width: 920px) {
+
+    .AmortizationSchedule__amount:before {
+        left: 34%;
+    }
+}
+
+@media only screen and (max-width: 820px) {
+
+    .AmortizationSchedule__amount:before {
+        left: 32%;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+
+    .AmortizationSchedule__amount:before {
+        left: 30%;
+    }
+}
+
+@media only screen and (max-width: 675px) {
+
+    .AmortizationSchedule__amount:before {
+        left: 27%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .AmortizationSchedule__amount:before {
+        left: 25%;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+
+    .AmortizationSchedule__amount:before {
+        left: 22%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+
+    .AmortizationSchedule__amount:before {
+        left: 18%;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+
+    .AmortizationSchedule__amount:before {
+        left: 14%;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+
+    .AmortizationSchedule__amount:before {
+        left: 10%;
+    }
+}
+
+@media only screen and (max-width: 370px) {
+
+    .AmortizationSchedule__amount:before {
+        left: 5%;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+
+    .AmortizationSchedule__loanTotals {
+        flex-direction: column;
+    }
+
+    .AmortizationSchedule__container {
+        width: 100%;
+    }
+
+    .AmortizationSchedule__amount:before {
+        left: 28%;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+
+    .AmortizationSchedule__amount:before {
+        left: 25%;
+    }
+}
+
+@media only screen and (max-width: 280px) {
+
+    .AmortizationSchedule__amount:before {
+        left: 22%;
+    }
+}
+
+@media only screen and (max-width: 260px) {
+
+    .AmortizationSchedule__amount:before {
+        left: 18%;
+    }
+}
+
+@media only screen and (max-width: 230px) {
+
+    .AmortizationSchedule__amount:before {
+        left: 15%;
+    }
 }
