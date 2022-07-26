@@ -34,10 +34,31 @@ interface LoanState {
     saveLoanError: boolean | string;
 }
 
+interface Loan {
+    name: string;
+    email: string;
+    homePrice: string;
+    downPayment: DualInput;
+    loanTerm: number;
+    interestRate: number;
+    propertyTax: DualInput;
+    homeInsurance: DualInput;
+    privateMortgageInsurance: DualInput;
+    hoaFees: DualInput;
+    startDate: Date;
+    payoffDate: string;
+    mortgagePayment: string;
+    monthlyPayment: string;
+    loanAmount: string;
+    loanCost: string;
+    totalInterest: string;
+    amortizationSchedule: AmortizationDetail[];
+}
+
 export const saveLoan = createAsyncThunk('loans/saveLoan',
-async (loanData, { rejectWithValue }) => {
+async (loan: Loan, { rejectWithValue }) => {
     try {
-        const response = await axios.post('/loans/saveLoan', loanData);
+        const response = await axios.post('/loans', loan);
         return response.data;
     }
     catch (err: any) {
@@ -226,22 +247,22 @@ const loansSlice = createSlice({
             return state;
         }
     },
-    extraReducers: {
-        [saveLoan.pending]: (state: LoanState) => {
+    extraReducers: (builder) => {
+        builder.addCase(saveLoan.pending, (state: LoanState) => {
             state.savingLoan = true;
             state.saveLoanSuccess = false;
             state.saveLoanError = false;
-        },
-        [saveLoan.fulfilled]: (state: LoanState) => {
+        })
+        builder.addCase(saveLoan.fulfilled, (state: LoanState) => {
             state.savingLoan = false;
             state.saveLoanSuccess = true;
             state.saveLoanError = false;
-        },
-        [saveLoan.rejected]: (state: LoanState, action: PayloadAction<string>) => {
+        })
+        builder.addCase(saveLoan.rejected, (state: LoanState, { payload }: { payload: any }) => {
             state.savingLoan = false;
             state.saveLoanSuccess = false;
-            state.saveLoanError = action.payload;
-        }
+            state.saveLoanError = payload;
+        })
     }
 });
 

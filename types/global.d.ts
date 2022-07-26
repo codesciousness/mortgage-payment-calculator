@@ -22,8 +22,8 @@ declare global {
     interface Loan {
         name: string;
         email: string;
-        homePrice: DualInput;
-        downPayment: string;
+        homePrice: string;
+        downPayment: DualInput;
         loanTerm: number;
         interestRate: number;
         propertyTax: DualInput;

@@ -12,7 +12,7 @@ import { selectHomePrice, selectDownPayment, selectLoanTerm, selectInterestRate,
     setStartDate } from '../loansSlice';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useWindowSize } from '../../hooks/use-window-size';
-import { fixDecimalInput } from '../../util/calculations';
+import { stringToNum, fixDecimalInput } from '../../util/calculations';
 
 type handleChangeProps = {
     target: HTMLInputElement;
@@ -28,6 +28,7 @@ const LoanInputs = (): JSX.Element => {
     const homeInsurance = useAppSelector(selectHomeInsurance);
     const privateMortgageInsurance = useAppSelector(selectPMI);
     const hoaFees = useAppSelector(selectHOAFees);
+    const [ interestRatePercent, setInterestRatePercent ] = useState(interestRate.toString());
     const [ includeMore, setIncludeMore ] = useState(false);
     const dispatch = useAppDispatch();
     const size = useWindowSize();
@@ -54,7 +55,8 @@ const LoanInputs = (): JSX.Element => {
         }
         else if (id === 'InterestratePercent') {
             if (parseFloat(value) < 0 || parseFloat(value) > 25) return;
-            dispatch(setInterestRate(fixDecimalInput(value)));
+            setInterestRatePercent(fixDecimalInput(value));
+            dispatch(setInterestRate(stringToNum(fixDecimalInput(value))));
         }
         else if (id === 'DownpaymentDollar') dispatch(setDownPayment({ dollar: value, percent: '' }))
         else if (id === 'DownpaymentPercent') dispatch(setDownPayment({ dollar: '', percent: value }))
@@ -69,7 +71,10 @@ const LoanInputs = (): JSX.Element => {
     };
 
     const handleInterestRateChange = (event: Event, value: number | number[]) => {
-        if (typeof value === 'number') dispatch(setInterestRate(value));
+        if (typeof value === 'number') {
+            dispatch(setInterestRate(value));
+            setInterestRatePercent(`${value}`);
+        }
     }
 
     const handleLoanTermChange = (event: Event, value: number | number[]) => {
@@ -93,7 +98,7 @@ const LoanInputs = (): JSX.Element => {
             <DualInput name='Down payment' dollar={downPayment.dollar} percent={downPayment.percent} width={width} onChange={handleChange}/>
             <InfoTooltip title="Interest rate: Amount you'll pay each year to borrow the money for your loan, expressed as a percentage."/>
             <SquareSlider name='Interest rate' value={interestRate} min={0} max={25} steps={0.25} width={width} onChange={handleInterestRateChange}/>
-            <NumberInput name='Interest rate Percent' value={interestRate} sign='percent' width={width} onChange={handleChange}/>
+            <NumberInput name='Interest rate Percent' value={interestRatePercent} sign='percent' width={width} onChange={handleChange}/>
             <InfoTooltip title='Loan term: The amount of time or number of years that you will have to repay a loan. 
             Longer term mortgages can make your monthly payment amount smaller than shorter term loans by stretching out your payments over more years.'/>
             <SquareSlider name='Loan term' value={loanTerm} min={1} max={50} steps={1} width={width} onChange={handleLoanTermChange}/>

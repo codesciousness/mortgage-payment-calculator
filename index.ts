@@ -26,11 +26,6 @@ start();
 app.options('*', cors(corsOptions));
 app.use(cors(corsOptions));
 
-// Serve server's index.html file
-/*app.get('/', (req, res, next) => { 
-  res.sendFile('index.html', { root: __dirname });
-});*/
-
 // Serve static content in production
 if (IN_PROD) {
   app.use(express.static(path.join(__dirname, 'client/build')));
@@ -48,9 +43,9 @@ app.use(cookieParser());
 // Use apiRouter
 app.use(Router);
 
-/*app.get('*', (req: Request, res: Response) => {
+app.get('*', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, 'client/build/index.html'));
-});*/
+});
 
 // Add code to start the server listening
 app.listen(PORT, () => {
