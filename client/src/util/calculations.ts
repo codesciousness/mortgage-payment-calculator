@@ -1,7 +1,6 @@
 export const isInt = (num: number | string): boolean => {
     let number: number;
-    if (typeof num === 'string') number = stringToNum(num)
-    else number = num;
+    typeof num === 'string' ? number = stringToNum(num) : number = num;
     return Number.isInteger(number);
 };
 
@@ -11,15 +10,13 @@ export const rmvCommas = (num: string): string => {
 
 export const addCommas = (num: number | string): string => {
     let numString: string;
-    if (typeof num === 'number') numString = numToString(num)
-    else numString = rmvCommas(num);
+    typeof num === 'number' ? numString = numToString(num) : numString = rmvCommas(num);
     return numString.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 };
 
 export const stringToNum = (str: string): number => {
     const num = parseFloat(rmvCommas(str));
-    if (Number.isNaN(num)) return 0;
-    return num;
+    return num || 0;
 };
 
 export const numToString = (num: number): string => {
@@ -37,24 +34,21 @@ export const dateToString = (date: Date): string => {
 export const round = (num: number | string): string => {
     let number: number;
     if (num === '') return '';
-    if (typeof num === 'string') number = stringToNum(num)
-    else number = num;
+    typeof num === 'string' ? number = stringToNum(num) : number = num;
     return numToString(Math.round(number));
 };
 
 export const fixDecimal = (num: number | string): string => {
     let number: number;
     if (num === '') return '';
-    if (typeof num === 'string') number = stringToNum(num)
-    else number = num;
+    typeof num === 'string' ? number = stringToNum(num) : number = num;
     return addCommas(number.toFixed(2));
 };
 
 export const fixDecimalInput = (num: number | string): string => {
     let numString: string;
     let decimals: string;
-    if (typeof num === 'number') numString = numToString(num)
-    else numString = rmvCommas(num);
+    typeof num === 'number' ? numString = numToString(num) : numString = num;
     decimals = numString.split('.')[1];
     if (decimals && decimals.length > 2) return numString.slice(0, numString.length - 1)
     else return numString;

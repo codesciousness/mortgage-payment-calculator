@@ -4,7 +4,7 @@ import Label from '../label/Label';
 
 type SliderProps = {
     name: string;
-    value: number | number[];
+    value: number;
     min: number;
     max: number;
     steps: number;

@@ -7,7 +7,7 @@ import { useAppSelector } from '../../app/hooks';
 import { useWindowSize } from '../../hooks/use-window-size';
 import { stringToNum, formatAmount } from '../../util/calculations';
 
-type Expenses = 'Principal & interest' | 'Property tax' | 'Homeowner\'s insurance' | 'HOA fees' | 'Other costs';
+type Expenses = 'Principal & interest' | 'Property tax' | 'Homeowner\'s insurance' | 'PMI' | 'HOA fees';
 
 type ColumnHeaders = [string, string];
 
@@ -25,12 +25,12 @@ const DonutChart = (): JSX.Element => {
     const PMI = stringToNum(privateMortgageInsurance.dollar);
     const HF = stringToNum(hoaFees.dollar);
     const PI = stringToNum(formatAmount(mortgagePayment));
-    const [key, setkey] = useState(false)
+    const [key, setkey] = useState(0)
     const size = useWindowSize();
     const height = size.width && size.width > 500 ? '400px' : '300px';
 
     const columnHeaders: ColumnHeaders = ['Mortgage Related Expenses', 'Payment Amount'];
-    const rowData: RowData = [
+    const rowData: RowData[] = [
         ['Principal & interest', PI],
         ['Property tax',  PT],
         ['Homeowner\'s insurance', HI],
@@ -62,26 +62,29 @@ const DonutChart = (): JSX.Element => {
     };
 
     useEffect(() => {
-        setkey(!key)
-    }, [key, size.width]);
+        setkey(prev => prev + 1);
+    }, [size.width]);
 
     return (
         <table id='DonutChart' className='DonutChart'>
-            <tr className='DonutChart__tableRow'>
-                <td className='DonutChart__tableData'>
-                    <Chart
-                        chartType='PieChart'
-                        width='100%'
-                        height={height}
-                        data={data}
-                        options={options}
-                    />
-                    <div className='DonutChart__overlay'>
-                        <p className='DonutChart__overlay__title'>Monthly Payment</p>
-                        <p className='DonutChart__overlay__payment'>{total}</p>
-                    </div>
-                </td>
-            </tr>
+            <tbody className='DonutChart__tableBody'>
+                <tr className='DonutChart__tableRow'>
+                    <td className='DonutChart__tableData'>
+                        <Chart
+                            key={size.width && size.width > 500 ? null : key}
+                            chartType='PieChart'
+                            width='100%'
+                            height={height}
+                            data={data}
+                            options={options}
+                        />
+                        <div className='DonutChart__overlay'>
+                            <p className='DonutChart__overlay__title'>Monthly Payment</p>
+                            <p className='DonutChart__overlay__payment'>{total}</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     );
 };

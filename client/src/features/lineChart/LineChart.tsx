@@ -12,12 +12,12 @@ type DataPoints = [string, number, number, number];
 
 const LineChart = (): JSX.Element => {
     const amortizationSchedule = useAppSelector(selectAmortizationSchedule);
-    const [key, setkey] = useState(false)
+    const [key, setkey] = useState(0)
     const size = useWindowSize();
     const height = size.width && size.width > 400 ? '400px' : '300px';
 
     const columnHeaders: ColumnHeaders = ['Date', 'Principal', 'Interest', 'Balance'];
-    const dataPoints: DataPoints = amortizationSchedule.map((row: AmortizationDetail) => 
+    const dataPoints: DataPoints[] = amortizationSchedule.map((row: AmortizationDetail) => 
     [row.date, stringToNum(row.totalPrincipal), stringToNum(row.totalInterest), stringToNum(row.remainingBalance)]);
     const data = [columnHeaders, ...dataPoints];
 
@@ -51,17 +51,20 @@ const LineChart = (): JSX.Element => {
     };
 
     useEffect(() => {
-        setkey(!key)
-    }, [key, size.width]);
+        setkey(prev => prev + 1)
+    }, [size.width]);
 
     return (
-        <Chart
-            chartType='LineChart'
-            width='100%'
-            height={height}
-            data={data}
-            options={options}
-        />
+        <section id='LineChart' className='LineChart'>
+            <Chart
+                key={size.width && size.width > 400 ? null : key}
+                chartType='LineChart'
+                width='100%'
+                height={height}
+                data={data}
+                options={options}
+            />
+        </section>
     );
 };
 

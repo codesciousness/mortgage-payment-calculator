@@ -26,10 +26,10 @@ declare global {
         downPayment: string;
         loanTerm: number;
         interestRate: number;
-        propertyTax?: DualInput;
-        homeInsurance?: DualInput;
-        privateMortgageInsurance?: DualInput;
-        hoaFees?: DualInput;
+        propertyTax: DualInput;
+        homeInsurance: DualInput;
+        privateMortgageInsurance: DualInput;
+        hoaFees: DualInput;
         startDate: Date;
         payoffDate: string;
         mortgagePayment: string;

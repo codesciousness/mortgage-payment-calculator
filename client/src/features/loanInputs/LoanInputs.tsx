@@ -36,6 +36,9 @@ const LoanInputs = (): JSX.Element => {
     const handleChange = ({ target }: handleChangeProps) => {
         const { id, value } = target;
 
+        const allNums = value.split('').filter(char => char !== '.' && char !== ',').map(char => parseFloat(char)).every(char => !isNaN(char));
+        if (!allNums) return;
+
         if (id === 'Homeprice') {
             dispatch(setHomePrice(value));
             if (downPayment.dollar) dispatch(setDownPayment({ dollar: downPayment.dollar, percent: '' }));
@@ -63,20 +66,23 @@ const LoanInputs = (): JSX.Element => {
         else if (id === 'MonthlyPMIPercent') dispatch(setPMI({ dollar: '', percent: value }))
         else if (id === 'MonthlyHOAfeesDollar') dispatch(setHOAFees({ dollar: value, percent: '' }))
         else if (id === 'MonthlyHOAfeesPercent') dispatch(setHOAFees({ dollar: '', percent: value }))
-        else if (id === 'Includemore') {
-            if (includeMore) setIncludeMore(false);
-            else setIncludeMore(true);
-        }
     };
 
-    const handleLoanTermChange = (event: Event, value: number | number[]) => dispatch(setLoanTerm(value));
+    const handleInterestRateChange = (event: Event, value: number | number[]) => {
+        if (typeof value === 'number') dispatch(setInterestRate(value));
+    }
 
-    const handleInterestRateChange = (event: Event, value: number | number[]) => dispatch(setInterestRate(value));
+    const handleLoanTermChange = (event: Event, value: number | number[]) => {
+        if (typeof value === 'number') dispatch(setLoanTerm(value));
+    }
 
     const handleStartDateChange = (date: Date | null) => {
-        if (date) {
-            dispatch(setStartDate(new Date(date.getFullYear(), date.getMonth())));
-        }
+        if (date) dispatch(setStartDate(new Date(date.getFullYear(), date.getMonth())));
+    };
+
+    const handleIncludeMoreChange = () => {
+        if (includeMore) setIncludeMore(false);
+        else setIncludeMore(true);
     };
 
     return (
@@ -92,7 +98,7 @@ const LoanInputs = (): JSX.Element => {
             Longer term mortgages can make your monthly payment amount smaller than shorter term loans by stretching out your payments over more years.'/>
             <SquareSlider name='Loan term' value={loanTerm} min={1} max={50} steps={1} width={width} onChange={handleLoanTermChange}/>
             <DateInput name='Start date' value={startDate} width={width} onChange={handleStartDateChange}/>
-            <StyledSwitch name='Include more' checked={includeMore} onChange={handleChange}/><span>Include: Taxes, insurance &amp; fees</span>
+            <StyledSwitch name='Include more' checked={includeMore} onChange={handleIncludeMoreChange}/><span>Include: Taxes, insurance &amp; fees</span>
             {includeMore &&
                 <>
                     <InfoTooltip title='Property tax: Any tax on real estate or certain other forms of property.'/>

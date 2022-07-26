@@ -22,16 +22,16 @@ interface LoanState {
     email: string;
     homePrice: string;
     downPayment: DualInput;
-    loanTerm: number | number[];
-    interestRate: number | number[];
-    propertyTax?: DualInput;
-    homeInsurance?: DualInput;
-    privateMortgageInsurance?: DualInput;
-    hoaFees?: DualInput;
-    startDate: Date | null;
+    loanTerm: number;
+    interestRate: number;
+    propertyTax: DualInput;
+    homeInsurance: DualInput;
+    privateMortgageInsurance: DualInput;
+    hoaFees: DualInput;
+    startDate: Date;
     savingLoan: boolean;
     saveLoanSuccess: boolean;
-    saveLoanError: boolean;
+    saveLoanError: boolean | string;
 }
 
 export const saveLoan = createAsyncThunk('loans/saveLoan',
@@ -81,19 +81,19 @@ const loansSlice = createSlice({
     name: 'loans',
     initialState,
     reducers: {
-        setName: (state: RootState, action: PayloadAction<string>) => {
+        setName: (state: LoanState, action: PayloadAction<string>) => {
             state.name = action.payload;
             return state;
         },
-        setEmail: (state: RootState, action: PayloadAction<string>) => {
+        setEmail: (state: LoanState, action: PayloadAction<string>) => {
             state.email = action.payload;
             return state;
         },
-        setHomePrice: (state: RootState, action: PayloadAction<string>) => {
+        setHomePrice: (state: LoanState, action: PayloadAction<string>) => {
             state.homePrice = formatAmount(action.payload);
             return state;
         },
-        setDownPayment: (state: RootState, action: PayloadAction<{dollar: string, percent: string}>) => {
+        setDownPayment: (state: LoanState, action: PayloadAction<DualInput>) => {
             const homePrice = state.homePrice;
             let { dollar, percent } = action.payload;
             dollar = formatAmount(dollar);
@@ -110,15 +110,15 @@ const loansSlice = createSlice({
             };
             return state;
         },
-        setLoanTerm: (state: RootState, action: PayloadAction<number>) => {
+        setLoanTerm: (state: LoanState, action: PayloadAction<number>) => {
             state.loanTerm = action.payload;
             return state;
         },
-        setInterestRate: (state: RootState, action: PayloadAction<number>) => {
+        setInterestRate: (state: LoanState, action: PayloadAction<number>) => {
             state.interestRate = action.payload;
             return state;
         },
-        setPropertyTax: (state: RootState, action: PayloadAction<{dollar: string, percent: string}>) => {
+        setPropertyTax: (state: LoanState, action: PayloadAction<DualInput>) => {
             const homePrice = state.homePrice;
             let { dollar, percent } = action.payload;
             dollar = formatAmount(dollar);
@@ -135,7 +135,7 @@ const loansSlice = createSlice({
             };
             return state;
         },
-        setHomeInsurance: (state: RootState, action: PayloadAction<{dollar: string, percent: string}>) => {
+        setHomeInsurance: (state: LoanState, action: PayloadAction<DualInput>) => {
             const homePrice = state.homePrice;
             let { dollar, percent } = action.payload;
             dollar = formatAmount(dollar);
@@ -152,7 +152,7 @@ const loansSlice = createSlice({
             };
             return state;
         },
-        setPMI: (state: RootState, action: PayloadAction<{dollar: string, percent: string}>) => {
+        setPMI: (state: LoanState, action: PayloadAction<DualInput>) => {
             const homePrice = state.homePrice;
             let { dollar, percent } = action.payload;
             dollar = formatAmount(dollar);
@@ -169,7 +169,7 @@ const loansSlice = createSlice({
             };
             return state;
         },
-        setHOAFees: (state: RootState, action: PayloadAction<{dollar: string, percent: string}>) => {
+        setHOAFees: (state: LoanState, action: PayloadAction<DualInput>) => {
             const homePrice = state.homePrice;
             let { dollar, percent } = action.payload;
             dollar = formatAmount(dollar);
@@ -186,11 +186,11 @@ const loansSlice = createSlice({
             };
             return state;
         },
-        setStartDate: (state: RootState, action: PayloadAction<Date>) => {
+        setStartDate: (state: LoanState, action: PayloadAction<Date>) => {
             state.startDate = action.payload;
             return state;
         },
-        reset: (state: RootState) => {
+        reset: (state: LoanState) => {
             state.name = '';
             state.email = '';
             state.homePrice = '350,000';
@@ -219,7 +219,7 @@ const loansSlice = createSlice({
             state.startDate = new Date();
             return state;
         },
-        clearStatusUpdates: (state: RootState) => {
+        clearStatusUpdates: (state: LoanState) => {
             state.savingLoan = false;
             state.saveLoanSuccess = false;
             state.saveLoanError = false;
@@ -227,17 +227,17 @@ const loansSlice = createSlice({
         }
     },
     extraReducers: {
-        [saveLoan.pending]: (state: RootState) => {
+        [saveLoan.pending]: (state: LoanState) => {
             state.savingLoan = true;
             state.saveLoanSuccess = false;
             state.saveLoanError = false;
         },
-        [saveLoan.fulfilled]: (state: RootState) => {
+        [saveLoan.fulfilled]: (state: LoanState) => {
             state.savingLoan = false;
             state.saveLoanSuccess = true;
             state.saveLoanError = false;
         },
-        [saveLoan.rejected]: (state: RootState, action: PayloadAction<string>) => {
+        [saveLoan.rejected]: (state: LoanState, action: PayloadAction<string>) => {
             state.savingLoan = false;
             state.saveLoanSuccess = false;
             state.saveLoanError = action.payload;

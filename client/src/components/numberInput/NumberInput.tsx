@@ -5,7 +5,7 @@ import Label from '../label/Label';
 
 type NumberInputProps = {
     name: string;
-    value: string;
+    value: string | number;
     sign: 'dollar' | 'percent';
     width?: number | string;
     label?: boolean;
