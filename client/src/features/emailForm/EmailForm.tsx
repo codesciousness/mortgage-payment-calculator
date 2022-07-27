@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '../../components/button/Button';
 import TextInput from '../../components/textInput/TextInput';
 import Alert from '../../components/alert/Alert';
@@ -71,6 +71,13 @@ const EmailForm = (): JSX.Element => {
 
     const handleClick = () => dispatch(saveLoan(loan));
 
+    useEffect(() => {
+        if (saveLoanSuccess) {
+            dispatch(setName(''));
+            dispatch(setEmail(''));
+        }
+    }, [saveLoanSuccess, dispatch]);
+
     return (
         <section id='EmailForm' className='EmailForm'>
             <h3 className='EmailForm__header'>Email your mortgage payment summary!</h3>
@@ -80,7 +87,7 @@ const EmailForm = (): JSX.Element => {
                 <Button name='Send' loading={savingLoan} onClick={handleClick}/>
             </div>
             {saveLoanError && <Alert severity='error' msg={saveLoanError} onClose={() => dispatch(clearStatusUpdates())}/>}
-            {saveLoanSuccess && <Alert severity='success' color='info' msg='Loan data submitted successfully!' onClose={() => dispatch(clearStatusUpdates())}/>}
+            {saveLoanSuccess && <Alert severity='success' msg='Loan data submitted successfully!' onClose={() => dispatch(clearStatusUpdates())}/>}
         </section>
     );
 };

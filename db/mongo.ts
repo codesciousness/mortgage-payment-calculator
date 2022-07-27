@@ -19,10 +19,15 @@ class MongoDB {
     this.client = new MongoClient(url);
   }
   async connect() {
-    await this.client.connect();
-    console.log('Successfully connected');
-    this.db = this.client.db(dbName);
-    this.loans = new Loans(this.db);
+    try {
+      await this.client.connect();
+      console.log('Successfully connected to database');
+      this.db = this.client.db(dbName);
+      this.loans = new Loans(this.db);
+    }
+    catch (err) {
+      console.log('Connection to database failed:' + err);
+    }
   }
   async disconnect () {
     await this.client.close();

@@ -17,8 +17,8 @@ const corsOptions = {
 
 // Start MongoDB
 async function start() {
-  const mongo = await mongoDb.connect();
-  app.locals.mongo = mongo;
+  await mongoDb.connect();
+  app.locals.mongo = mongoDb;
 };
 start();
 
@@ -26,9 +26,11 @@ start();
 app.options('*', cors(corsOptions));
 app.use(cors(corsOptions));
 
+app.use(express.static(path.join(__dirname, '../client/build')));
+
 // Serve static content in production
 if (IN_PROD) {
-  app.use(express.static(path.join(__dirname, 'client/build')));
+  app.use(express.static(path.join(__dirname, '../client/build')));
   app.set('trust proxy', true);
 };
 
@@ -44,7 +46,7 @@ app.use(cookieParser());
 app.use(Router);
 
 app.get('*', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
 // Add code to start the server listening
