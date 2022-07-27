@@ -2,7 +2,16 @@
     width: 100%;
     margin: 1rem;
     padding: 1rem;
-    position: relative;
+}
+
+.DonutChartLegend__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.DonutChartLegend__label, .DonutChartLegend__amount {
+    margin: 1rem 0;
 }
 
 .color__codes {
@@ -38,4 +47,27 @@
 
 .color__codes.HOAFees:before {
     background-color: PaleTurquoise;
+}
+
+@media only screen and (max-width: 425px) {
+
+    .DonutChartLegend {
+        padding: 1rem 0 0 0;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+
+    .DonutChartLegend__container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .DonutChartLegend__label, .DonutChartLegend__amount {
+        margin: 0.25rem 1rem;
+    }
+
+    .DonutChartLegend__amount {
+        margin-left: 2.3rem;
+    }
 }

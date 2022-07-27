@@ -17,7 +17,7 @@ const AmortizationSchedule = (): JSX.Element => {
     return (
         <section id='AmortizationSchedule' className='AmortizationSchedule'>
             <h2 className='AmortizationSchedule__title'>Amortization for mortgage loan</h2>
-            <p>Amortization is paying off debt over time in equal installments. As the term of your mortgage loan progresses,
+            <p className='AmortizationSchedule__content'>Amortization is paying off debt over time in equal installments. As the term of your mortgage loan progresses,
                 a larger share of your payment goes toward paying down the principal until the loan is paid in full at the end of your term.</p>
             <Box className='AmortizationSchedule__loanTotals' sx={{ borderTop: 1, borderBottom: 1, borderColor: 'divider', }}>
                 <div className='AmortizationSchedule__container'>

@@ -2,3 +2,7 @@
     width: 100%;
     min-height: 500;
 }
+
+.AmortizationTable__title, .AmortizationTable__content {
+    margin: 1rem 0;
+}

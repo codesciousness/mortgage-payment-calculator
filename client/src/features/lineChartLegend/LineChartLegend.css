@@ -5,6 +5,7 @@
 .LineChartLegend__label {
     position: relative;
     left: 23px;
+    margin: 1rem 0;
 }
 
 .LineChartLegend__label:before {

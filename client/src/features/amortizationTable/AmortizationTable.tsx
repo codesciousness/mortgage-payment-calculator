@@ -26,8 +26,8 @@ const AmortizationTable = (): JSX.Element => {
 
     return (
         <section id='AmortizationTable' className='AmortizationTable'>
-            <h2>Amortization schedule breakdown</h2>
-            <p>This table lists how much principal and interest are scheduled to be paid each year.</p>
+            <h2 className='AmortizationTable__title'>Amortization schedule breakdown</h2>
+            <p className='AmortizationTable__content'>This table lists how much principal and interest are scheduled to be paid each year.</p>
             <DataTable rows={rows} columns={columns}/>
         </section>
     );

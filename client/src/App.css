@@ -1,12 +1,31 @@
-.App {
+/* Universal Styles */
+
+* , *::before, *::after {
+  margin: 0;
+  border: 0;
+  padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  font-size: 1rem;
+}
+
+/* App Styles */
+
+.App {
   width: 100%;
   padding: 2rem 0;
-  font-family: Arial, sans-serif;
 }
 
 .App__title {
   text-align: center;
+  margin: 1rem;
 }
 
 .App__mainContainer {
@@ -69,9 +88,5 @@
 
   .App {
     padding: 1rem 0 0 0;
-  }
-
-  .App__title {
-    margin: 1rem;
   }
 }

@@ -1,8 +1,16 @@
+.AmortizationSchedule__title, .AmortizationSchedule__content {
+    margin: 1rem 0;
+}
+
 .AmortizationSchedule__loanTotals {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     padding-top: 0.5rem;
+}
+
+.AmortizationSchedule__container {
+    margin: 1rem 0;
 }
 
 .AmortizationSchedule__label {
@@ -89,42 +97,25 @@
     }
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1000px) and (min-width: 701px) {
+
+    .AmortizationSchedule__container {
+        width: unset;
+    }
 
     .AmortizationSchedule__amount:before {
-        left: 36%;
+        left: -10px;
     }
 }
 
-@media only screen and (max-width: 920px) {
+@media only screen and (max-width: 700px) {
 
     .AmortizationSchedule__amount:before {
-        left: 34%;
+        left: 28%;
     }
 }
 
-@media only screen and (max-width: 820px) {
-
-    .AmortizationSchedule__amount:before {
-        left: 32%;
-    }
-}
-
-@media only screen and (max-width: 720px) {
-
-    .AmortizationSchedule__amount:before {
-        left: 30%;
-    }
-}
-
-@media only screen and (max-width: 675px) {
-
-    .AmortizationSchedule__amount:before {
-        left: 27%;
-    }
-}
-
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 615px) {
 
     .AmortizationSchedule__amount:before {
         left: 25%;
@@ -174,6 +165,7 @@
 
     .AmortizationSchedule__container {
         width: 100%;
+        margin: 0.5rem 0;
     }
 
     .AmortizationSchedule__amount:before {

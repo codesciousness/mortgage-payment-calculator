@@ -4,6 +4,10 @@
     text-align: left;
 }
 
+.MonthlyPayment__title {
+    margin: 1rem;
+}
+
 @media only screen and (max-width: 1200px) {
 
     .MonthlyPayment {
@@ -15,6 +19,5 @@
 
     .MonthlyPayment__title {
         text-align: center;
-        margin: 1rem;
     }
 }
