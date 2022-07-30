@@ -20,5 +20,5 @@
             "./types"
         ]
     },
-    "include": ["index.ts", "types/**/*", "db/**/*", "router/**/*"]
+    "include": ["index.ts", "types/**/*", "db/**/*", "router/**/*", "util/**/*"]
 }

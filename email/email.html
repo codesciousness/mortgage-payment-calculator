@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Mortgage Loan Payment Summary</title>
+        <script src="https://kit.fontawesome.com/03f6bda350.js" crossorigin="anonymous" defer></script>
+        <style>
+            * , *::before, *::after {
+                margin: 0;
+                border: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html {
+                font-size: 16px;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            body {
+                font-size: 1rem;
+            }
+
+            .Email__container {
+                width: 100%;
+                max-width: 1000px;
+                min-width: 300px;
+                padding: 1rem;
+                margin: auto;
+            }
+
+            .Email__header {
+                display: grid;
+                place-items: center;
+                margin-bottom: 1rem;
+                background: steelblue;
+            }
+
+            .Email__title {
+                text-align: center;
+                color: whitesmoke;
+                padding: 2rem;
+            }
+
+            .Email__main {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .Email__subtitle {
+                text-align: center;
+                margin: 1rem;
+            }
+
+            .LoanDetails__content {
+                text-align: center;
+                margin: 0.5rem 1rem 1rem 1rem;
+            }
+
+            .LoanDetails__container {
+                margin: 1rem;
+            }
+
+            .LoanDetails__label {
+                font-size: 0.75rem;
+                text-align: center;
+                margin-bottom: 0.5rem;
+            }
+
+            .LoanDetails__amount, .LoanDetails__date {
+                font-size: 1.75rem;
+                text-align: center;
+                font-weight: bold;
+                margin-top: 0;
+            }
+
+            .DonutChart {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 275px;
+                height: 275px;
+                border-radius: 50%;
+                background: radial-gradient(white 40%, transparent 41%), conic-gradient(paleturquoise 0% 5%, powderblue 5% 10%, lightskyblue 10% 20%, deepskyblue 20% 35%, steelblue 35%);
+                margin: 1rem;
+            }
+
+            .DonutChartLegend {
+                width: 50%;
+                margin: 1rem auto;
+            }
+
+            .DonutChartLegend__container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .DonutChartLegend__container:not(div:last-child) {
+                border-bottom: 1px solid lightgray;
+            }
+
+            .DonutChartLegend__label, .DonutChartLegend__amount {
+                margin: 1rem 0;
+            }
+
+            .color__codes {
+                position: relative;
+                left: 23px;
+            }
+
+            .color__codes:before {
+                content: '';
+                position: absolute;
+                left: -23px;
+                top: 3px;
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+            }
+
+            .color__codes.principal:before {
+                background-color: steelblue;
+            }
+
+            .color__codes.propertyTax:before {
+                background-color: deepskyblue;
+            }
+
+            .color__codes.homeownersInsurance:before {
+                background-color: lightskyblue;
+            }
+
+            .color__codes.PMI:before {
+                background-color: powderblue;
+            }
+
+            .color__codes.HOAFees:before {
+                background-color: paleturquoise;
+            }
+
+            .LoanTotals {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            .LoanTotals__container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                width: 200px;
+                height: 200px;
+                background-color: lightskyblue;
+                margin: 0.5rem;
+                opacity:0.8;
+            }
+
+            .LoanTotals__amount, .LoanTotals__date {
+                font-size: 1.75rem;
+                text-align: center;
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+            }
+
+            .LoanTotals__label {
+                font-size: 0.75rem;
+                text-align: center;
+                margin-top: 0;
+            }
+
+            .Email__footer {
+                display: grid;
+                place-items: center;
+                margin-top: 0.5rem;
+                background: steelblue;
+                text-align: center;
+                color: whitesmoke;
+                padding: 2rem;
+            }
+
+            @media only screen and (max-width: 900px) and (min-width: 680px) {
+
+                .LoanTotals {
+                    width: 600px;
+                    margin: auto;
+                }
+            }
+
+            @media only screen and (max-width: 800px) {
+
+                .DonutChartLegend {
+                    width: 75%;
+                }
+            }
+
+            @media only screen and (max-width: 500px) {
+
+                .DonutChartLegend {
+                    width: 100%;
+                }
+            }
+
+            @media only screen and (max-width: 375px) {
+
+                .DonutChartLegend__container {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+
+                .DonutChartLegend__label, .DonutChartLegend__amount {
+                    margin: 0.25rem 1rem;
+                }
+
+                .DonutChartLegend__amount {
+                    margin-left: 2.3rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class='Email__container'>
+            <header class='Email__header'>
+                <h1 class='Email__title'>Mortgage Loan Payment Summary</h1>
+            </header>
+            <main class='Email__main'>
+                <h2 class='Email__subtitle'>Loan Details</h2>
+                <section class='LoanDetails'>
+                    <p class='LoanDetails__content'> Hi, nameVariable! Here is your requested home loan information.</p>
+                    <div class='LoanDetails__container'>
+                        <p class='LoanDetails__label'>Home Price</p>
+                        <p class='LoanDetails__amount homePrice'>$homePriceVariable</p>
+                    </div>
+                    <div class='LoanDetails__container'>
+                        <p class='LoanDetails__label'>Down Payment</p>
+                        <p class='LoanDetails__amount downPayment'>$downPaymentVariable</p>
+                    </div>
+                    <div class='LoanDetails__container'>
+                        <p class='LoanDetails__label'>Interest Rate</p>
+                        <p class='LoanDetails__amount interestRate'>interestRateVariable%</p>
+                    </div>
+                    <div class='LoanDetails__container'>
+                        <p class='LoanDetails__label'>Loan Term</p>
+                        <p class='LoanDetails__amount loanTerm'>loanTermVariable Years</p>
+                    </div>
+                    <div class='LoanDetails__container'>
+                        <p class='LoanDetails__label'>Start Date</p>
+                        <p class='LoanDetails__date startDate'>startDateVariable</p>
+                    </div>
+                </section>
+                <h2 class='Email__subtitle'>Monthly Payment Breakdown</h2>
+                <section class='DonutChart'></section>
+                <section class='DonutChartLegend'>
+                    <div class='DonutChartLegend__container'>
+                        <p class='DonutChartLegend__label color__codes principal'>Principal &amp; interest</p>
+                        <p class='DonutChartLegend__amount principal'>$principalVariable</p>
+                    </div>
+                    <div class='DonutChartLegend__container'>
+                        <p class='DonutChartLegend__label color__codes propertyTax'>Property tax</p>
+                        <p class='DonutChartLegend__amount propertyTax'>$propertyTaxVariable</p>
+                    </div>
+                    <div class='DonutChartLegend__container'>
+                        <p class='DonutChartLegend__label color__codes homeownersInsurance'>Homeowner's insurance</p>
+                        <p class='DonutChartLegend__amount homeownersInsurance'>$homeInsuranceVariable</p>
+                    </div>
+                    <div class='DonutChartLegend__container'>
+                        <p class='DonutChartLegend__label color__codes PMI'>Private mortgage insurance</p>
+                        <p class='DonutChartLegend__amount PMI'>$PMIVariable</p>
+                    </div>
+                    <div class='DonutChartLegend__container'>
+                        <p class='DonutChartLegend__label color__codes HOAFees'>HOA fees</p>
+                        <p class='DonutChartLegend__amount HOAFees'>$HOAFeesVariable</p>
+                    </div>
+                    <div class='DonutChartLegend__container'>
+                        <p class='DonutChartLegend__label totalMonthlyPayment'><b>Total monthly payment</b></p>
+                        <p class='DonutChartLegend__amount totalMonthlyPayment'><b>$monthlyPaymentVariable</b></p>
+                    </div>
+                </section>
+                <section class='LoanTotals'>
+                    <div class='LoanTotals__container'>
+                        <i class="fas fa-hand-holding-dollar fa-3x"></i>
+                        <p class='LoanTotals__amount loan'>$loanAmountVariable</p>
+                        <p class='LoanTotals__label'>Loan amount</p>
+                    </div>
+                    <div class='LoanTotals__container'>
+                        <i class="fas fa-money-bill-trend-up fa-3x"></i>
+                        <p class='LoanTotals__amount interest'>$totalInterestVariable</p>
+                        <p class='LoanTotals__label'>Total interest paid</p>
+                    </div>
+                    <div class='LoanTotals__container'>
+                        <i class="fas fa-sack-dollar fa-3x"></i>
+                        <p class='LoanTotals__amount cost'>$loanCostVariable</p>
+                        <p class='LoanTotals__label'>Total cost of loan</p>
+                    </div>
+                    <div class='LoanTotals__container'>
+                        <i class="fas fa-calendar-check fa-3x"></i>
+                        <p class='LoanTotals__date payoffDate'>payoffDateVariable</p>
+                        <p class='LoanTotals__label'>Payoff Date</p>
+                    </div>
+                </section>
+            </main>
+            <footer class='Email__footer'>Visit mortgage-payment-calculator.com to recalculate your mortgage loan payment.</footer>
+        </div>
+    </body>
+</html>
