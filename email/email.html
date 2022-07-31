@@ -1,310 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="x-apple-disable-message-reformatting">
         <title>Mortgage Loan Payment Summary</title>
-        <script src="https://kit.fontawesome.com/03f6bda350.js" crossorigin="anonymous" defer></script>
+        <!--[if mso]>
+            <noscript>
+                <xml>
+                    <o:OfficeDocumentSettings>
+                        <o:PixelsPerInch>96</o:PixelsPerInch>
+                    </o:OfficeDocumentSettings>
+                </xml>
+            </noscript>
+        <![endif]-->
         <style>
-            * , *::before, *::after {
-                margin: 0;
-                border: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            html {
-                font-size: 16px;
-                font-family: Arial, Helvetica, sans-serif;
-            }
-
-            body {
-                font-size: 1rem;
-            }
-
-            .Email__container {
-                width: 100%;
-                max-width: 1000px;
-                min-width: 300px;
-                padding: 1rem;
-                margin: auto;
-            }
-
-            .Email__header {
-                display: grid;
-                place-items: center;
-                margin-bottom: 1rem;
-                background: steelblue;
-            }
-
-            .Email__title {
-                text-align: center;
-                color: whitesmoke;
-                padding: 2rem;
-            }
-
-            .Email__main {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-            }
-
-            .Email__subtitle {
-                text-align: center;
-                margin: 1rem;
-            }
-
-            .LoanDetails__content {
-                text-align: center;
-                margin: 0.5rem 1rem 1rem 1rem;
-            }
-
-            .LoanDetails__container {
-                margin: 1rem;
-            }
-
-            .LoanDetails__label {
-                font-size: 0.75rem;
-                text-align: center;
-                margin-bottom: 0.5rem;
-            }
-
-            .LoanDetails__amount, .LoanDetails__date {
-                font-size: 1.75rem;
-                text-align: center;
-                font-weight: bold;
-                margin-top: 0;
-            }
-
-            .DonutChart {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 275px;
-                height: 275px;
-                border-radius: 50%;
-                background: radial-gradient(white 40%, transparent 41%), conic-gradient(paleturquoise 0% 5%, powderblue 5% 10%, lightskyblue 10% 20%, deepskyblue 20% 35%, steelblue 35%);
-                margin: 1rem;
-            }
-
-            .DonutChartLegend {
-                width: 50%;
-                margin: 1rem auto;
-            }
-
-            .DonutChartLegend__container {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .DonutChartLegend__container:not(div:last-child) {
-                border-bottom: 1px solid lightgray;
-            }
-
-            .DonutChartLegend__label, .DonutChartLegend__amount {
-                margin: 1rem 0;
-            }
-
-            .color__codes {
-                position: relative;
-                left: 23px;
-            }
-
-            .color__codes:before {
-                content: '';
-                position: absolute;
-                left: -23px;
-                top: 3px;
-                width: 16px;
-                height: 16px;
-                border-radius: 50%;
-            }
-
-            .color__codes.principal:before {
-                background-color: steelblue;
-            }
-
-            .color__codes.propertyTax:before {
-                background-color: deepskyblue;
-            }
-
-            .color__codes.homeownersInsurance:before {
-                background-color: lightskyblue;
-            }
-
-            .color__codes.PMI:before {
-                background-color: powderblue;
-            }
-
-            .color__codes.HOAFees:before {
-                background-color: paleturquoise;
-            }
-
-            .LoanTotals {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-wrap: wrap;
-            }
-
-            .LoanTotals__container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-                width: 200px;
-                height: 200px;
-                background-color: lightskyblue;
-                margin: 0.5rem;
-                opacity:0.8;
-            }
-
-            .LoanTotals__amount, .LoanTotals__date {
-                font-size: 1.75rem;
-                text-align: center;
-                font-weight: bold;
-                margin-bottom: 0.5rem;
-            }
-
-            .LoanTotals__label {
-                font-size: 0.75rem;
-                text-align: center;
-                margin-top: 0;
-            }
-
-            .Email__footer {
-                display: grid;
-                place-items: center;
-                margin-top: 0.5rem;
-                background: steelblue;
-                text-align: center;
-                color: whitesmoke;
-                padding: 2rem;
-            }
-
-            @media only screen and (max-width: 900px) and (min-width: 680px) {
-
-                .LoanTotals {
-                    width: 600px;
-                    margin: auto;
-                }
-            }
-
-            @media only screen and (max-width: 800px) {
-
-                .DonutChartLegend {
-                    width: 75%;
-                }
-            }
-
-            @media only screen and (max-width: 500px) {
-
-                .DonutChartLegend {
-                    width: 100%;
-                }
-            }
-
-            @media only screen and (max-width: 375px) {
-
-                .DonutChartLegend__container {
-                    flex-direction: column;
-                    align-items: flex-start;
-                }
-
-                .DonutChartLegend__label, .DonutChartLegend__amount {
-                    margin: 0.25rem 1rem;
-                }
-
-                .DonutChartLegend__amount {
-                    margin-left: 2.3rem;
-                }
-            }
+            table, td, div, h1, p {font-family: Arial, sans-serif;}
+            /*table, td {border:2px solid #000000 !important;}*/
         </style>
     </head>
-    <body>
-        <div class='Email__container'>
-            <header class='Email__header'>
-                <h1 class='Email__title'>Mortgage Loan Payment Summary</h1>
-            </header>
-            <main class='Email__main'>
-                <h2 class='Email__subtitle'>Loan Details</h2>
-                <section class='LoanDetails'>
-                    <p class='LoanDetails__content'> Hi, nameVariable! Here is your requested home loan information.</p>
-                    <div class='LoanDetails__container'>
-                        <p class='LoanDetails__label'>Home Price</p>
-                        <p class='LoanDetails__amount homePrice'>$homePriceVariable</p>
-                    </div>
-                    <div class='LoanDetails__container'>
-                        <p class='LoanDetails__label'>Down Payment</p>
-                        <p class='LoanDetails__amount downPayment'>$downPaymentVariable</p>
-                    </div>
-                    <div class='LoanDetails__container'>
-                        <p class='LoanDetails__label'>Interest Rate</p>
-                        <p class='LoanDetails__amount interestRate'>interestRateVariable%</p>
-                    </div>
-                    <div class='LoanDetails__container'>
-                        <p class='LoanDetails__label'>Loan Term</p>
-                        <p class='LoanDetails__amount loanTerm'>loanTermVariable Years</p>
-                    </div>
-                    <div class='LoanDetails__container'>
-                        <p class='LoanDetails__label'>Start Date</p>
-                        <p class='LoanDetails__date startDate'>startDateVariable</p>
-                    </div>
-                </section>
-                <h2 class='Email__subtitle'>Monthly Payment Breakdown</h2>
-                <section class='DonutChart'></section>
-                <section class='DonutChartLegend'>
-                    <div class='DonutChartLegend__container'>
-                        <p class='DonutChartLegend__label color__codes principal'>Principal &amp; interest</p>
-                        <p class='DonutChartLegend__amount principal'>$principalVariable</p>
-                    </div>
-                    <div class='DonutChartLegend__container'>
-                        <p class='DonutChartLegend__label color__codes propertyTax'>Property tax</p>
-                        <p class='DonutChartLegend__amount propertyTax'>$propertyTaxVariable</p>
-                    </div>
-                    <div class='DonutChartLegend__container'>
-                        <p class='DonutChartLegend__label color__codes homeownersInsurance'>Homeowner's insurance</p>
-                        <p class='DonutChartLegend__amount homeownersInsurance'>$homeInsuranceVariable</p>
-                    </div>
-                    <div class='DonutChartLegend__container'>
-                        <p class='DonutChartLegend__label color__codes PMI'>Private mortgage insurance</p>
-                        <p class='DonutChartLegend__amount PMI'>$PMIVariable</p>
-                    </div>
-                    <div class='DonutChartLegend__container'>
-                        <p class='DonutChartLegend__label color__codes HOAFees'>HOA fees</p>
-                        <p class='DonutChartLegend__amount HOAFees'>$HOAFeesVariable</p>
-                    </div>
-                    <div class='DonutChartLegend__container'>
-                        <p class='DonutChartLegend__label totalMonthlyPayment'><b>Total monthly payment</b></p>
-                        <p class='DonutChartLegend__amount totalMonthlyPayment'><b>$monthlyPaymentVariable</b></p>
-                    </div>
-                </section>
-                <section class='LoanTotals'>
-                    <div class='LoanTotals__container'>
-                        <i class="fas fa-hand-holding-dollar fa-3x"></i>
-                        <p class='LoanTotals__amount loan'>$loanAmountVariable</p>
-                        <p class='LoanTotals__label'>Loan amount</p>
-                    </div>
-                    <div class='LoanTotals__container'>
-                        <i class="fas fa-money-bill-trend-up fa-3x"></i>
-                        <p class='LoanTotals__amount interest'>$totalInterestVariable</p>
-                        <p class='LoanTotals__label'>Total interest paid</p>
-                    </div>
-                    <div class='LoanTotals__container'>
-                        <i class="fas fa-sack-dollar fa-3x"></i>
-                        <p class='LoanTotals__amount cost'>$loanCostVariable</p>
-                        <p class='LoanTotals__label'>Total cost of loan</p>
-                    </div>
-                    <div class='LoanTotals__container'>
-                        <i class="fas fa-calendar-check fa-3x"></i>
-                        <p class='LoanTotals__date payoffDate'>payoffDateVariable</p>
-                        <p class='LoanTotals__label'>Payoff Date</p>
-                    </div>
-                </section>
-            </main>
-            <footer class='Email__footer'>Visit mortgage-payment-calculator.com to recalculate your mortgage loan payment.</footer>
-        </div>
+    <body style="margin:0;padding:0;">
+        <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
+            <tr>
+                <td align="center" style="padding:0;">
+                    <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+                        <tr>
+                            <td align="center">
+                                <img src="cid:img1" alt="Man in suit holding small house with one hand and inputting data on a calculator." width="100%" style="height:auto;display:block;"/>
+                                <h1 style="padding:32px;font-size:32px;font-weight:bold;color:#eeeeee;background:#111111;text-align:center;margin:0;font-family:Arial,sans-serif;">Mortgage Loan Payment Summary</h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:36px 30px 42px 30px;">
+                                <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+                                    <tr>
+                                        <td style="padding:0;">
+                                            <h2 style="font-size:24px;font-weight:bold;text-align:center;margin:16px 0;font-family:Arial,sans-serif;">Loan Details</h2>
+                                            <p style="font-size:16px;margin:16px 0;font-family:Arial,sans-serif;"> Hi, nameVariable! Here is your requested home loan information.</p>
+                                            <h3 style="font-size:12px;font-weight:bold;margin:16px 0 8px 0;font-family:Arial,sans-serif;">Home Price</h3>
+                                            <p style="font-size:16px;margin:0;font-family:Arial,sans-serif;">$homePriceVariable</p>
+                                            <h3 style="font-size:12px;font-weight:bold;margin:16px 0 8px 0;font-family:Arial,sans-serif;">Down Payment</h3>
+                                            <p style="font-size:16px;margin:0;font-family:Arial,sans-serif;">$downPaymentVariable</p>
+                                            <h3 style="font-size:12px;font-weight:bold;margin:16px 0 8px 0;font-family:Arial,sans-serif;">Interest Rate</h3>
+                                            <p style="font-size:16px;margin:0;font-family:Arial,sans-serif;">interestRateVariable%</p>
+                                            <h3 style="font-size:12px;font-weight:bold;margin:16px 0 8px 0;font-family:Arial,sans-serif;">Loan Term</h3>
+                                            <p style="font-size:16px;margin:0;font-family:Arial,sans-serif;">loanTermVariable Years</p>
+                                            <h3 style="font-size:12px;font-weight:bold;margin:16px 0 8px 0;font-family:Arial,sans-serif;">Start Date</h3>
+                                            <p style="font-size:16px;margin:0 0 16px 0;font-family:Arial,sans-serif;">startDateVariable</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:0;">
+                                            <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+                                                <tr>
+                                                    <td style="width:260px;padding:0;vertical-align:top;border:1px solid #111111;">
+                                                        <p style="margin:0"><img src="cid:img2" alt="House key next to small house replica on a wooden table." width="260" style="height:auto;display:block;"/></p>
+                                                        <h2 style="font-size:24px;font-weight:bold;text-align:center;margin:16px 0;font-family:Arial,sans-serif;">Monthly Payment Breakdown</h2>
+                                                        <h3 style="font-size:12px;font-weight:bold;text-align:center;margin:16px 0 8px 0;font-family:Arial,sans-serif;">Principal &amp; Interest</h3>
+                                                        <p style="font-size:16px;text-align:center;margin:0;font-family:Arial,sans-serif;">$principalVariable</p>
+                                                        <h3 style="font-size:12px;font-weight:bold;text-align:center;margin:16px 0 8px 0;font-family:Arial,sans-serif;">Property Tax</h3>
+                                                        <p style="font-size:16px;text-align:center;margin:0;font-family:Arial,sans-serif;">$propertyTaxVariable</p>
+                                                        <h3 style="font-size:12px;font-weight:bold;text-align:center;margin:16px 0 8px 0;font-family:Arial,sans-serif;">Homeowner's Insurance</h3>
+                                                        <p style="font-size:16px;text-align:center;margin:0;font-family:Arial,sans-serif;">$homeInsuranceVariable</p>
+                                                        <h3 style="font-size:12px;font-weight:bold;text-align:center;margin:16px 0 8px 0;font-family:Arial,sans-serif;">Private Mortgage Insurance</h3>
+                                                        <p style="font-size:16px;text-align:center;margin:0;font-family:Arial,sans-serif;">$PMIVariable</p>
+                                                        <h3 style="font-size:12px;font-weight:bold;text-align:center;margin:16px 0 8px 0;font-family:Arial,sans-serif;">HOA Fees</h3>
+                                                        <p style="font-size:16px;text-align:center;margin:0;font-family:Arial,sans-serif;">$HOAFeesVariable</p>
+                                                        <br/>
+                                                    </td>
+                                                    <td style="width:20px;padding:0;font-size:0;line-height:0;">&nbsp;</td>
+                                                    <td style="width:260px;padding:0;vertical-align:top;border:1px solid #111111;">
+                                                        <p style="margin:0"><img src="cid:img3" alt="A row of five tiny, red house-shaped blocks on a wooden surface." width="260" style="height:auto;display:block;"/></p>
+                                                        <h2 style="font-size:24px;font-weight:bold;text-align:center;margin:16px 0;font-family:Arial,sans-serif;">Loan Totals &amp; Payoff Date</h2>
+                                                        <h3 style="font-size:12px;font-weight:bold;text-align:center;margin:16px 0 8px 0;font-family:Arial,sans-serif;">Loan Amount</h3>
+                                                        <p style="font-size:16px;text-align:center;margin:0;font-family:Arial,sans-serif;">$loanAmountVariable</p>
+                                                        <h3 style="font-size:12px;font-weight:bold;text-align:center;margin:16px 0 8px 0;font-family:Arial,sans-serif;">Total Interest Paid</h3>
+                                                        <p style="font-size:16px;text-align:center;margin:0;font-family:Arial,sans-serif;">$totalInterestVariable</p>
+                                                        <h3 style="font-size:12px;font-weight:bold;text-align:center;margin:16px 0 8px 0;font-family:Arial,sans-serif;">Total Cost of Loan</h3>
+                                                        <p style="font-size:16px;text-align:center;margin:0;font-family:Arial,sans-serif;">$loanCostVariable</p>
+                                                        <h3 style="font-size:12px;font-weight:bold;text-align:center;margin:16px 0 8px 0;font-family:Arial,sans-serif;">Payoff Date</h3>
+                                                        <p style="font-size:16px;text-align:center;margin:0;font-family:Arial,sans-serif;">payoffDateVariable</p>
+                                                        <br/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:30px;background:#111111;">
+                                <p style="font-size:16px;margin:16px 0;color:#eeeeee;text-align:center;font-family:Arial,sans-serif;">Visit mortgage-payment-calculator.com to recalculate your mortgage loan payment.</p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
     </body>
 </html>

@@ -4,8 +4,8 @@ const { v4: uuidv4 } = require('uuid');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
+const { formatAmount } = require('../util/calculations');
 require('dotenv').config();
-const { stringToNum, formatAmount } = require('../util/calculations');
 
 const IN_PROD = process.env.NODE_ENV === 'production';
 
@@ -28,11 +28,6 @@ Router.post('/loans', async (req: Request, res: Response) => {
     }
 
     const startDateFormatted = `${startDate.slice(5,7)}/${startDate.slice(0,4)}`;
-    const mPP = (stringToNum(mortgagePayment)/stringToNum(monthlyPayment)) * 100;
-    const pTP = (stringToNum(propertyTax.dollar)/stringToNum(monthlyPayment)) * 100;
-    const hIP = (stringToNum(homeInsurance.dollar)/stringToNum(monthlyPayment)) * 100;
-    const pMIP = (stringToNum(privateMortgageInsurance.dollar)/stringToNum(monthlyPayment)) * 100;
-    const hFP = (stringToNum(hoaFees.dollar)/stringToNum(monthlyPayment)) * 100;
 
     emailHtml = emailHtml.replace('nameVariable', name.split(' ')[0]);
     emailHtml = emailHtml.replace('homePriceVariable', homePrice);
@@ -50,8 +45,6 @@ Router.post('/loans', async (req: Request, res: Response) => {
     emailHtml = emailHtml.replace('totalInterestVariable', totalInterest);
     emailHtml = emailHtml.replace('loanCostVariable', loanCost);
     emailHtml = emailHtml.replace('payoffDateVariable', payoffDate);
-    emailHtml = emailHtml.replace('radial-gradient(white 40%, transparent 41%), conic-gradient(paleturquoise 0% 5%, powderblue 5% 10%, lightskyblue 10% 20%, deepskyblue 20% 35%, steelblue 35%);', 
-    `radial-gradient(white 40%, transparent 41%), conic-gradient(paleturquoise ${hFP}%, powderblue ${hFP}% ${hFP + pMIP}%, lightskyblue ${pMIP}% ${pMIP + hIP}%, deepskyblue ${hIP}% ${hIP + pTP}%, steelblue ${pTP}%);`);
 
     const plainText = `
     Mortgage Loan Payment Summary
@@ -74,7 +67,7 @@ Router.post('/loans', async (req: Request, res: Response) => {
     Private Mortgage Insurance: $${privateMortgageInsurance.dollar}
     HOA Fees: $${hoaFees.dollar}
 
-    Loan Totals
+    Loan Totals & Payoff Date
 
     Loan Amount: $${loanAmount}
     Total Interest Paid: $${totalInterest}
@@ -114,11 +107,28 @@ Router.post('/loans', async (req: Request, res: Response) => {
         const transporter = nodemailer.createTransport(mailConfig);
     
         const emailInfo = await transporter.sendMail({
-        from: '"Mortgage Payment Calculator" <codesciousness@gmail.com>',
-        to: `${name} <${email}>`,
-        subject: "Mortgage Loan Payment Summary",
-        text: plainText,
-        html: emailHtml,
+            from: '"Mortgage Payment Calculator" <codesciousness@gmail.com>',
+            to: `${name} <${email}>`,
+            subject: "Mortgage Loan Payment Summary",
+            text: plainText,
+            html: emailHtml,
+            attachments: [
+                {
+                    filename: 'img1.jpg',
+                    path: `${__dirname}/../../email/images/towfiqu-barbhuiya-05XcCfTOzN4-unsplash.jpg`,
+                    cid: 'img1'
+                },
+                {
+                    filename: 'img2.jpg',
+                    path: `${__dirname}/../../email/images/tierra-mallorca-rgJ1J8SDEAY-unsplash.jpg`,
+                    cid: 'img2'
+                },
+                {
+                    filename: 'img3.jpg',
+                    path: `${__dirname}/../../email/images/tierra-mallorca-JXI2Ap8dTNc-unsplash.jpg`,
+                    cid: 'img3'
+                }
+            ]
         });
     
         console.log('Message sent: %s', emailInfo.messageId);
