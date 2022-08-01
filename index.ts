@@ -11,7 +11,7 @@ require('dotenv').config();
 const { PORT = 4001, NODE_ENV = 'development' } = process.env;
 const IN_PROD = NODE_ENV === 'production';
 const corsOptions = {
-  origin: ['http://localhost:4001/', 'http://localhost:3000/'],
+  origin: ['http://localhost:4001/', 'http://localhost:3000/', 'https://mortgage-payment-calculator.herokuapp.com/'],
   credentials: true
 };
 
@@ -25,8 +25,6 @@ start();
 // Add middleware for handling CORS requests
 app.options('*', cors(corsOptions));
 app.use(cors(corsOptions));
-
-app.use(express.static(path.join(__dirname, '../client/build')));
 
 // Serve static content in production
 if (IN_PROD) {
