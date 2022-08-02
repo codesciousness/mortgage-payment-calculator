@@ -27,11 +27,7 @@
     position: relative;
 }
 
-.AmortizationSchedule__amount:before {
-    content: '$';
-    position: absolute;
-    left: -10px;
-    top: 3px;
+.AmortizationSchedule__sign {
     font-size: 1rem;
     font-weight: bold;
 }
@@ -72,10 +68,6 @@
     .AmortizationSchedule__amount, .AmortizationSchedule__date {
         text-align: center;
     }
-
-    .AmortizationSchedule__amount:before {
-        left: 25%;
-    }
     
     .AmortizationSchedule__LineChart__container {
         flex-direction: column;
@@ -90,74 +82,14 @@
     }
 }
 
-@media only screen and (max-width: 1100px) {
-
-    .AmortizationSchedule__amount:before {
-        left: 24%;
-    }
-}
-
 @media only screen and (max-width: 1000px) and (min-width: 701px) {
 
     .AmortizationSchedule__container {
         width: unset;
     }
-
-    .AmortizationSchedule__amount:before {
-        left: -10px;
-    }
-}
-
-@media only screen and (max-width: 700px) {
-
-    .AmortizationSchedule__amount:before {
-        left: 28%;
-    }
-}
-
-@media only screen and (max-width: 615px) {
-
-    .AmortizationSchedule__amount:before {
-        left: 25%;
-    }
-}
-
-@media only screen and (max-width: 550px) {
-
-    .AmortizationSchedule__amount:before {
-        left: 22%;
-    }
-}
-
-@media only screen and (max-width: 500px) {
-
-    .AmortizationSchedule__amount:before {
-        left: 18%;
-    }
 }
 
 @media only screen and (max-width: 450px) {
-
-    .AmortizationSchedule__amount:before {
-        left: 14%;
-    }
-}
-
-@media only screen and (max-width: 400px) {
-
-    .AmortizationSchedule__amount:before {
-        left: 10%;
-    }
-}
-
-@media only screen and (max-width: 370px) {
-
-    .AmortizationSchedule__amount:before {
-        left: 5%;
-    }
-}
-
-@media only screen and (max-width: 350px) {
 
     .AmortizationSchedule__loanTotals {
         flex-direction: column;
@@ -166,37 +98,5 @@
     .AmortizationSchedule__container {
         width: 100%;
         margin: 0.5rem 0;
-    }
-
-    .AmortizationSchedule__amount:before {
-        left: 28%;
-    }
-}
-
-@media only screen and (max-width: 320px) {
-
-    .AmortizationSchedule__amount:before {
-        left: 25%;
-    }
-}
-
-@media only screen and (max-width: 280px) {
-
-    .AmortizationSchedule__amount:before {
-        left: 22%;
-    }
-}
-
-@media only screen and (max-width: 260px) {
-
-    .AmortizationSchedule__amount:before {
-        left: 18%;
-    }
-}
-
-@media only screen and (max-width: 230px) {
-
-    .AmortizationSchedule__amount:before {
-        left: 15%;
     }
 }

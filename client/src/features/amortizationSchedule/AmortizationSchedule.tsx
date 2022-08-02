@@ -22,15 +22,15 @@ const AmortizationSchedule = (): JSX.Element => {
             <Box className='AmortizationSchedule__loanTotals' sx={{ borderTop: 1, borderBottom: 1, borderColor: 'divider', }}>
                 <div className='AmortizationSchedule__container'>
                     <p className='AmortizationSchedule__label'>Loan amount</p>
-                    <p className='AmortizationSchedule__amount loan'>{loanAmount}</p>
+                    <p className='AmortizationSchedule__amount loan'><span className='AmortizationSchedule__sign'>$</span>{loanAmount}</p>
                 </div>
                 <div className='AmortizationSchedule__container'>
                     <p className='AmortizationSchedule__label'>Total interest paid</p>
-                    <p className='AmortizationSchedule__amount interest'>{totalInterest}</p>
+                    <p className='AmortizationSchedule__amount interest'><span className='AmortizationSchedule__sign'>$</span>{totalInterest}</p>
                 </div>
                 <div className='AmortizationSchedule__container'>
                     <p className='AmortizationSchedule__label'>Total cost of loan</p>
-                    <p className='AmortizationSchedule__amount cost'>{loanCost}</p>
+                    <p className='AmortizationSchedule__amount cost'><span className='AmortizationSchedule__sign'>$</span>{loanCost}</p>
                 </div>
                 <div className='AmortizationSchedule__container'>
                     <p className='AmortizationSchedule__label'>Payoff Date</p>
