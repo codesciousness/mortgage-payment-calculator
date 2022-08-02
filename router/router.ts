@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 const Router = express.Router();
+const db = require('../db/mongo');
 const { v4: uuidv4 } = require('uuid');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
@@ -66,6 +67,7 @@ Router.post('/loans', async (req: Request, res: Response) => {
     Homeowner's Insurance: $${homeInsurance.dollar}
     Private Mortgage Insurance: $${privateMortgageInsurance.dollar}
     HOA Fees: $${hoaFees.dollar}
+    Total Monthly Payment: $${monthlyPayment}
 
     Loan Totals & Payoff Date
 
@@ -138,11 +140,10 @@ Router.post('/loans', async (req: Request, res: Response) => {
     sendEmail().catch(console.error);
 
     const loanId = uuidv4();
-    const loan = { loanId, ...req.body }
-    const loans = req.app.locals.mongo.loans;
+    const newLoan = { loanId, ...req.body }
     try {
-        const response = await loans.addLoan(loan);
-        return res.send(response);
+        const loan = await db.loans.addLoan(newLoan);
+        return res.send(loan);
     }
     catch (err) {
         return res.status(500).send('Internal Server Error');

@@ -18,7 +18,6 @@ const corsOptions = {
 // Start MongoDB
 async function start() {
   await mongoDb.connect();
-  app.locals.mongo = mongoDb;
 };
 start();
 
