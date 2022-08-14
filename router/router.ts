@@ -109,7 +109,7 @@ Router.post('/loans', async (req: Request, res: Response) => {
         const transporter = nodemailer.createTransport(mailConfig);
     
         const emailInfo = await transporter.sendMail({
-            from: '"Mortgage Payment Calculator" <codesciousness@gmail.com>',
+            from: `"Mortgage Payment Calculator" <${process.env.EMAIL_USERNAME}@gmail.com>`,
             to: `${name} <${email}>`,
             subject: "Mortgage Loan Payment Summary",
             text: plainText,
