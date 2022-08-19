@@ -3,23 +3,90 @@ const Router = express.Router();
 const db = require('../db/mongo');
 const { v4: uuidv4 } = require('uuid');
 const nodemailer = require('nodemailer');
+const { escape, normalizeEmail } = require('validator');
 const fs = require('fs');
 const path = require('path');
 const { formatAmount } = require('../util/calculations');
+const { validateName, validateEmail, validateCurrency, validateNumber, validateDate } = require('../util/data-validation');
 require('dotenv').config();
 
 const IN_PROD = process.env.NODE_ENV === 'production';
 
 Router.post('/loans', async (req: Request, res: Response) => {
-    const { name, email, homePrice, downPayment, loanTerm, interestRate, startDate, propertyTax, homeInsurance,
+    let { name, email, homePrice, downPayment, loanTerm, interestRate, startDate, propertyTax, homeInsurance,
         privateMortgageInsurance, hoaFees, mortgagePayment, monthlyPayment, loanAmount, loanCost, totalInterest,
-        payoffDate } = req.body;
+        payoffDate 
+    } = req.body;
+
+    const rawValues = [name, email, homePrice, downPayment, loanTerm, interestRate, propertyTax, homeInsurance,
+        privateMortgageInsurance, hoaFees, mortgagePayment, monthlyPayment, loanAmount, loanCost, totalInterest
+    ];
+
+    rawValues.forEach(value => {
+        if (typeof value === 'string') {
+            value = value.trim();
+            value = escape(value);
+        }
+    });
 
     let emailHtml: string;
+    email = normalizeEmail(email, { gmail_remove_dots: false });
+    startDate = `${startDate.slice(5,7)}/${startDate.slice(0,4)}`;
+    
+    const numStrings = [homePrice, downPayment.dollar, downPayment.percent, propertyTax.dollar,
+        propertyTax.percent, homeInsurance.dollar, homeInsurance.percent, privateMortgageInsurance.dollar,
+        privateMortgageInsurance.percent, hoaFees.dollar, hoaFees.percent
+    ];
+
+    const nums = [loanTerm, interestRate];
+
+    const dates = [startDate, payoffDate];
+
+    const numStringNames = ['home price', 'down payment dollar', 'down payment percentage',
+        'property tax dollar', 'property tax percentage', 'home insurance dollar', 'home insurance percentage',
+        'PMI dollar', 'PMI percentage', 'HOA fees dollar', 'HOA fees percentage'
+    ];
+
+    const numNames = ['loan term, interest rate'];
+
+    const dateNames = ['start date', 'payoff date'];
 
     if (!name || !email) {
         return res.status(400).send('Please provide a name and email address.');
     }
+
+    if (!validateName(name)) {
+        return res.status(400).send('Invalid name format.');
+    }
+
+    if (!validateEmail(email)) {
+        return res.status(400).send('Invalid email address.');
+    }
+
+    for (const [index, value] of numStrings.entries()) {
+        const inputName = numStringNames[index];
+        if (!validateCurrency(value)) {
+            return res.status(400).send(`Invalid ${inputName} format.`);
+        };
+    };
+
+    for (const [index, value] of nums.entries()) {
+        const inputName = numNames[index];
+        if (!validateNumber(value)) {
+            return res.status(400).send(`Invalid ${inputName} format.`);
+        };
+    };
+
+    for (const [index, value] of dates.entries()) {
+        const inputName = dateNames[index];
+        if (!validateDate(value)) {
+            return res.status(400).send(`Invalid ${inputName} format.`);
+        };
+    };
+
+    const sanitizedAndValidated = { name, email, homePrice, downPayment, loanTerm, interestRate, startDate, propertyTax, homeInsurance,
+        privateMortgageInsurance, hoaFees, mortgagePayment, monthlyPayment, loanAmount, loanCost, totalInterest, payoffDate
+    };
 
     try {
         emailHtml = fs.readFileSync(path.join(__dirname, '../../email/email.html'), 'utf8');
@@ -28,14 +95,12 @@ Router.post('/loans', async (req: Request, res: Response) => {
         console.error(err);
     }
 
-    const startDateFormatted = `${startDate.slice(5,7)}/${startDate.slice(0,4)}`;
-
     emailHtml = emailHtml.replace('nameVariable', name.split(' ')[0]);
     emailHtml = emailHtml.replace('homePriceVariable', homePrice);
     emailHtml = emailHtml.replace('downPaymentVariable', downPayment.dollar);
     emailHtml = emailHtml.replace('interestRateVariable', interestRate);
     emailHtml = emailHtml.replace('loanTermVariable', loanTerm);
-    emailHtml = emailHtml.replace('startDateVariable', startDateFormatted);
+    emailHtml = emailHtml.replace('startDateVariable', startDate);
     emailHtml = emailHtml.replace('principalVariable', formatAmount(mortgagePayment));
     emailHtml = emailHtml.replace('propertyTaxVariable', propertyTax.dollar);
     emailHtml = emailHtml.replace('homeInsuranceVariable', homeInsurance.dollar);
@@ -58,7 +123,7 @@ Router.post('/loans', async (req: Request, res: Response) => {
     Down Payment: $${downPayment.dollar}
     Interest Rate: ${interestRate}%
     Loan Term: ${loanTerm} Years
-    Start Date: ${startDateFormatted}
+    Start Date: ${startDate}
 
     Monthly Payment Breakdown
 
@@ -137,17 +202,41 @@ Router.post('/loans', async (req: Request, res: Response) => {
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(emailInfo));
     }
     
-    sendEmail().catch(console.error);
-
+    let existingLoan;
     const loanId = uuidv4();
-    const newLoan = { loanId, ...req.body }
+    const loanData = { ...sanitizedAndValidated };
+    const newLoan = { ...sanitizedAndValidated, loanId };
     try {
-        const loan = await db.loans.addLoan(newLoan);
-        return res.send(loan);
+        existingLoan = await db.loans.findLoan(email);
     }
     catch (err) {
         return res.status(500).send('Internal Server Error');
+    };
+    if (existingLoan) {
+        const currTime = Date.now();
+        const timeIntervalDiffInMin = (currTime - existingLoan.lastUpdated) / (1000 * 60);
+        if (timeIntervalDiffInMin < 1) {
+            return res.status(400).send('Limit exceeded. Please wait 1 minute between loan update requests.');
+        }
+        try {
+            const updatedLoan = await db.loans.updateLoan(existingLoan.loanId, loanData);
+            sendEmail().catch(err => res.status(500).send('Error sending email.'));
+            return res.send(updatedLoan);
+        }
+        catch (err) {
+            return res.status(500).send('Internal Server Error');
+        };
     }
+    else {
+        try {
+            const addedLoan = await db.loans.addLoan(newLoan);
+            sendEmail().catch(err => res.status(500).send('Error sending email.'));
+            return res.send(addedLoan);
+        }
+        catch (err) {
+            return res.status(500).send('Internal Server Error');
+        };
+    };
 });
 
 module.exports = Router;
