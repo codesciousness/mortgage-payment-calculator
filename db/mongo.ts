@@ -1,9 +1,6 @@
-export {};
-const { MongoClient } = require('mongodb');
-const Loans = require('./loans');
-require('dotenv').config();
-// or as an es module:
-// import { MongoClient } from 'mongodb'
+import { MongoClient } from 'mongodb';
+import Loans from './loans';
+import 'dotenv/config';
 
 // Connection URL
 const url = process.env.MONGODB_URI;
@@ -34,4 +31,4 @@ class MongoDB {
   }
 }
 
-module.exports = new MongoDB();
+export default new MongoDB();

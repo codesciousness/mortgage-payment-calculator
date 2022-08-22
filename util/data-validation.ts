@@ -1,4 +1,5 @@
-const { isAlpha, isCurrency, isEmail, isEmpty, isFloat, isInt, isLength } = require('validator');
+import validator from 'validator';
+const { isAlpha, isCurrency, isEmail, isEmpty, isFloat, isInt, isLength } = validator;
 
 export const validateName = (name: string): boolean => {
     const correctType = typeof name === 'string';

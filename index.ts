@@ -1,19 +1,21 @@
 import express, { Express, Request, Response } from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import path from 'path';
+import morgan from 'morgan';
+import Router from './router/router';
+import mongoDb from './db/mongo';
+import rateLimit from 'express-rate-limit';
+import MongoStore from 'rate-limit-mongo';
+import 'dotenv/config';
+
 const app: Express = express();
-const Router = require('./router/router');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
-const path = require('path');
-const mongoDb = require('./db/mongo');
-const rateLimit = require('express-rate-limit');
-const MongoStore = require('rate-limit-mongo');
-require('dotenv').config();
 const { PORT = 4001, NODE_ENV = 'development' } = process.env;
 const IN_PROD = NODE_ENV === 'production';
 const corsOptions = {
-  origin: ['http://localhost:4001/', 'http://localhost:3000/', 'https://mortgage-payment-calculator.herokuapp.com/'],
+  origin: IN_PROD ? ['https://mortgage-payment-calculator.herokuapp.com/'] : 
+  ['http://localhost:4001/', 'http://localhost:3000/'],
   credentials: true
 };
 
@@ -67,4 +69,4 @@ app.listen(PORT, () => {
   console.log(`Server listening on Port ${PORT}`);
 });
 
-module.exports = app;
+export default app;

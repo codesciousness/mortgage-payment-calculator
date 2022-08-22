@@ -1,14 +1,16 @@
 import express, { Request, Response } from 'express';
+import db from '../db/mongo';
+import * as nodemailer from 'nodemailer';
+import * as fs from 'fs';
+import * as path from 'path';
+import { v4 as uuidv4 } from 'uuid';
+import escape from 'validator/lib/escape';
+import normalizeEmail from 'validator/lib/normalizeEmail';
+import { formatAmount } from '../util/calculations';
+import { validateName, validateEmail, validateCurrency, validateNumber, validateDate } from '../util/data-validation';
+import 'dotenv/config';
+
 const Router = express.Router();
-const db = require('../db/mongo');
-const { v4: uuidv4 } = require('uuid');
-const nodemailer = require('nodemailer');
-const { escape, normalizeEmail } = require('validator');
-const fs = require('fs');
-const path = require('path');
-const { formatAmount } = require('../util/calculations');
-const { validateName, validateEmail, validateCurrency, validateNumber, validateDate } = require('../util/data-validation');
-require('dotenv').config();
 
 const IN_PROD = process.env.NODE_ENV === 'production';
 
@@ -157,7 +159,7 @@ Router.post('/loans', async (req: Request, res: Response) => {
                     clientSecret: process.env.CLIENT_SECRET,
                     refreshToken: process.env.REFRESH_TOKEN
                 }
-            };
+            } as nodemailer.TransportOptions;
         }
         else {
             mailConfig = {
@@ -239,4 +241,4 @@ Router.post('/loans', async (req: Request, res: Response) => {
     };
 });
 
-module.exports = Router;
+export default Router;

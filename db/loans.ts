@@ -15,5 +15,6 @@ class Loans {
     const updatedLoan = await this.collection.updateOne({ loanId }, { $set: { ...loan, lastUpdated: Date.now() }});
     return updatedLoan;
   }
-}
-module.exports = Loans;
+};
+
+export default Loans;

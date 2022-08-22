@@ -28,8 +28,10 @@ The client side of the application was built with Material UI, TypeScript, React
 ### Server-side Features
 The server side of the project was created with TypeScript, Node.js, Express and MongoDB and includes the following features:
 
-- A main route handler for processing new loan POST requests sent from the frontend and saving them to the Mongo database.
-- The route handler also inserts the loan values into a simple html email template that sends the email utilizing the Nodemailer module.
+- Data validation and sanitization functions utilized to check form input data, along with error feedback from the server to pinpoint the issue.
+- A main route handler for processing new loan POST requests sent from the frontend and saving them to the Mongo database or updating an already saved loan.
+- The route handler also inserts the loan values into a simple html email template and sends an email utilizing the Nodemailer module.
+- A general rate limiter for the app to limit the number of requests per IP address during a 15 minute time frame.
 
 ## Technologies
 
@@ -52,11 +54,15 @@ Backend:
 - Nodemailer: 6.7.5
 - Body Parser: 1.20.0
 - Concurrently: 7.2.2
+- Cors: 2.8.5
 - Dotenv: 16.0.1
+- Express Rate Limit: 6.5.1
 - Morgan: 1.10.0
 - Nodemon: 2.0.18
 - Path: 0.12.7
+- Rate Limit Mongo: 2.3.2
 - Uuid: 8.3.2
+- Validator: 13.7.0
 
 ## Screenshots
 
