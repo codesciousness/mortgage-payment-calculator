@@ -34,10 +34,12 @@ Router.post('/loans', async (req: Request, res: Response) => {
     let emailHtml: string;
     email = normalizeEmail(email, { gmail_remove_dots: false });
     startDate = `${startDate.slice(5,7)}/${startDate.slice(0,4)}`;
+    mortgagePayment = formatAmount(mortgagePayment);
     
     const numStrings = [homePrice, downPayment.dollar, downPayment.percent, propertyTax.dollar,
         propertyTax.percent, homeInsurance.dollar, homeInsurance.percent, privateMortgageInsurance.dollar,
-        privateMortgageInsurance.percent, hoaFees.dollar, hoaFees.percent
+        privateMortgageInsurance.percent, hoaFees.dollar, hoaFees.percent, mortgagePayment, monthlyPayment, 
+        loanAmount, loanCost, totalInterest
     ];
 
     const nums = [loanTerm, interestRate];
@@ -46,7 +48,8 @@ Router.post('/loans', async (req: Request, res: Response) => {
 
     const numStringNames = ['home price', 'down payment dollar', 'down payment percentage',
         'property tax dollar', 'property tax percentage', 'home insurance dollar', 'home insurance percentage',
-        'PMI dollar', 'PMI percentage', 'HOA fees dollar', 'HOA fees percentage'
+        'PMI dollar', 'PMI percentage', 'HOA fees dollar', 'HOA fees percentage', 'mortgage payment', 
+        'monthly payment', 'loan amount', 'loan cost', 'total interest'
     ];
 
     const numNames = ['loan term, interest rate'];
@@ -103,7 +106,7 @@ Router.post('/loans', async (req: Request, res: Response) => {
     emailHtml = emailHtml.replace('interestRateVariable', interestRate);
     emailHtml = emailHtml.replace('loanTermVariable', loanTerm);
     emailHtml = emailHtml.replace('startDateVariable', startDate);
-    emailHtml = emailHtml.replace('principalVariable', formatAmount(mortgagePayment));
+    emailHtml = emailHtml.replace('principalVariable', mortgagePayment);
     emailHtml = emailHtml.replace('propertyTaxVariable', propertyTax.dollar);
     emailHtml = emailHtml.replace('homeInsuranceVariable', homeInsurance.dollar);
     emailHtml = emailHtml.replace('PMIVariable', privateMortgageInsurance.dollar);
@@ -129,7 +132,7 @@ Router.post('/loans', async (req: Request, res: Response) => {
 
     Monthly Payment Breakdown
 
-    Principal & Interest: $${formatAmount(mortgagePayment)}
+    Principal & Interest: $${mortgagePayment}
     Property Tax: $${propertyTax.dollar}
     Homeowner's Insurance: $${homeInsurance.dollar}
     Private Mortgage Insurance: $${privateMortgageInsurance.dollar}

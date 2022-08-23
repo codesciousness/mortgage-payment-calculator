@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, createSelector, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../app/store';
 import { formatAmount, formatDecimal, fromPercent, toPercent, calc } from '../util/calculations';
-const axios = require('axios');
+import axios from 'axios';
 
 interface DualInput {
     dollar: string;
