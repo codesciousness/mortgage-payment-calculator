@@ -1,6 +1,6 @@
 # Mortgage Payment Calculator
 
-The Mortgage Payment Calculator is a portfolio project that I created to assist potential home buyers to calculate their monthly mortgage payment based on home loan details such as, home price, down payment, interest rate, loan term and other factors. In addition to the monthly payment breakdown, the application also calculates the total interest paid over the lifetime of the loan and the amortization schedule. The home loan amortization data is displayed both as a line chart and in tabular format, providing detailed information regarding each scheduled payment. The app is responsively designed for all device types and is deployed via Heroku at [Mortgage Payment Calculator](https://mortgage-payment-calculator.herokuapp.com/).
+The Mortgage Payment Calculator is a portfolio project that I created to assist potential home buyers to calculate their monthly mortgage payment based on home loan details such as, home price, down payment, interest rate, loan term and other factors. In addition to the monthly payment breakdown, the application also calculates the total interest paid over the lifetime of the loan and the amortization schedule. The home loan amortization data is displayed both as a line chart and in tabular format, providing detailed information regarding each scheduled payment. The app is responsively designed for all device types and is deployed via Google Cloud and CapRover at [Mortgage Payment Calculator](https://mortgage-payment-calculator.projects.mycodefolio.com/).
 
 ## Table of Contents
 

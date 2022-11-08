@@ -14,7 +14,7 @@ const app: Express = express();
 const { PORT = 4001, NODE_ENV = 'development' } = process.env;
 const IN_PROD = NODE_ENV === 'production';
 const corsOptions = {
-  origin: IN_PROD ? ['https://mortgage-payment-calculator.herokuapp.com/'] : 
+  origin: IN_PROD ? ['https://mortgage-payment-calculator.projects.mycodefolio.com/'] : 
   ['http://localhost:4001/', 'http://localhost:3000/'],
   credentials: true
 };
@@ -45,7 +45,7 @@ app.use(cors(corsOptions));
 
 // Serve static content in production
 if (IN_PROD) {
-  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.use(express.static(path.join(__dirname, '../build')));
   app.set('trust proxy', true);
 };
 
@@ -61,7 +61,7 @@ app.use(cookieParser());
 app.use(Router);
 
 app.get('*', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
 // Add code to start the server listening
