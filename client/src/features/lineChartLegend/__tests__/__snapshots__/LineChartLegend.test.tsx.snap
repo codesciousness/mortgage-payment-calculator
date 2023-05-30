@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LineChartLegend /> component matches the snapshot 1`] = `
+<section
+  className="LineChartLegend"
+  id="LineChartLegend"
+>
+  <div
+    className="MuiBox-root css-1gsv261"
+  >
+    <p
+      className="LineChartLegend__label principal"
+    >
+      Principal
+    </p>
+  </div>
+  <div
+    className="MuiBox-root css-1gsv261"
+  >
+    <p
+      className="LineChartLegend__label interest"
+    >
+      Interest
+    </p>
+  </div>
+  <div
+    className="MuiBox-root css-1gsv261"
+  >
+    <p
+      className="LineChartLegend__label balance"
+    >
+      Balance
+    </p>
+  </div>
+</section>
+`;

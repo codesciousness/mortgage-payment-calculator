@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TabPanel /> component matches the snapshot 1`] = `
+<div
+  aria-labelledby="tab-0"
+  hidden={false}
+  id="tabpanel-0"
+  role="tabpanel"
+>
+  <div
+    className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation4 MuiBox-root css-1ggs94k-MuiPaper-root"
+  >
+    <p
+      className="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+    >
+      <section
+        data-testid="TabPanel-element"
+      >
+        Test Node
+      </section>
+    </p>
+  </div>
+</div>
+`;

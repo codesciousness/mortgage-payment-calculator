@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StyledSwitch /> component matches the snapshot 1`] = `
+<span
+  className="MuiSwitch-root MuiSwitch-sizeMedium css-1xp0olk-MuiSwitch-root"
+>
+  <span
+    className="MuiSwitch-switchBase MuiSwitch-colorPrimary Mui-checked MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary Mui-checked PrivateSwitchBase-root Mui-checked css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase"
+    onBlur={[Function]}
+    onContextMenu={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={null}
+  >
+    <input
+      checked={true}
+      className="MuiSwitch-input PrivateSwitchBase-input css-1m9pwf3"
+      id="LabelName"
+      onChange={[Function]}
+      type="checkbox"
+    />
+    <span
+      className="MuiSwitch-thumb css-jsexje-MuiSwitch-thumb"
+    />
+  </span>
+  <span
+    className="MuiSwitch-track css-1yjjitx-MuiSwitch-track"
+  />
+</span>
+`;

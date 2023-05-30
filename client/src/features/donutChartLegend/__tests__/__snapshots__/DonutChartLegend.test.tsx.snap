@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DonutChartLegend /> component matches the snapshot 1`] = `
+<section
+  className="DonutChartLegend"
+  id="DonutChartLegend"
+>
+  <div
+    className="DonutChartLegend__container MuiBox-root css-1gsv261"
+  >
+    <p
+      className="DonutChartLegend__label color__codes principal"
+    >
+      Principal & interest
+    </p>
+    <p
+      className="DonutChartLegend__amount"
+    >
+      $
+      1,838
+    </p>
+  </div>
+  <div
+    className="DonutChartLegend__container MuiBox-root css-1gsv261"
+  >
+    <p
+      className="DonutChartLegend__label color__codes propertyTax"
+    >
+      Property tax
+    </p>
+    <p
+      className="DonutChartLegend__amount"
+    >
+      $
+      315
+    </p>
+  </div>
+  <div
+    className="DonutChartLegend__container MuiBox-root css-1gsv261"
+  >
+    <p
+      className="DonutChartLegend__label color__codes homeownersInsurance"
+    >
+      Homeowner's insurance
+    </p>
+    <p
+      className="DonutChartLegend__amount"
+    >
+      $
+      175
+    </p>
+  </div>
+  <div
+    className="DonutChartLegend__container MuiBox-root css-1gsv261"
+  >
+    <p
+      className="DonutChartLegend__label color__codes PMI"
+    >
+      Private mortgage insurance
+    </p>
+    <p
+      className="DonutChartLegend__amount"
+    >
+      $
+      0
+    </p>
+  </div>
+  <div
+    className="DonutChartLegend__container MuiBox-root css-1gsv261"
+  >
+    <p
+      className="DonutChartLegend__label color__codes HOAFees"
+    >
+      HOA fees
+    </p>
+    <p
+      className="DonutChartLegend__amount"
+    >
+      $
+      0
+    </p>
+  </div>
+  <div
+    className="DonutChartLegend__container MuiBox-root css-0"
+  >
+    <p
+      className="DonutChartLegend__label totalMonthlyPayment"
+    >
+      <b>
+        Total monthly payment
+      </b>
+    </p>
+    <p
+      className="DonutChartLegend__amount"
+    >
+      <b>
+        $
+        2,328
+      </b>
+    </p>
+  </div>
+</section>
+`;

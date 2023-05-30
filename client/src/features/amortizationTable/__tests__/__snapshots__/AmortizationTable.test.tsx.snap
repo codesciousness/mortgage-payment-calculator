@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AmortizationTable /> component matches the snapshot 1`] = `
+<section
+  className="AmortizationTable"
+  id="AmortizationTable"
+>
+  <h2
+    className="AmortizationTable__title"
+  >
+    Amortization schedule breakdown
+  </h2>
+  <p
+    className="AmortizationTable__content"
+  >
+    This table lists how much principal and interest are scheduled to be paid each year.
+  </p>
+  <div
+    aria-colcount={4}
+    aria-multiselectable={false}
+    aria-rowcount={360}
+    className="MuiDataGrid-root MuiDataGrid-autoHeight MuiDataGrid-root--densityStandard css-1lw6yti-MuiDataGrid-root"
+    role="grid"
+  >
+    <div
+      className="MuiDataGrid-main css-204u17-MuiDataGrid-main"
+    >
+      <div
+        className="MuiDataGrid-overlay css-18rq0oa-MuiDataGrid-overlay"
+        error={[TypeError: Cannot set properties of null (setting 'scrollLeft')]}
+      >
+        An error occurred.
+      </div>
+    </div>
+  </div>
+</section>
+`;

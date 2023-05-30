@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LineChart /> component matches the snapshot 1`] = `
+<section
+  className="LineChart"
+  id="LineChart"
+>
+  <section
+    data-testid="Chart"
+  >
+    Chart
+  </section>
+</section>
+`;

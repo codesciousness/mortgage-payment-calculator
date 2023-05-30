@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DonutChart /> component matches the snapshot 1`] = `
+<table
+  className="DonutChart"
+  id="DonutChart"
+>
+  <tbody
+    className="DonutChart__tableBody"
+  >
+    <tr
+      className="DonutChart__tableRow"
+    >
+      <td
+        className="DonutChart__tableData"
+      >
+        <div
+          className="DonutChart__overlay"
+        >
+          <p
+            className="DonutChart__overlay__title"
+          >
+            Monthly Payment
+          </p>
+          <p
+            className="DonutChart__overlay__payment"
+          >
+            $2,328
+          </p>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MonthlyPayment /> component matches the snapshot 1`] = `
+<section
+  className="MonthlyPayment"
+  id="MonthlyPayment"
+>
+  <div
+    className="MonthlyPayment__donutChart"
+  >
+    <h2
+      className="MonthlyPayment__title"
+    >
+      Monthly payment breakdown
+    </h2>
+    <section
+      data-testid="DonutChart"
+    >
+      Donut Chart
+    </section>
+  </div>
+  <section
+    data-testid="DonutChartLegend"
+  >
+    Donut Chart Legend
+  </section>
+</section>
+`;

@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AmortizationSchedule /> component matches the snapshot 1`] = `
+<section
+  className="AmortizationSchedule"
+  id="AmortizationSchedule"
+>
+  <h2
+    className="AmortizationSchedule__title"
+  >
+    Amortization for mortgage loan
+  </h2>
+  <p
+    className="AmortizationSchedule__content"
+  >
+    Amortization is paying off debt over time in equal installments. As the term of your mortgage loan progresses, a larger share of your payment goes toward paying down the principal until the loan is paid in full at the end of your term.
+  </p>
+  <div
+    className="AmortizationSchedule__loanTotals MuiBox-root css-1sd9iv3"
+  >
+    <div
+      className="AmortizationSchedule__container"
+    >
+      <p
+        className="AmortizationSchedule__label"
+      >
+        Loan amount
+      </p>
+      <p
+        className="AmortizationSchedule__amount loan"
+      >
+        <span
+          className="AmortizationSchedule__sign"
+        >
+          $
+        </span>
+        315,000
+      </p>
+    </div>
+    <div
+      className="AmortizationSchedule__container"
+    >
+      <p
+        className="AmortizationSchedule__label"
+      >
+        Total interest paid
+      </p>
+      <p
+        className="AmortizationSchedule__amount interest"
+      >
+        <span
+          className="AmortizationSchedule__sign"
+        >
+          $
+        </span>
+        346,772
+      </p>
+    </div>
+    <div
+      className="AmortizationSchedule__container"
+    >
+      <p
+        className="AmortizationSchedule__label"
+      >
+        Total cost of loan
+      </p>
+      <p
+        className="AmortizationSchedule__amount cost"
+      >
+        <span
+          className="AmortizationSchedule__sign"
+        >
+          $
+        </span>
+        661,772
+      </p>
+    </div>
+    <div
+      className="AmortizationSchedule__container"
+    >
+      <p
+        className="AmortizationSchedule__label"
+      >
+        Payoff Date
+      </p>
+      <p
+        className="AmortizationSchedule__date"
+      >
+        05/2053
+      </p>
+    </div>
+  </div>
+  <div
+    className="AmortizationSchedule__LineChart__container"
+  >
+    <div
+      className="AmortizationSchedule__LineChart"
+    >
+      <section
+        data-testid="LineChart"
+      >
+        Line Chart
+      </section>
+    </div>
+    <section
+      data-testid="LineChartLegend"
+    >
+      Line Chart Legend
+    </section>
+  </div>
+  <hr
+    className="MuiDivider-root MuiDivider-fullWidth AmortizationSchedule__divider css-lmcth4-MuiDivider-root"
+  />
+  <section
+    data-testid="AmortizationTable"
+  >
+    Amortization Table
+  </section>
+</section>
+`;

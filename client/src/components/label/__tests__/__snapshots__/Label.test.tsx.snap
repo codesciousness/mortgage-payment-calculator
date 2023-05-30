@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Label /> component matches the snapshot 1`] = `
+<label
+  className="MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-root MuiFormLabel-colorPrimary Mui-focused css-22ecsy-MuiFormLabel-root-MuiInputLabel-root"
+  id="LabelName"
+>
+  Label Name
+</label>
+`;

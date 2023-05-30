@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SquareSlider /> component matches the snapshot 1`] = `
+<div
+  className="SquareSlider"
+  style={
+    Object {
+      "marginBottom": "0.75rem",
+    }
+  }
+>
+  <label
+    className="MuiInputLabel-root MuiInputLabel-animated MuiFormLabel-root MuiFormLabel-colorPrimary css-22ecsy-MuiFormLabel-root-MuiInputLabel-root"
+    id="LabelName"
+  >
+    Label Name
+  </label>
+  <span
+    className="MuiSlider-colorPrimary MuiSlider-sizeMedium MuiSlider-root css-1pa4zyv-MuiSlider-root"
+    id="LabelName"
+    onMouseDown={[Function]}
+  >
+    <span
+      className="MuiSlider-rail css-14pt78w-MuiSlider-rail"
+    />
+    <span
+      className="MuiSlider-track css-1gv0vcd-MuiSlider-track"
+      style={
+        Object {
+          "left": "0%",
+          "width": "50%",
+        }
+      }
+    />
+    <span
+      className="MuiSlider-thumbColorPrimary MuiSlider-thumbSizeMedium MuiSlider-thumb css-eg0mwd-MuiSlider-thumb"
+      data-index={0}
+      onMouseLeave={[Function]}
+      onMouseOver={[Function]}
+      style={
+        Object {
+          "left": "50%",
+          "pointerEvents": undefined,
+        }
+      }
+    >
+      <input
+        aria-label="Label Name"
+        aria-orientation="horizontal"
+        aria-valuemax={50}
+        aria-valuemin={0}
+        aria-valuenow={25}
+        data-index={0}
+        disabled={false}
+        max={50}
+        min={0}
+        name="Label Name"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        step={1}
+        style={
+          Object {
+            "border": 0,
+            "clip": "rect(0 0 0 0)",
+            "direction": "ltr",
+            "height": "100%",
+            "margin": -1,
+            "overflow": "hidden",
+            "padding": 0,
+            "position": "absolute",
+            "whiteSpace": "nowrap",
+            "width": "100%",
+          }
+        }
+        type="range"
+        value={25}
+      />
+      <span
+        aria-hidden={true}
+        className="MuiSlider-valueLabelOpen MuiSlider-valueLabel css-17djbj3-MuiSlider-valueLabel"
+      >
+        <span
+          className="MuiSlider-valueLabelCircle"
+        >
+          <span
+            className="MuiSlider-valueLabelLabel"
+          >
+            25
+          </span>
+        </span>
+      </span>
+    </span>
+  </span>
+</div>
+`;
